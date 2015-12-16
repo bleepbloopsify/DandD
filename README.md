@@ -1,7 +1,7 @@
 # DandD
 Dungeons and Dragons Dungeon Master API
 
-Player Traits:
+#Player Traits:  
   Strength (Str)  
   Dexterity (Dex)  
   Constitution (Con)  
@@ -9,20 +9,20 @@ Player Traits:
   Wisdom (Wis)  
   Charisma (Cha)  
 
-Skills:  
+#Skills:  
   Physical:  
   Magical:  
   Passive:  
 
 
-Items:  
+#Items:  
   Weapons:  
   Consumables:  
   Armor:  
   Trinkets:  
   Quest Items:  
 
-Races:  
+#Races:  
   Aberrations  
   Beasts  
   Celestials  
