@@ -1,16 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='master.css') }}">
-  {% endblock %}
+  {% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='master.css') }}">{% endblock %}
   <title>{% block title %}DandD{% endblock %}</title>
-  <link rel="icon" type="image/png" href="{% block favicon %}DandD.png{% endblock %}">
+  <link rel="icon" type="image/png" href="{% block favicon %}{{ url_for('static', filename='DandD.png') }}{% endblock %}">
 </head>
 <body>
-  {% block body %}
-  {% endblock %}
+  {% block body -%}{% endblock -%}
 </body>
-{% block endscript %}
+{%- block endscript -%}
 {% endblock %}
 </html>
