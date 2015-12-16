@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  {% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='master.css') }}">
+  {% endblock %}
+  <title>{% block title %}DandD{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{% block favicon %}DandD.png{% endblock %}">
+</head>
+<body>
+  {% block body %}
+  {% endblock %}
+</body>
+{% block endscript %}
+{% endblock %}
+</html>

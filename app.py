@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-import utils
+#import utils
 
 app = Flask(__name__)
 
@@ -10,5 +10,5 @@ def index():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = utils.secret_key
+    #app.secret_key = utils.secret_key
     app.run(port=8000)
