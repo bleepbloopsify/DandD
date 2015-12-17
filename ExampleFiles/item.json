@@ -1,0 +1,8 @@
+{
+  "name":"Object",
+  "position":"chest",
+  "damage":"1d20",
+  "armor":10,
+  "modifier":"Legendary",
+  "description":"Item"
+}

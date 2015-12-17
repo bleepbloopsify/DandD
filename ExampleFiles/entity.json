@@ -1,0 +1,36 @@
+{
+  "name":"Leon Chou",
+  "race":"human",
+  "subrace":"humanoid",
+  "hpmax":100,
+  "hpcurr":100,
+  "status":["Poisoned","Paralyzed"],
+  "str":10,
+  "dex":10,
+  "con":10,
+  "wis":10,
+  "cha":10,
+  "items":{
+    "weapons":[
+      {"name":"Longsword", "damage":"1d4"}
+    ],
+    "consumables":[
+      "health potion",
+      "health potion"
+    ],
+    "armor":[
+      {"position":"chest", "name":"Chestplate", "armor":10, "modifier":"Legendary"},
+      {"position":"legs","name":"Leggings", "armor":7},
+    ],
+    "trinkets":[
+      {"name":"Curved Horn", "modifier":"Rare", "stat":"Damage +3"}
+    ],
+    "questitems":[
+      {"name":"Tutorial", "description":"Please get rid of me."}
+    ],
+    "skills":[
+      {"name":"fireball", "description":"Whoosh"}
+    ]
+  }
+
+}
