@@ -21,7 +21,7 @@ def login():
             print session['user']
             return redirect("/home")
         return render_template("login.html")
-    elif request.method == "POST":
+    else:
         form = request.form
         username = form['username'] or ""
         password = form['password'] or ""
