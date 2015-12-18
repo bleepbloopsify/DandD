@@ -16,18 +16,19 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method=="GET": # What people see when they click "Login"
+    if request.method == "GET": # What people see when they click "Login"
         if "user" in session:
+            print session['user']
             return redirect("/home")
         return render_template("login.html")
-        
-    else: # Logging in, currently only accepts uname "DM" and pwd "DandD"
-        u = request.form["username"]
-        p = request.form["password"]
-        if utils.auth(u,p):
-            return render_template("login.html")
-        return render_template("home.html")
-
+    elif request.method == "POST":
+        form = request.form
+        username = form['username'] or ""
+        password = form['password'] or ""
+        if utils.auth(username, password):
+            session['user'] = username
+        else:
+            return "<err>Incorrect Username or Password</err>"
 
 if __name__ == "__main__":
     app.debug = True
