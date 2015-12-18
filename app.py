@@ -17,7 +17,7 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET": # What people see when they click "Login"
-        if session['user']:
+        if 'user' in session and session['user']:
             print session['user']
             return redirect("/home")
         return render_template("login.html")
