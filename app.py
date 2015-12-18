@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 import utils
 
 app = Flask(__name__)
-app.secretkey = utils.secretkey
+app.secret_key = utils.secretkey
 
 
 @app.route("/")
@@ -14,12 +14,13 @@ def index():
     #     return redirect("/login")
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if user in session:
-        return redirect("/home")
-    session['user'] = "here"
-    return render_template("login.html")
+    if request.method="GET": # What people see when they click "Login"
+        if "user" in session:
+            return redirect("/home")
+        return render_template("login.html")
+    else if request.method=
 
 
 if __name__ == "__main__":
