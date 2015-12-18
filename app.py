@@ -17,18 +17,24 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET": # What people see when they click "Login"
-        if "user" in session:
+        if 'user' in session and session['user']:
             print session['user']
             return redirect("/home")
         return render_template("login.html")
-    elif request.method == "POST":
+    else:
         form = request.form
         username = form['username'] or ""
         password = form['password'] or ""
         if utils.auth(username, password):
             session['user'] = username
-        else:
-            return "<err>Incorrect Username or Password</err>"
+            return 'success'
+        return 'fail'
+
+
+@app.route("/logout")
+def logout():
+    session['user'] = None
+    return redirect('/login')
 
 if __name__ == "__main__":
     app.debug = True
