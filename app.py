@@ -14,6 +14,7 @@ def index():
     #     return redirect("/login")
     return render_template("index.html")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET": # What people see when they click "Login"
@@ -51,6 +52,30 @@ def register():
 def logout():
     session['user'] = None
     return redirect('/login')
+
+
+@app.route("/create_char", methods=["GET", "POST"])
+#The page for creating a new character / editing character info
+def create_char():
+    if request.method == "GET": # So people can only access it while logged in
+        return redirect("/home")
+    else:
+        return render_template("create_char.html")
+@app.route("/game", methods=["GET", "POST"])
+#The page where you can view the details of a game
+def game():
+    if request.method == "GET": # So people can only access it while logged in
+        return redirect("/home")
+    else:
+        return render_template("game.html")
+    
+@app.route("/create_item", methods=["GET", "POST"])
+#The page for creating new items / editing item info
+def create_item():
+    if request.method == "GET": # So people can only access it while logged in
+        return redirect("/home")
+    else:
+        return render_template("create_item.html")
 
 if __name__ == "__main__":
     app.debug = True
