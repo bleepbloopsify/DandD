@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $("#sendlogin").on("click", function(){
-    console.log("llo");
+    console.log('click');
     $.ajax({
       url:"/login",
       method:"POST",
@@ -9,11 +9,11 @@ $(document).ready(function(){
         password:$("#password").val()
       },
       success: function(data){
-        if (data){
+        if (data == 'success'){
           $("#response").html("<success>Success!</success>");
           window.location.href = "/home"
         }else{
-          $("#response").html("<err>");
+          $("#response").html("<err>Incorrect username or password.</err>");
         }
       }
     });
