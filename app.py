@@ -30,6 +30,24 @@ def login():
             session['user'] = username
             return 'success'
         return 'fail'
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "GET": # What people see when they click "Login"
+        if 'user' in session and session['user']:
+            print session['user']
+            return redirect("/home")
+        return render_template("register.html")
+    else:
+        form = request.form
+        username = form['username'] or ""
+        password = form['password'] or ""
+        confmpwd = form['confmpwd'] or ""
+        if utils.register(username, password, confmpwd):
+            session['user'] = username
+            return 'success'
+        return 'fail'
+
 @app.route("/logout")
 def logout():
     session['user'] = None

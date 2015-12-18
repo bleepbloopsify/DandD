@@ -1,18 +1,19 @@
 $(document).ready(function(){
-  $("#sendlogin").on("click", function(){
+  $("#sendregister").on("click", function(){
     $.ajax({
-      url:"/login",
+      url:"/register",
       method:"POST",
       data:{
         username:$("#username").val(),
-        password:$("#password").val()
+        password:$("#password").val(),
+        confmpwd:$("#confmpwd").val()
       },
       success: function(data){
         if (data == 'success'){
           $("#response").html("<success>Success!</success>");
           window.location.href = "/home"
         }else{
-          $("#response").html("<err>Incorrect username or password.</err>");
+          $("#response").html("<err>Please fill out fields correctly.</err>");
         }
       }
     });
