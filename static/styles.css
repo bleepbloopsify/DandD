@@ -1,10 +1,31 @@
 #logo{
-  width:20px;
-  length:20px;
+  width:30px;
+  length:30px;
+  border:3px solid white;
+  background-color: white;
+}
+#top{
+  background-color: black;
 }
 
 err{
   color:red;
+}
+
+li{
+  min-width: 100px;
+  text-align:center;
+  color:white;
+  background-color: black;
+}
+
+li.current{
+  background-color:gray;
+}
+
+li:hover{
+  background-color:gray;
+  color:black;
 }
 
 .body{
