@@ -9,7 +9,12 @@ $(document).ready(function(){
         password:$("#password").val()
       },
       success: function(data){
-        $("#response").html(data);
+        if (data){
+          $("#response").html("<success>Success!</success>");
+          window.location.href = "/home"
+        }else{
+          $("#response").html("<err>");
+        }
       }
     });
   })

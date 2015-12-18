@@ -25,11 +25,11 @@ def login():
         form = request.form
         username = form['username'] or ""
         password = form['password'] or ""
-        if utils.login(username, password):
+        if utils.auth(username, password):
             session['user'] = username
+            return  
         else:
             return "<err>Incorrect Username or Password</err>"
-
 
 if __name__ == "__main__":
     app.debug = True
