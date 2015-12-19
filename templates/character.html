@@ -1,14 +1,16 @@
 {% extends "master.html" %}
 
 {% block head %}
-<script src="{{ url_for('static', filename='characters.js') }}"></script>
+{{super()}}
 {% endblock %}
 
 {% block body %}
 <b> Characters </b>
-<table>
+<table id="chartable" border="1">
   <tbody>
-    <tr><td></td><td></td><td></td></tr>
+    <tr><td> aaa </td><td> bbb </td><td> ccc </td></tr>
+    <tr><td> ddd </td><td> eee </td><td> fff </td></tr>
   </tbody>
 </table>
+<script src="{{ url_for('static', filename='characters.js') }}"></script>
 {% endblock %}
