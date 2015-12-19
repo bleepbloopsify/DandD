@@ -1,19 +1,21 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
   {% block head -%}
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
   <script src="{{ url_for('static', filename='jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
   {% endblock %}
+
   <title>{% block title %}Dungeon Master{% endblock %}</title>
+
   <link rel="icon" type="image/png" href="{% block favicon %}{{ url_for('static', filename='DandD.png') }}{% endblock %}">
 </head>
 <body>
   <nav class="navbar navbar-default" id="top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -21,9 +23,7 @@
         </button>
         <a class="navbar-brand" href="/home"><img id="logo" src="{{url_for('static', filename='d&dlogo.png')}}"></a> <!-- For the logo effect! -->
       </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/games">Games</a></li>
           <li><a href="/characters">Characters</a></li>
@@ -34,9 +34,13 @@
     </div><!-- /.container-fluid -->
   </nav>
 <div class="body">
+
   {% block body -%}{% endblock -%}
+
 </div>
 </body>
+
 {%- block endscript -%}
 {% endblock %}
+
 </html>
