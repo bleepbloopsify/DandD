@@ -77,6 +77,10 @@ def create_item():
     else:
         return render_template("create_item.html")
 
+@app.route("/characters")
+def characters():
+    return render_template("character.html")
+
 if __name__ == "__main__":
     app.debug = True
     #app.secret_key = utils.secret_key
