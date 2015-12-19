@@ -1,0 +1,18 @@
+"games":{
+  {
+    "id":12345,
+    "host":"Leon",
+    "players":[
+      {<entity>},
+      {<entity>},
+      {<entity>}
+    ],
+    "enemies":[
+      {<entity>}, ...
+    ],
+    "npcs":[
+      {<entity>},...
+    ],
+    "map_location":"maps/filename"
+  }, ...
+}

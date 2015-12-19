@@ -5,7 +5,6 @@ import utils
 app = Flask(__name__)
 app.secret_key = utils.secretkey
 
-
 @app.route("/")
 @app.route("/index")
 @app.route("/home")
@@ -14,14 +13,14 @@ def index():
     #     return redirect("/login")
     return render_template("index.html")
 
-
 @app.route("/login", methods=["GET", "POST"])
-def login():
+@app.route("/login/<r>")
+def login(r=None):
     if request.method == "GET": # What people see when they click "Login"
         if 'user' in session and session['user']:
             print session['user']
             return redirect("/home")
-        return render_template("login.html")
+        return render_template("login.html", r=r)
     else:
         form = request.form
         username = form['username'] or ""
@@ -54,28 +53,33 @@ def logout():
     return redirect('/login')
 
 
-@app.route("/create_char", methods=["GET", "POST"])
-#The page for creating a new character / editing character info
+@app.route("/create_char", methods=["GET", "POST"]) #The page for creating a new character / editing character info
 def create_char():
     if request.method == "GET": # So people can only access it while logged in
-        return redirect("/home")
-    else:
-        return render_template("create_char.html")
-@app.route("/game", methods=["GET", "POST"])
-#The page where you can view the details of a game
-def game():
-    if request.method == "GET": # So people can only access it while logged in
-        return redirect("/home")
-    else:
-        return render_template("game.html")
+        if 'user' in session and session['user']:
+            return render_template("create_char.html")
+        else:
+            return redirect("/login/redirect")
+
+@app.route('/games')# Page for viewing the list of all of your games
+def games():
+    return redirect("games.html")
     
-@app.route("/create_item", methods=["GET", "POST"])
-#The page for creating new items / editing item info
+@app.route("/gameinfo", methods=["GET", "POST"]) #The page where you can view the details of a game
+def gameinfo():
+    if request.method == "GET": # So people can only access it while logged in
+        if 'user' in session and session['user']:
+            return render_template("gameinfo.html")
+        else:
+            return redirect("/login/redirect")
+
+@app.route("/create_item", methods=["GET", "POST"]) #The page for creating new items / editing item info
 def create_item():
     if request.method == "GET": # So people can only access it while logged in
-        return redirect("/home")
-    else:
-        return render_template("create_item.html")
+        if 'user' in session and session['user']:
+            return render_template("create_item.html")
+        else:
+            return redirect("/login/redirect")
 
 if __name__ == "__main__":
     app.debug = True
