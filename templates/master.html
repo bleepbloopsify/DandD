@@ -1,17 +1,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='Scripts/jquery.js') }}"></script>
+  <script src="{{ url_for('static', filename='Scripts/bootstrap.min.js') }}"></script>
   {% block head -%}
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-  <script src="{{ url_for('static', filename='jquery.js') }}"></script>
-  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
   {% endblock %}
 
   <title>{% block title %}Dungeon Master{% endblock %}</title>
 
-  <link rel="icon" type="image/png" href="{% block favicon %}{{ url_for('static', filename='DandD.png') }}{% endblock %}">
+  <link rel="icon" type="image/png" href="{% block favicon %}{{ url_for('static', filename='Images/DandD.png') }}{% endblock %}">
 </head>
 <body>
   <nav class="navbar navbar-default" id="top">
@@ -21,7 +20,7 @@
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> <!-- For the icon! -->
         </button>
-        <a class="navbar-brand" href="/home"><img id="logo" src="{{url_for('static', filename='d&dlogo.png')}}"></a> <!-- For the logo effect! -->
+        <a class="navbar-brand" href="/home"><img id="logo" src="{{url_for('static', filename='Images/d&dlogo.png')}}"></a> <!-- For the logo effect! -->
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right">

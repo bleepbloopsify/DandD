@@ -3,12 +3,19 @@ import hashlib
 
 secretkey= hashlib.md5("d&d").digest()
 
+#-------------------ITEM METHODs-------------------
+def makeItem(name, position=None, damage=None, armor=None, modifier=None, description=None):
+    return 0# SHOULD INSERT INTO ENTITY INVENTORY
+    
+
+
+
 
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     return 0
 
-def getGames(host):
+def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)
     names = ["Basement"]
     return names
 

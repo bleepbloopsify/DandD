@@ -4,6 +4,7 @@ import utils
 
 app = Flask(__name__)
 app.secret_key = utils.secretkey
+socketio = SocketIO(app)
 
 @app.route("/")
 @app.route("/index")
