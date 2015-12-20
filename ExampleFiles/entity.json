@@ -5,11 +5,13 @@
   "hpmax":100,
   "hpcurr":100,
   "status":["Poisoned","Paralyzed"],
-  "str":10,
-  "dex":10,
-  "con":10,
-  "wis":10,
-  "cha":10,
+  "traits":[
+    "str":10,
+    "dex":10,
+    "con":10,
+    "wis":10,
+    "cha":10
+  ],
   "items":{
     "weapons":[
       {"name":"Longsword", "damage":"1d4"}
