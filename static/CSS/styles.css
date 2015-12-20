@@ -1,0 +1,45 @@
+#logo{
+  width:200px;
+  height:50px;
+  border:3px solid black;
+  padding:5px;
+  background-color: white;
+}
+#top{
+  background-color: white;
+  border-bottom: 2px solid black;
+}
+
+err{
+  color:red;
+}
+
+
+.navbar-nav > li{
+  line-height: 1;
+  min-width: 100px;
+  text-align:center;
+  background-color: inherit;
+  border-right: 1px solid gray;
+  padding-top:0px;
+  padding-bottom:0px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+li.lastright{
+  border-right:0px;
+}
+
+li.current{
+  background-color:gray;
+}
+
+li:hover{
+  background-color:gray;
+  color:black;
+}
+
+.body{
+  padding:15px;
+}
