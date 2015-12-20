@@ -64,20 +64,20 @@ def login(r=None):
 
 @app.route("/register", methods=["GET", "POST"]) # ----REGISTER-------
 def register():
-if request.method == "GET": # What people see when they click "Login"
-    if 'user' in session and session['user']:
-        print session['user']
-        return redirect("/home")
-    return render_template("register.html")
-else:
-    form = request.form
-    username = form['username'] or ""
-    password = form['password'] or ""
-    confmpwd = form['confmpwd'] or ""
-    if utils.register(username, password, confmpwd):
-        session['user'] = username
-        return 'success'
-    return 'fail'
+    if request.method == "GET": # What people see when they click "Login"
+        if 'user' in session and session['user']:
+            print session['user']
+            return redirect("/home")
+        return render_template("register.html")
+    else:
+        form = request.form
+        username = form['username'] or ""
+        password = form['password'] or ""
+        confmpwd = form['confmpwd'] or ""
+        if utils.register(username, password, confmpwd):
+            session['user'] = username
+            return 'success'
+        return 'fail'
 
 @app.route("/logout")#---------------------------LOGOUT--------------
 def logout():

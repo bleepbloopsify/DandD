@@ -1,6 +1,7 @@
 "games":{
   {
     "id":12345,
+    "name":"Basement",
     "host":"Leon",
     "players":[
       {<entity>},

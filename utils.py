@@ -1,28 +1,48 @@
 from pymongo import MongoClient
 import hashlib
 
-secretkey= "asdfghhjkl"
+secretkey= hashlib.md5("d&d").digest()
 
 
+#----------------------Game GeT, SEt, make!----------------------
+def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
+    return 0
 
+def getGames(host):
+    names = ["Basement"]
+    return names
 
+def makeGame(host):
+    # connection = MongoClient()
+    # c = connection['data']
+    # idnum = c.games.count() + 1
+    # game = {
+    #     'id':idnum,
+    #     'host':
+    # }
+
+    return True
+#-----------------END GAME EMTHODS-------------------------
+
+#-------------------MORE LOGIN METHODS-----------------------------------------------
 def auth(username, password):
-   #Connect to the Mongodb
-   connection = MongoClient()
-   c = connection['data']
-   #Check if the table 'users' exists
-   if not "users" in c.collection_names():
+    if username == "" or password == "":
+        return False
+    connection = MongoClient() #Connect to the Mongodb
+    c = connection['data']
+    print c.collection_names()
+    print len(c.collection_names())
+    if not "users" in c.collection_names():#Check if the table 'users' exists
        return False
-   #Check the username
-   if not c.users.find_one({'username':username}):
+    if not c.users.find_one({'username':username}):#Check the username
        return False
-   #Check the password
-   if not hashlib.md5(password).hexdigest() ==  c.users.find_one({'username':username})['password']:
+    if not hashlib.md5(password).hexdigest() ==  c.users.find_one({'username':username})['password']:#Check the password
        return False
-   #If Password and Uname match return true
-   return True
+    return True#If Password and Uname match return true
 
 def register(username, password, confirm_password):
+    if username == "" or password == "" or confirm_password == "":
+        return False
     #Connect to the Mongo DB
     connection = MongoClient()
     c = connection['data']
@@ -39,11 +59,13 @@ def register(username, password, confirm_password):
     if c.users.find_one({'username':username}) != None:
         return False
     #Encrypt Password
-    print password
     encrypted = hashlib.md5(password).hexdigest()
     #Enter the information
-    d = {'username': username,
+    d = {
+        'username': username,
          'password':encrypted,
+         'games':[]
          }
     c.users.insert(d)
     return True
+#----------------------------END MORE LOGIN METHODS------------------------------
