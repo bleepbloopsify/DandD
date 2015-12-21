@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 import utils
+
+import eventlet
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 app.secret_key = utils.secretkey
@@ -12,8 +15,6 @@ socketio = SocketIO(app)
 def index():
     return render_template("index.html")
 
-
-
 @app.route("/create_char", methods=["GET", "POST"]) #The page for creating a new character / editing character info
 def create_char():
     if request.method == "GET": # So people can only access it while logged in
@@ -24,23 +25,20 @@ def create_char():
 
 @app.route('/games')# Page for viewing the list of all of your games
 def games():
-    return redirect("games.html")
+    return render_template("games.html")
 
-@app.route("/gameinfo", methods=["GET", "POST"]) #The page where you can view the details of a game
-def gameinfo():
+@app.route("/gameinfo")
+@app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details of a game
+def gameinfo(id=0):
+    # if id == 0:
+    #     return redirect("/games")
     if request.method == "GET": # So people can only access it while logged in
         if 'user' in session and session['user']:
             return render_template("gameinfo.html")
         else:
             return redirect("/login/redirect")
-
-@app.route("/create_item", methods=["GET", "POST"]) #The page for creating new items / editing item info
-def create_item():
-    if request.method == "GET": # So people can only access it while logged in
-        if 'user' in session and session['user']:
-            return render_template("create_item.html")
-        else:
-            return redirect("/login/redirect")
+    else:
+        form = request.form
 
 @app.route("/characters")
 def characters():
@@ -86,7 +84,22 @@ def logout():
     return redirect('/login')
 #-----------------END LOGIN METHODS----------------------------------
 
+#------------------------------SOCKET METHODS FOR GAMEINFO-----------------
+@socketio.on('test')
+def test(packet):
+    print packet['data'], packet['room'], "\n"
+    pass
+
+@socketio.on('clicked!!!')
+def clicked(packet):
+    print packet['data'], "\n"
+    pass
+
+#------------------------------- END SOCKET METHODS-----------------------
+
+
+
 if __name__ == "__main__":
     app.debug = True
     #app.secret_key = utils.secret_key
-    app.run(port=8000)
+    socketio.run(app, port=8000)

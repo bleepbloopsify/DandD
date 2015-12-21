@@ -1,5 +1,13 @@
 {% extends "master.html" %}
 
-{% block title %}{% endblock %}
+{% block head %}
 
-{% block body %}{% endblock %}
+<script src="{{ url_for('static', filename='Scripts/socket.io.min.js') }}"></script>
+<script src="{{ url_for('static', filename='Scripts/socket.io.start.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<button id="button">aaaaa</button>
+{% endblock %}
