@@ -88,6 +88,12 @@ def logout():
 @socketio.on('test')
 def test(packet):
     print packet['data'], packet['room'], "\n"
+    pass
+
+@socketio.on('clicked!!!')
+def clicked(packet):
+    print packet['data'], "\n"
+    pass
 
 #------------------------------- END SOCKET METHODS-----------------------
 

@@ -11,3 +11,10 @@
 var socket = io();
 
 socket.emit('test', {data:"lol", room:"12345"});
+
+$(document).ready(function(){
+  $("#button").click(function(){
+    console.log("hhi");
+    socket.emit('clicked!!!', {data:"pls"});
+  });
+});
