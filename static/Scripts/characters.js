@@ -18,3 +18,22 @@ var showDescript = function showDescript(n){
 	}
     }
 }
+
+var cellsPerRow = 3;
+var addCell = function addCell(info){
+    var rowSize = chartable.rows[chartable.rows.length-1].cells.length;
+    console.log(rowSize);
+    if (rowSize < cellsPerRow){
+	var newItem = chartable.rows[chartable.rows.length-1].insertCell(rowSize);
+	newItem.innerHTML = info;
+    }
+    else{
+	var newRow = chartable.insertRow(chartable.rows.length);
+	var newItem = newRow.insertCell(0);
+	newItem.innerHTML = info;
+    }
+}
+
+addCell("a");
+addCell("a");
+

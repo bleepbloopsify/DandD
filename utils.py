@@ -13,22 +13,47 @@ def makeItem(name, position=None, damage=None, armor=None, modifier=None, descri
 
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
-    return 0
+    #Setup connection
+    connection = MongoClient()
+    c = connection['data']
+    #Check if the idnum is valid
+    if not c.games.find_one({'idnum':idnum}):
+        return False
+    #Get the correct game
+    game = c.games.find_one({'idnum':idnum})
+    #Go through the information passed, If no new info was passed, set it to the previous version
+    new_players = players or game['players']
+    new_enemies = enemies or game['enemies']
+    new_npcs = npcs or game['npcs']
+    new_map_location = map_location or game['map_location']
+    #Change the old values to the new ones
+    c.games.update({'idnum':idnum}, {"$set": 'players':new_players, 'enemies':new_enemies, 'npcs':new_npcs, 'map_location':new_map_location})
+    return True
 
 def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)
-    names = ["Basement"]
+    connection = MongoClient()
+    c = connection['data']
+    #Check if the host is in the games db
+    if not c.games.find_one({'host':host}):
+        return False
+    #Create the list to hold the game names
+    names = []
+    #Loop through games and find all the games with host = host
+    cursor = c.games.find({'host':host})
+    for game in cursor:
+        names.append(game['name'])
+    #Return the list
     return names
-
 def makeGame(host):
-    # connection = MongoClient()
-    # c = connection['data']
-    # idnum = c.games.count() + 1
-    # game = {
-    #     'id':idnum,
-    #     'host':
-    # }
-
-    return True
+     connection = MongoClient()
+     c = connection['data']
+     idnum = c.games.count() + 1
+     game = {
+         'id':idnum,
+         'host':host
+     }
+     c.games.insert(game)
+     return True
 #-----------------END GAME EMTHODS-------------------------
 
 #-------------------MORE LOGIN METHODS-----------------------------------------------
