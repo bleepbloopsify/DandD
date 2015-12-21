@@ -6,7 +6,7 @@ secretkey= hashlib.md5("d&d").digest()
 #-------------------ITEM METHODs-------------------
 def makeItem(name, position=None, damage=None, armor=None, modifier=None, description=None):
     return 0# SHOULD INSERT INTO ENTITY INVENTORY
-    
+
 
 
 
@@ -48,6 +48,7 @@ def auth(username, password):
     return True#If Password and Uname match return true
 
 def register(username, password, confirm_password):
+    print "hi"
     if username == "" or password == "" or confirm_password == "":
         return False
     #Connect to the Mongo DB
