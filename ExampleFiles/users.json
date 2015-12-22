@@ -1,0 +1,8 @@
+users:[
+  {
+   'username': username,
+   'password':encrypted,
+   'dmgames':[],
+   'pgames':[]
+   }
+]
