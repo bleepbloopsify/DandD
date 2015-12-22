@@ -98,7 +98,8 @@ def register(username, password, confirm_password):
     d = {
         'username': username,
          'password':encrypted,
-         'games':[]
+         'dmgames':[],
+         'pgames':[]
          }
     c.users.insert(d)
     return True
