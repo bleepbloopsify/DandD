@@ -1,19 +1,38 @@
 var chartable = document.getElementById("chartable");
 
-for (var r=0, row; row = chartable.rows[r]; r++){
-    for (var c=0, col; col = row.cells[c]; c++){
-	col.addEventListener("click",function(){
-	    console.log("ok");
-	    showDescript(this.innerHTML);
-	});
+var start = function(){
+    for (var r=0, row; row = chartable.rows[r]; r++){
+	for (var c=0, col; col = row.cells[c]; c++){
+	    col.addEventListener('mouseover',function(){
+		var descript = "sample description";
+		showDescript(this.innerHTML,descript);
+	    });
+	}
     }
 }
 
-var showDescript = function showDescript(n){
+var showDescript = function showDescript(name,descript){
     for (var r=0, row; row = chartable.rows[r]; r++){
 	for (var c=0, col; col = row.cells[c]; c++){
-	    if (col.innerHTML == n){
-		col.innerHTML =  " sample description ";
+	    if (col.innerHTML == name){
+		col.innerHTML = descript;
+		col.addEventListener('mouseout',function(){
+		    console.log("ok");
+		    hideDescript(name, descript);
+		});
+	    }
+	}
+    }
+}
+
+var hideDescript = function hideDescript(name,descript){
+    for (var r=0, row; row = chartable.rows[r]; r++){
+	for (var c=0, col; col = row.cells[c]; c++){
+	    if (col.innerHTML == descript){
+		col.innerHTML = name;
+		col.addEventListener('mouseover',function(){
+		    showDescript(name, descript);
+		});
 	    }
 	}
     }
@@ -21,10 +40,11 @@ var showDescript = function showDescript(n){
 
 var cellsPerRow = 3;
 var addCell = function addCell(info){
-    var rowSize = chartable.rows[chartable.rows.length-1].cells.length;
+    var lastRow = chartable.rows[chartable.rows.length-1];
+    var rowSize = lastRow.cells.length;
     console.log(rowSize);
     if (rowSize < cellsPerRow){
-	var newItem = chartable.rows[chartable.rows.length-1].insertCell(rowSize);
+	var newItem = lastRow.insertCell(rowSize);
 	newItem.innerHTML = info;
     }
     else{
@@ -34,6 +54,4 @@ var addCell = function addCell(info){
     }
 }
 
-addCell("a");
-addCell("a");
-
+start();
