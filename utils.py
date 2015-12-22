@@ -4,8 +4,9 @@ import hashlib
 secretkey= hashlib.md5("d&d").digest()
 
 #-------------------ITEM METHODs-------------------
-def makeItem(name, position=None, damage=None, armor=None, modifier=None, description=None):
-    return 0# SHOULD INSERT INTO ENTITY INVENTORY
+def makeItem(gameid,charid, name, position=None, damage=None, armor=None, modifier=None, description=None):
+    #Create the item
+    return 0
 
 
 
@@ -17,17 +18,17 @@ def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     connection = MongoClient()
     c = connection['data']
     #Check if the idnum is valid
-    if not c.games.find_one({'idnum':idnum}):
+    if not c.games.find_one({'id':idnum}):
         return False
     #Get the correct game
-    game = c.games.find_one({'idnum':idnum})
+    game = c.games.find_one({'id':idnum})
     #Go through the information passed, If no new info was passed, set it to the previous version
     new_players = players or game['players']
     new_enemies = enemies or game['enemies']
     new_npcs = npcs or game['npcs']
     new_map_location = map_location or game['map_location']
     #Change the old values to the new ones
-    c.games.update({'idnum':idnum}, {"$set": 'players':new_players, 'enemies':new_enemies, 'npcs':new_npcs, 'map_location':new_map_location})
+    c.games.update({'id':idnum}, {"$set":{'players':new_players, 'enemies':new_enemies, 'npcs':new_npcs, 'map_location':new_map_location}})
     return True
 
 def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)
