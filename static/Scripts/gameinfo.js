@@ -26,3 +26,7 @@ $(document).ready(function(){
     socket.emit('clicked!!!', {data:"pls"});
   });
 });
+
+$("#testb").click(function(){
+    $("#test").append($('<li>Hello</li>'));  
+});
