@@ -45,6 +45,7 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         names.append(game['name'])
     #Return the list
     return names
+
 def makeGame(host):
      connection = MongoClient()
      c = connection['data']
