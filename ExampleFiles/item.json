@@ -1,5 +1,6 @@
 {
   "name":"Object",
+  "item_class":"weapons",
   "position":"chest",
   "damage":"1d20",
   "armor":10,

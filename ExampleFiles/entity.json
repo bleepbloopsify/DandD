@@ -1,5 +1,6 @@
 {
   "name":"Leon Chou",
+  "idnum":12345,
   "race":"human",
   "subrace":"humanoid",
   "hpmax":100,

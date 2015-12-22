@@ -4,13 +4,28 @@ import hashlib
 secretkey= hashlib.md5("d&d").digest()
 
 #-------------------ITEM METHODs-------------------
-def makeItem(gameid,charid, name, position=None, damage=None, armor=None, modifier=None, description=None):
+def makeItem(gameid,charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
     #Create the item
-    return 0
-
-
-
-
+    item = {
+        'name':name,
+        'item_class':item_class,
+        'position':position,
+        'damage':damage,
+        'armor':armor,
+        'modifier':modifier,
+        'description':description
+        }
+    #Connect to Mongodb
+    connection = MongoClient()
+    c = connection['data']
+    #Find the correct character and Add the item to their inventory
+    characterlist = c.games.find_one({'id':gameid})['players']
+    for x in characterlist:
+        if x['idnum'] = charid:
+            x['items'][item_class].append(item)
+            break
+    #Update the players list
+    c.games.update({'id':gameid},{$set:{'players':characterlist}})
 
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
@@ -98,8 +113,7 @@ def register(username, password, confirm_password):
     d = {
         'username': username,
          'password':encrypted,
-         'dmgames':[],
-         'pgames':[]
+         'games':[]
          }
     c.users.insert(d)
     return True
