@@ -23,9 +23,13 @@ def create_char():
         else:
             return redirect("/login/redirect")
 
-@app.route('/games')# Page for viewing the list of all of your games
+@app.route('/games', methods=['GET', "POST"])# Page for viewing the list of all of your games
 def games():
-    return render_template("games.html")
+    if request.method == "GET":
+        return render_template("games.html")
+    elif request.method == "POST":
+        user = request.form['user']
+        return utils.getGames(user)
 
 @app.route("/gameinfo")
 @app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details of a game
@@ -85,10 +89,9 @@ def logout():
 #-----------------END LOGIN METHODS----------------------------------
 
 #------------------------------SOCKET METHODS FOR GAMEINFO-----------------
-@socketio.on('test')
-def test(packet):
-    print packet['data'], packet['room'], "\n"
-    pass
+@socketio.on('connected')
+def connected(packet):
+    print packet['data']
 
 @socketio.on('clicked!!!')
 def clicked(packet):

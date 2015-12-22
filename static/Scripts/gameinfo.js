@@ -9,8 +9,16 @@
 // });
 
 var socket = io();
+var Game
 
-socket.emit('test', {data:"lol", room:"12345"});
+var connect = function(){
+  socket.emit('connected', {data:user})
+};
+socket.on('connect', connect);
+
+var retrieveGame = function(){
+  Game = socket.emit('retrieve', {id: idnum});
+}
 
 $(document).ready(function(){
   $("#button").click(function(){

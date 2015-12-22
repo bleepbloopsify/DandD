@@ -3,8 +3,7 @@
 {% block head %}
 
 <script src="{{ url_for('static', filename='Scripts/socket.io.min.js') }}"></script>
-<script src="{{ url_for('static', filename='Scripts/socket.io.start.js') }}"></script>
-
+<script> var user = "{{session['user']}}"</script>
 {% endblock %}
 
 {% block body %}
@@ -13,4 +12,9 @@
   Character Name:<input type="text" name="charname">
   Player:<input type="text" name="playername">
 </form>
+{% endblock %}
+
+
+{% block endscript %}
+<script src="{{ url_for('static', filename='Scripts/gameinfo.js') }}"></script>
 {% endblock %}
