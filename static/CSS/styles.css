@@ -48,3 +48,18 @@ li:hover{
 .body{
   padding:15px;
 }
+
+table{
+  border: 1px solid beige;
+}
+
+th{
+  text-align: center;
+}
+
+td{
+  height: 90px;
+  width: 90px;
+  text-align: center;
+  vertical-align: center;
+}
