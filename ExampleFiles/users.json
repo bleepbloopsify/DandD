@@ -3,6 +3,7 @@ users:[
    'username': username,
    'password':encrypted,
    'dmgames':[],
-   'pgames':[]
+   'pgames':[],
+   'characters':[]
    }
 ]
