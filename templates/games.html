@@ -1,5 +1,14 @@
 {% extends "master.html" %}
 
 {% block body %}
-<a href="/gameinfo">clickme</a>
+
+<button id="creategame">New Game</button>
+
+<a href="/gameinfo/1">clickme</a>
+
+
+{% endblock %}
+
+{% block endscript %}
+<script src="{{ url_for('static', filename='Scripts/games.js') }}"></script>
 {% endblock %}

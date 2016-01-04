@@ -26,16 +26,23 @@ def create_char():
 @app.route('/games', methods=['GET', "POST"])# Page for viewing the list of all of your games
 def games():
     if request.method == "GET":
-        return render_template("games.html")
+        if 'user' in session and session['user']:
+            return render_template("games.html")
     elif request.method == "POST":
         user = request.form['user']
         return utils.getGames(user)
 
+@app.route('/creategame', methods=['GET','POST'])
+def creategame():
+    if request.method == "GET":
+        if 'user' in session and session['user']:
+            return render_template("creategame")
+
 @app.route("/gameinfo")
 @app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details of a game
 def gameinfo(id=0):
-    # if id == 0:
-    #     return redirect("/games")
+    if id == 0:
+        return redirect("/games")
     if request.method == "GET": # So people can only access it while logged in
         if 'user' in session and session['user']:
             return render_template("gameinfo.html")

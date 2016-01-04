@@ -112,7 +112,7 @@ def register(username, password, confirm_password):
     encrypted = hashlib.md5(password).hexdigest()
     #Enter the information
     d = {
-        'username': username,
+         'username': username,
          'password':encrypted,
          'games':[]
          }
