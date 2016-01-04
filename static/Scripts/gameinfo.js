@@ -1,13 +1,3 @@
-// var socket = io.connect("http://localhost:8000/gameinfo");
-//
-// socket.on('connect', function(){
-//   socket.emit('connected', {data: "Connection Received!"} );
-// });
-//
-// socket.on('blah', function(data){
-//   console.log(data['data']);
-// });
-
 var socket = io();
 var Game
 
@@ -28,5 +18,5 @@ $(document).ready(function(){
 });
 
 $("#testb").click(function(){
-    $("#test").append($('<li>Hello</li>'));  
+    $("#test").append($('<li>Hello</li>'));
 });

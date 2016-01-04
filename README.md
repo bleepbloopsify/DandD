@@ -11,11 +11,11 @@ Dungeons and Dragons Dungeon Master API
 
 ##### Not understood but probably not that bad:  
   flask-socketio to constantly update the information  
-  
+
 ##### Wat:  
   Map maker for the DM to create his dungeon.  
   Map of the dungeon that is interactive - can place characters on squares and move things around.  
-  
+
 ##### Player Traits:  
 
   Strength (*Str*)  
@@ -53,3 +53,12 @@ Dungeons and Dragons Dungeon Master API
   Oozes  
   Plants  
   Undead  
+
+##### Home Page:  
+  A brief description of the page and how to use it.
+
+##### Register and Login/Logout:
+  Save your games so you can abstain with the pen and paper! No more hassle!
+
+##### Games Page:  
+  A list of all games you currently manage.
