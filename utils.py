@@ -27,6 +27,34 @@ def makeItem(gameid,charid, name,item_class, position=None, damage=None, armor=N
     #Update the players list
     c.games.update({'id':gameid},{'$set':{'players':characterlist}})
 
+#----------------------Character Methods-------------------------
+#Create a prelim char and attach it to a username
+def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
+    #Connect to Mongodb
+    connection = MongoClient()
+    c = connection['data']
+    #Find the correct characterid
+    idnum = c.characters.count() + 1
+    #Create the Character  
+    character = {
+	'name':name,
+	'race':race,
+	'idnum':idnum,
+	'subrace':subrace,
+	'hpmax':hpmax,
+	'hpcurr':hpcurr,
+	'status':status,
+	'traits':traits,
+	'items':items
+	}
+    #Insert the Character into the Character collection and insert the character into the users list
+    c.characters.insert(character)
+    userchars = c.users.findone({'username':username})['characters']
+    userchars.append(character)
+    c.users.update({'username':username}, {"$set":{'characters':userchars}})
+
+#Modify preexisting characters
+	  
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
