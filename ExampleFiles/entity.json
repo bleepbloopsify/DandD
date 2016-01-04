@@ -3,6 +3,7 @@
   "idnum":12345,
   "race":"human",
   "subrace":"humanoid",
+  "armorclass":100,
   "hpmax":100,
   "hpcurr":100,
   "status":["Poisoned","Paralyzed"],

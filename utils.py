@@ -20,12 +20,12 @@ def makeItem(gameid,charid, name,item_class, position=None, damage=None, armor=N
     c = connection['data']
     #Find the correct character and Add the item to their inventory
     characterlist = c.games.find_one({'id':gameid})['players']
-    for x in characterlist:
-        if x['idnum'] = charid:
-            x['items'][item_class].append(item)
+    for character in characterlist:
+        if character['idnum'] == charid:
+            character['items'][item_class].append(item)
             break
     #Update the players list
-    c.games.update({'id':gameid},{$set:{'players':characterlist}})
+    c.games.update({'id':gameid},{'$set':{'players':characterlist}})
 
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
