@@ -57,7 +57,8 @@ def gameinfo(id=0):
 
 @app.route("/characters")
 def characters():
-    return render_template("character.html")
+    charsSent = "test"
+    return render_template("character.html",charsSent=charsSent)
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])

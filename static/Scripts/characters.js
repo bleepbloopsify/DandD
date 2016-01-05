@@ -3,6 +3,7 @@ var chartable = document.getElementById("chartable");
 var start = function(){
     for (var r=0, row; row = chartable.rows[r]; r++){
 	for (var c=0, col; col = row.cells[c]; c++){
+	    col.appendChild(img);
 	    col.addEventListener('mouseover',function(){
 		var descript = "sample description";
 		showDescript(this.innerHTML,descript);
@@ -54,4 +55,13 @@ var addCell = function addCell(info){
     }
 }
 
+var totalChars = document.getElementById("hiddenchars").innerHTML;
+
+var img = document.createElement('img');
+img.src = "http://pmaadvantage.com/wp-content/uploads/2013/09/Icon-Placeholder.png";
+
+addCell(totalChars);
+addCell("chars2");
+
 start();
+
