@@ -28,15 +28,19 @@ def games():
     if request.method == "GET":
         if 'user' in session and session['user']:
             return render_template("games.html")
+        else:
+            return redirect("/login/redirect")
     elif request.method == "POST":
         user = request.form['user']
         return utils.getGames(user)
 
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
-    if request.method == "GET":
+    if request.method == "POST":
         if 'user' in session and session['user']:
             return render_template("creategame")
+    else:
+        return redirect("/games")
 
 @app.route("/gameinfo")
 @app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details of a game
