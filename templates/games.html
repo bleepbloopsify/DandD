@@ -4,11 +4,37 @@
 
 <button id="creategame">New Game</button>
 
+<!-- Form for creating games, should eventually be pop-up -->
 <div id="creategameform">
-<form action="/creategame" method="POST">
-  
-</form>
+  <form action="/creategame" method="POST" class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="gamename">Name:</label>
+      <div class="col-sm-2">
+	<input type="text" class="form-control" name="charname" id="charname">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="race">Race:</label>
+      <div class="col-sm-2">
+	<input type="text" class="form-control" name="race" id="race">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="subrace">Subrace:</label>
+      <div class="col-sm-2">
+	<input type="text" class="form-control" name="subrace" id="subrace">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+	<button type="submit">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
 
+<!-- Form for editing games, should eventually be pop-up -->
+<div id="editgameform">
 </div>
 
 <a href="/gameinfo/1">clickme</a>
