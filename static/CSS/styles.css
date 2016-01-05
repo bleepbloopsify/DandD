@@ -7,11 +7,19 @@ body{
   top: 100px;
   left: 100px;
   border:3px solid black;
+  border-radius:25px;
   visibility: hidden;
   width:500px;
   height:500px;
   background-color:white;
 }
+
+#closegamewindow{
+  position:absolute;
+  right:0px;
+  border-radius:50px;
+}
+
 
 #logo{
   width:200px;

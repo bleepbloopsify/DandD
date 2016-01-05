@@ -4,40 +4,34 @@
 
 <button id="creategame">New Game</button>
 
-<!-- Form for creating games, should eventually be pop-up -->
-<div id="creategameform">
-<<<<<<< HEAD
-  <form action="/creategame" method="POST" class="form-horizontal" role="form">
+<!-- Form for creating games, should eventually be pop-up
+  DOESNT HAVE TO BE FORM BECUASE WE're USING AJAX REQUESTS
+  JUST KEEP IT THE WAY IT IS @KEVIN
+
+-->
+<div id="creategameform"> <button id="closegamewindow"><b>X</b></button>
+    <br><br>
     <div class="form-group">
       <label class="control-label col-sm-2" for="gamename">Name:</label>
-      <div class="col-sm-2">
-	<input type="text" class="form-control" name="charname" id="charname">
-      </div>
-    </div>
+      <div class="col-sm-10">
+	       <input type="text" class="form-control" name="charname" id="charname">
+      </div></div>
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="race">Race:</label>
-      <div class="col-sm-2">
-	<input type="text" class="form-control" name="race" id="race">
-      </div>
-    </div>
+      <div class="col-sm-10">
+	       <input type="text" class="form-control" name="race" id="race">
+      </div></div>
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="subrace">Subrace:</label>
-      <div class="col-sm-2">
-	<input type="text" class="form-control" name="subrace" id="subrace">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-	<button type="submit">Create</button>
-      </div>
-    </div>
-  </form>
-</div>
-=======
-<form action="/creategame" method="POST">
+      <div class="col-sm-10">
+	       <input type="text" class="form-control" name="subrace" id="subrace">
+      </div></div>
 
-</form>
->>>>>>> d3f468222f0e1321a9429c71795304482ca602f4
+    <div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" id="create">Create</button></div></div>
+  </div>
+
 
 <!-- Form for editing games, should eventually be pop-up -->
 <div id="editgameform">
