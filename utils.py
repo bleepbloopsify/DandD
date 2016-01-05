@@ -4,7 +4,7 @@ import hashlib
 secretkey= hashlib.md5("d&d").digest()
 
 #-------------------ITEM METHODs-------------------
-def makeItem(gameid,charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
+def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
     #Create the item
     item = {
         'name':name,
@@ -19,13 +19,9 @@ def makeItem(gameid,charid, name,item_class, position=None, damage=None, armor=N
     connection = MongoClient()
     c = connection['data']
     #Find the correct character and Add the item to their inventory
-    characterlist = c.games.find_one({'id':gameid})['players']
-    for character in characterlist:
-        if character['idnum'] == charid:
-            character['items'][item_class].append(item)
-            break
-    #Update the players list
-    c.games.update({'id':gameid},{'$set':{'players':characterlist}})
+    old_inven = c.characters.find_one({'idnum':charid})['items']
+    old_inven.append(item)
+    c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
@@ -52,9 +48,35 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     userchars = c.users.findone({'username':username})['characters']
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
-
+#Get Character Names
+def getNames():
+	#Connect to mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Get every character
+	cursor = c.characters.find()
+	names =[]
+	#Get Names
+	for character in cursor:
+		names.append(character['name'])
 #Modify preexisting characters
-	  
+def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
+	#Connect to Mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Find the Character
+	character = c.characters.find_one({'idnum':idnum})
+	#Go through the information passed, if no info was passed leave as is
+	new_name = name or character['name']
+	new_race = race or character['race']
+	new_subrace = subrace or character['subrace']
+	new_hpmax = hpmax or character['hpmax']
+	new_hpcurr = hpcurr or character['hpcurr']
+	new_status = status or character['status']
+	new_traits = traits or character['traits']
+	new_items = items or character['items']
+	#Update the Character
+	#c.characters.update({'idnum':idnum}, {"$set": {'name':new_name, 'race':new_race, 'subrace':new_subrace, 'hpmax':new_hpmax, 'hpcurr' = new_hpcurr, 	     'status':new_status,'traits':new_traits,'items':new_items}})
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
