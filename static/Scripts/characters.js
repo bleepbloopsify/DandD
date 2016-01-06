@@ -1,15 +1,10 @@
 var chartable = document.getElementById("chartable");
 
-var start = function(){
-    for (var r=0, row; row = chartable.rows[r]; r++){
-	for (var c=0, col; col = row.cells[c]; c++){
-	    col.appendChild(img);
-	    col.addEventListener('mouseover',function(){
-		var descript = "sample description";
-		showDescript(this.innerHTML,descript);
-	    });
-	}
-    }
+var start = function(item){
+    item.addEventListener('mouseover',function(){
+	var descript = "sample description";
+	showDescript(this.innerHTML,descript);
+    });
 }
 
 var showDescript = function showDescript(name,descript){
@@ -46,22 +41,21 @@ var addCell = function addCell(info){
     console.log(rowSize);
     if (rowSize < cellsPerRow){
 	var newItem = lastRow.insertCell(rowSize);
-	newItem.innerHTML = info;
+	newItem.innerHTML = "<img src="+img+">"+info;
+	start(newItem);
     }
     else{
 	var newRow = chartable.insertRow(chartable.rows.length);
 	var newItem = newRow.insertCell(0);
-	newItem.innerHTML = info;
+	newItem.innerHTML = "<img src="+img+">"+info;
+	start(newItem);
     }
 }
 
 var totalChars = document.getElementById("hiddenchars").innerHTML;
 
-var img = document.createElement('img');
-img.src = "http://pmaadvantage.com/wp-content/uploads/2013/09/Icon-Placeholder.png";
+var img = "http://www.firemagicgrills.com/wp-content/uploads/accessories-small-placeholder.jpg";
 
 addCell(totalChars);
 addCell("chars2");
-
-start();
 
