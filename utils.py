@@ -76,7 +76,7 @@ def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,sta
 	new_traits = traits or character['traits']
 	new_items = items or character['items']
 	#Update the Character
-	#c.characters.update({'idnum':idnum}, {"$set": {'name':new_name, 'race':new_race, 'subrace':new_subrace, 'hpmax':new_hpmax, 'hpcurr' = new_hpcurr, 	     'status':new_status,'traits':new_traits,'items':new_items}})
+	c.characters.update({'idnum':idnum}, {"$set": {'name':new_name, 'race':new_race, 'subrace':new_subrace, 'hpmax':new_hpmax, 'hpcurr':new_hpcurr,'status':new_status,'traits':new_traits,'items':new_items}})
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
