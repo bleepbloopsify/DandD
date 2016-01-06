@@ -4,12 +4,14 @@ body{
 
 #creategameform{
   position: absolute;
-  top: 100px;
-  left: 100px;
+  top:50px;
+  left:0px;
+  margin:25px;
+  width:80%;
+
   border:3px solid black;
   border-radius:25px;
   visibility: hidden;
-  width:500px;
   height:500px;
   background-color:white;
 }
