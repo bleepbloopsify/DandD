@@ -115,10 +115,8 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         return False
     #Create the list to hold the game names
     names = []
-    #Loop through games and find all the games with host = host
-    cursor = c.games.find({'host':host})
-    for game in cursor:
-        names.append(game['name'])
+    #Loop through users and find the correct users games
+    names = c.users.find_one({'users':host})['dmgames']
     #Return the list
     return names
 
