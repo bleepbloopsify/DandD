@@ -23,6 +23,19 @@ def makeItem(charid, name,item_class, position=None, damage=None, armor=None, mo
     old_inven.append(item)
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
+def rmvItem(charid, name):
+	#Connect to Mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Find the Character and get his inventory
+	inven = c.characters.find_one({'idnum':charid})['items']
+	#Iterate over the inventory and find and remove the correct item
+	for item in items:
+		if (item['name'] == name):
+			items.remove(item)
+			break
+	#Update the Character Inventory
+	c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
 def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
@@ -49,16 +62,12 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
 #Get Character Names
-def getNames():
+def getNames(username):
 	#Connect to mongodb
 	connection = MongoClient()
 	c = connection['data']
-	#Get every character
-	cursor = c.characters.find()
-	names =[]
-	#Get Names
-	for character in cursor:
-		names.append(character['name'])
+	#Find the User and Get Names
+	return c.users.find_one({'username':username})['characters']
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
 	#Connect to Mongodb
@@ -67,16 +76,18 @@ def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,sta
 	#Find the Character
 	character = c.characters.find_one({'idnum':idnum})
 	#Go through the information passed, if no info was passed leave as is
-	new_name = name or character['name']
-	new_race = race or character['race']
-	new_subrace = subrace or character['subrace']
-	new_hpmax = hpmax or character['hpmax']
-	new_hpcurr = hpcurr or character['hpcurr']
-	new_status = status or character['status']
-	new_traits = traits or character['traits']
-	new_items = items or character['items']
+	new_char={
+	'name':name or character['name'],
+	'race': race or character['race'],
+	'subrace': subrace or character['subrace'],
+	'hpmax' : hpmax or character['hpmax'],
+	'hpcurr' : hpcurr or character['hpcurr'],
+	'status' : status or character['status'],
+	'traits' : traits or character['traits'],
+	'items' : items or character['items']
+	}
 	#Update the Character
-	c.characters.update({'idnum':idnum}, {"$set": {'name':new_name, 'race':new_race, 'subrace':new_subrace, 'hpmax':new_hpmax, 'hpcurr':new_hpcurr,'status':new_status,'traits':new_traits,'items':new_items}})
+	c.characters.update({'idnum':idnum}, new_char)
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
@@ -120,7 +131,7 @@ def makeGame(host):
          'host':host
      }
      c.games.insert(game)
-     return True
+     return idnum
 #-----------------END GAME EMTHODS-------------------------
 
 #-------------------MORE LOGIN METHODS-----------------------------------------------
