@@ -10,29 +10,47 @@
 
   ALSO WE DONT NEED NAMES BECUASE OF THE WAY LABELS AND MY JS WORKS
 -->
-<div id="creategameform"> <button id="closegamewindow"><b>X</b></button>
+<div id="creategameform">
+  <button id="closegamewindow"><b>X</b></button>
     <br><br>
-    <form role="form" id="creatinggameform">
-    <div class="form-group">
-      <label class="control-label col-sm-1" for="gamename">Name:</label>
-      <div class="col-sm-2">
-	       <input type="text" class="form-control" id="charname">
-      </div></div>
+    <form class="form-horizontal" role="form" id="creatinggameform">
+      
+      <div class="form-group">
+	<label class="control-label col-sm-2" for="gamename">Name:</label>
+	<div class="col-sm-2">
+	  <input type="text" class="form-control input-sm" id="charname">
+	</div>
+      </div>
+      
+      <div class="form-group">
+	<label class="control-label col-sm-2" for="players">Add Player:</label>
+	<div class="col-sm-2">
+	  <input type="text" class="form-control input-sm" id="players">
+	</div>
+      </div>
+      <!--
+      <div class="form-group">
+	<label class="control-label col-sm-1" for="subrace">Subrace:</label>
+	<div class="col-sm-2">
+	  <input type="text" class="form-control" id="subrace">
+	</div>
+      </div>
+      -->
+      <!-- The "Add Player button, should eventually append player names to a list that's displayed somewhere else -->
+      <div class="form-group">
+	<div class="col-sm-offset-2 col-sm-2">
+	  <button type="button" id="addplayer">Add</button>
+	</div>
+      </div>
 
-    <div class="form-group">
-      <label class="control-label col-sm-1" for="race">Race:</label>
-      <div class="col-sm-2">
-	       <input type="text" class="form-control" id="race">
-      </div></div>
-
-    <div class="form-group">
-      <label class="control-label col-sm-1" for="subrace">Subrace:</label>
-      <div class="col-sm-2">
-	       <input type="text" class="form-control" id="subrace">
-      </div></div>
-
-    <div class="form-group"><div class="col-sm-offset-1 col-sm-2"><button type="button" id="create">Create</button></div></div>
-  </form></div>
+      <div class="form-group">
+	<div class="col-sm-offset-2 col-sm-2">
+	  <button type="button" id="create" class="btn btn-success">Create</button>
+	</div>
+      </div>
+      
+    </form>
+</div>
 
 
 <!-- Form for editing games, should eventually be pop-up -->
