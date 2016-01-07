@@ -17,11 +17,11 @@ def index():
 
 @app.route("/create_char", methods=["GET", "POST"]) #The page for creating a new character / editing character info
 def create_char():
-    if request.method == "GET": # So people can only access it while logged in
-        if 'user' in session and session['user']:
-            return render_template("create_char.html")
-        else:
-            return redirect("/login/redirect")
+    if request.method == 'POST':
+        form = request.form
+        return "success"
+    else:
+        return redirect("/home")
 
 @app.route('/games', methods=['GET', "POST"])# Page for viewing the list of all of your games
 def games():
