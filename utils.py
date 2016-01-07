@@ -3,6 +3,10 @@ import hashlib
 
 secretkey= hashlib.md5("d&d").digest()
 
+#-------------------TEST METHODS------------------
+def creategame(form):
+    return "yay"#SEAN CAN YOU USE MAKE GAME AND SET GAME HERE THIS HAS ALL THE PARAMETERS FROM THE THING
+
 #-------------------ITEM METHODs-------------------
 def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
     #Create the item
@@ -31,7 +35,7 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
-    #Create the Character  
+    #Create the Character
     character = {
 	'name':name,
 	'race':race,
@@ -49,7 +53,9 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
 #Get Character Names
-def getNames():
+def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
+    if not user:
+        return "Leon"
 	#Connect to mongodb
 	connection = MongoClient()
 	c = connection['data']

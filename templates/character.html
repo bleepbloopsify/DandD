@@ -1,18 +1,13 @@
 {% extends "master.html" %}
 
 {% block body %}
-<center>
-  <font size = "5">
-    <b><u> Characters </u></b>
-    <br><br>
-    <p hidden id="hiddenchars">{{charsSent}}</p>
-    <table id="chartable">
-      <tbody>
-	<tr></tr>
-      </tbody>
-    </table>
-  </font>
-</center>
+
+<div id="chartable">
+  <div id="chartableheading">
+    Characters
+  </div>
+  <ul id="chartable"></ul>
+</div>
 
 <!-- Form for creating characters, should eventually be pop-up -->
 <div id="createcharform">
@@ -24,7 +19,7 @@
 	<input type="text" class="form-control" name="charname" id="charname">
       </div>
     </div>
-    
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="race">Race:</label>
       <div class="col-sm-2">
@@ -50,8 +45,10 @@
 <!-- Form for editing characters, should eventually be pop-up -->
 <div id="editcharform">
 </div>
+
 {% endblock %}
 
 {% block endscript %}
+<script type="text/javascript">var sentChars = "{{sentChars}}";</script>
 <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
 {% endblock %}

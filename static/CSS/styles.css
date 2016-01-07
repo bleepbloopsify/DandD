@@ -2,6 +2,16 @@ body{
   background-color: beige;
 }
 
+#chartable{
+  text-align: center;
+}
+
+#chartableheading{
+  font-size: 25px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 #creategameform{
   position: absolute;
   top:50px;

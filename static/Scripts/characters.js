@@ -64,4 +64,3 @@ addCell(totalChars);
 addCell("chars2");
 
 start();
-
