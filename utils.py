@@ -67,28 +67,25 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
 
 #Get Character Names
-<<<<<<< HEAD
-def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
-    if not user:
-        return "Leon"
-	#Connect to mongodb
-	connection = MongoClient()
-	c = connection['data']
-	#Get every character
-	cursor = c.characters.find()
-	names =[]
-	#Get Names
-	for character in cursor:
-		names.append(character)
 
-=======
-def getNames(username):
+def getNames(username=None):
 	#Connect to mongodb
 	connection = MongoClient()
 	c = connection['data']
+	#IF no param
+	if not username:
+		cursor= c.characters.find()
+		names = {}
+		for char in cursor:
+			names[char['idnum']] = char
+		return names
 	#Find the User and Get Names
-	return c.users.find_one({'username':username})['characters']
->>>>>>> 49d7fbf3c588c2c1b7f35452e9aeefe9bd4074f7
+	chars = c.users.find_one({'username':username})['characters']
+	names = {}	
+	for char in chars:
+		names[char['idnum']]=char
+	return names
+
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
 	#Connect to Mongodb
