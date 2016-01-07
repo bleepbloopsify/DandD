@@ -5,7 +5,11 @@ secretkey= hashlib.md5("d&d").digest()
 
 #-------------------TEST METHODS------------------
 def creategame(form):
-    return "yay"#SEAN CAN YOU USE MAKE GAME AND SET GAME HERE THIS HAS ALL THE PARAMETERS FROM THE THING
+    #First Make the Game and get the idnum
+    idnum = makeGame(form['user'])
+    #Set the Game
+    setGame(idnum, form['players'])
+    return idnum
 
 #-------------------ITEM METHODs-------------------
 def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
