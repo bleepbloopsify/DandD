@@ -58,7 +58,7 @@ def gameinfo(id=0):
 @app.route("/characters", methods=['GET', 'POST'])
 def characters():
     if request.method == 'GET':
-        charsSent = utils.getCharNames()
+        charsSent = utils.getNames()
         return render_template("character.html",charsSent=charsSent)
     else:
         form = request.form

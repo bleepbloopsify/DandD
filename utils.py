@@ -68,21 +68,17 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
 
 #Get Character Names
 
-def getNames():
+def getNames(username=None):
 	#Connect to mongodb
 	connection = MongoClient()
 	c = connection['data']
-	#Get all the characters
-	cursor= c.characters.find()
-	names = {}
-	for char in cursor:
-		names[char['idnum']] = char
-	return names
-
-def getNames(username):
-	#Connect to mongodb
-	connection = MongoClient()
-	c = connection['data']
+	#IF no param
+	if not username:
+		cursor= c.characters.find()
+		names = {}
+		for char in cursor:
+			names[char['idnum']] = char
+		return names
 	#Find the User and Get Names
 	chars = c.users.find_one({'username':username})['characters']
 	names = {}	
