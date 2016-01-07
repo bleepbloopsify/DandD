@@ -37,8 +37,8 @@ def games():
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
     if request.method == "POST":
-        if 'user' in session and session['user']:
-            return render_template("creategame")
+        form = request.form
+        return utils.creategame(form)
     else:
         return redirect("/games")
 
@@ -55,10 +55,14 @@ def gameinfo(id=0):
     else:
         form = request.form
 
-@app.route("/characters")
+@app.route("/characters", methods=['GET', 'POST'])
 def characters():
-    charsSent = "test"
-    return render_template("character.html",charsSent=charsSent)
+    if request.method == 'GET':
+        charsSent = utils.getCharNames()
+        return render_template("character.html",charsSent=charsSent)
+    else:
+        form = request.form
+        return "yay"
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])

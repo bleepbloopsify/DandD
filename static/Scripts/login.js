@@ -4,8 +4,8 @@ $(document).ready(function(){
       url:"/login",
       method:"POST",
       data:{
-        username:$("#username").val(),
-        password:$("#password").val()
+        "username":$("#username").val(),
+        "password":$("#password").val()
       },
       success: function(data){
         if (data == 'success'){

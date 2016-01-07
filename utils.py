@@ -3,6 +3,10 @@ import hashlib
 
 secretkey= hashlib.md5("d&d").digest()
 
+#-------------------TEST METHODS------------------
+def creategame(form):
+    return "yay"#SEAN CAN YOU USE MAKE GAME AND SET GAME HERE THIS HAS ALL THE PARAMETERS FROM THE THING
+
 #-------------------ITEM METHODs-------------------
 def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
     #Create the item
@@ -44,7 +48,7 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
-    #Create the Character  
+    #Create the Character
     character = {
 	'name':name,
 	'race':race,
@@ -61,7 +65,9 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     userchars = c.users.findone({'username':username})['characters']
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
+
 #Get Character Names
+
 def getNames():
 	#Connect to mongodb
 	connection = MongoClient()
@@ -71,6 +77,15 @@ def getNames():
 	names = {}
 	for char in cursor:
 		names[char['idnum']] = char
+	return names
+
+
+def getNames(username):
+	#Connect to mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Find the User and Get Names
+	names = c.users.find_one({'username':username})['characters']
 	return names
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
