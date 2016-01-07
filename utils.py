@@ -27,6 +27,19 @@ def makeItem(charid, name,item_class, position=None, damage=None, armor=None, mo
     old_inven.append(item)
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
+def rmvItem(charid, name):
+	#Connect to Mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Find the Character and get his inventory
+	inven = c.characters.find_one({'idnum':charid})['items']
+	#Iterate over the inventory and find and remove the correct item
+	for item in items:
+		if (item['name'] == name):
+			items.remove(item)
+			break
+	#Update the Character Inventory
+	c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
 def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
@@ -54,6 +67,7 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
 
 #Get Character Names
+<<<<<<< HEAD
 def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
     if not user:
         return "Leon"
@@ -67,6 +81,14 @@ def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
 	for character in cursor:
 		names.append(character)
 
+=======
+def getNames(username):
+	#Connect to mongodb
+	connection = MongoClient()
+	c = connection['data']
+	#Find the User and Get Names
+	return c.users.find_one({'username':username})['characters']
+>>>>>>> 49d7fbf3c588c2c1b7f35452e9aeefe9bd4074f7
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
 	#Connect to Mongodb
@@ -75,16 +97,18 @@ def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,sta
 	#Find the Character
 	character = c.characters.find_one({'idnum':idnum})
 	#Go through the information passed, if no info was passed leave as is
-	new_name = name or character['name']
-	new_race = race or character['race']
-	new_subrace = subrace or character['subrace']
-	new_hpmax = hpmax or character['hpmax']
-	new_hpcurr = hpcurr or character['hpcurr']
-	new_status = status or character['status']
-	new_traits = traits or character['traits']
-	new_items = items or character['items']
+	new_char={
+	'name':name or character['name'],
+	'race': race or character['race'],
+	'subrace': subrace or character['subrace'],
+	'hpmax' : hpmax or character['hpmax'],
+	'hpcurr' : hpcurr or character['hpcurr'],
+	'status' : status or character['status'],
+	'traits' : traits or character['traits'],
+	'items' : items or character['items']
+	}
 	#Update the Character
-	#c.characters.update({'idnum':idnum}, {"$set": {'name':new_name, 'race':new_race, 'subrace':new_subrace, 'hpmax':new_hpmax, 'hpcurr' = new_hpcurr, 	     'status':new_status,'traits':new_traits,'items':new_items}})
+	c.characters.update({'idnum':idnum}, new_char)
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
@@ -112,10 +136,8 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         return False
     #Create the list to hold the game names
     names = []
-    #Loop through games and find all the games with host = host
-    cursor = c.games.find({'host':host})
-    for game in cursor:
-        names.append(game['name'])
+    #Loop through users and find the correct users games
+    names = c.users.find_one({'users':host})['dmgames']
     #Return the list
     return names
 
@@ -128,7 +150,7 @@ def makeGame(host):
          'host':host
      }
      c.games.insert(game)
-     return True
+     return idnum
 #-----------------END GAME EMTHODS-------------------------
 
 #-------------------MORE LOGIN METHODS-----------------------------------------------

@@ -80,3 +80,64 @@ var populateList = function(){
 var showDescript = function(){
   this.html(sentChars[ this.attr('id') ][ 'description' ]);
 };
+// =======
+// var start = function(item){
+//     item.addEventListener('mouseover',function(){
+// 	var descript = "sample description";
+// 	showDescript(this.innerHTML,descript);
+//     });
+// }
+//
+// var showDescript = function showDescript(name,descript){
+//     for (var r=0, row; row = chartable.rows[r]; r++){
+// 	for (var c=0, col; col = row.cells[c]; c++){
+// 	    if (col.innerHTML == name){
+// 		col.innerHTML = descript;
+// 		col.addEventListener('mouseout',function(){
+// 		    console.log("ok");
+// 		    hideDescript(name, descript);
+// 		});
+// 	    }
+// 	}
+//     }
+// }
+//
+// var hideDescript = function hideDescript(name,descript){
+//     for (var r=0, row; row = chartable.rows[r]; r++){
+// 	for (var c=0, col; col = row.cells[c]; c++){
+// 	    if (col.innerHTML == descript){
+// 		col.innerHTML = name;
+// 		col.addEventListener('mouseover',function(){
+// 		    showDescript(name, descript);
+// 		});
+// 	    }
+// 	}
+//     }
+// }
+//
+// var cellsPerRow = 3;
+// var addCell = function addCell(info){
+//     var lastRow = chartable.rows[chartable.rows.length-1];
+//     var rowSize = lastRow.cells.length;
+//     console.log(rowSize);
+//     if (rowSize < cellsPerRow){
+// 	var newItem = lastRow.insertCell(rowSize);
+// 	newItem.innerHTML = "<img src="+img+">"+info;
+// 	start(newItem);
+//     }
+//     else{
+// 	var newRow = chartable.insertRow(chartable.rows.length);
+// 	var newItem = newRow.insertCell(0);
+// 	newItem.innerHTML = "<img src="+img+">"+info;
+// 	start(newItem);
+//     }
+// }
+//
+// var totalChars = document.getElementById("hiddenchars").innerHTML;
+//
+// var img = "http://www.firemagicgrills.com/wp-content/uploads/accessories-small-placeholder.jpg";
+//
+// addCell(totalChars);
+// addCell("chars2");
+//
+// >>>>>>> 49d7fbf3c588c2c1b7f35452e9aeefe9bd4074f7
