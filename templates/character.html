@@ -2,12 +2,11 @@
 
 {% block body %}
 
-<div id="chartable">
-  <div id="chartableheading">
-    Characters
-  </div>
-  <ul id="chartable"></ul>
+<div id="chartableheading">
+  Characters
 </div>
+<ul id="chartable"></ul>
+
 
 <!-- Form for creating characters, should eventually be pop-up -->
 <div id="createcharform">
@@ -49,6 +48,6 @@
 {% endblock %}
 
 {% block endscript %}
-<script type="text/javascript">var sentChars = "{{sentChars}}";</script>
+<script type="text/javascript">var sentChars = {{sentChars}};</script>
 <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
 {% endblock %}

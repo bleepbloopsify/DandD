@@ -52,6 +52,7 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     userchars = c.users.findone({'username':username})['characters']
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
+
 #Get Character Names
 def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
     if not user:
@@ -64,7 +65,8 @@ def getCharNames(user=None):#HAS TO RETURN CHARACTER STUFFS TOO
 	names =[]
 	#Get Names
 	for character in cursor:
-		names.append(character['name'])
+		names.append(character)
+
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
 	#Connect to Mongodb
