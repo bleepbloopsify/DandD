@@ -1,22 +1,17 @@
 {% extends "master.html" %}
 
 {% block body %}
-<center>
-  <font size = "5">
-    <b><u> Characters </u></b>
-    <br><br>
-    <p hidden id="hiddenchars">{{charsSent}}</p>
-    <table id="chartable">
-      <tbody>
-	<tr></tr>
-      </tbody>
-    </table>
-  </font>
-</center>
+
+<div id="chartableheading">
+  Characters
+</div>
+<button type="button" id="createchar">Create</button>
+<ul id="chartable"></ul>
+
 
 <!-- Form for creating games -->
 <div id="createcharform">
-  <form action="/create_char" method="POST" class="form-horizontal" role="form">
+  <form id="creatingcharform" class="form-horizontal" role="form">
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="charname">Name:</label>
@@ -24,24 +19,24 @@
 	<input type="text" class="form-control" name="charname" id="charname">
       </div>
     </div>
-    
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="race">Race:</label>
       <div class="col-sm-2">
-	<input type="text" class="form-control" name="race" id="race">
+	       <input type="text" class="form-control" name="race" id="race">
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="subrace">Subrace:</label>
       <div class="col-sm-2">
-	<input type="text" class="form-control" name="subrace" id="subrace">
+	       <input type="text" class="form-control" name="subrace" id="subrace">
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-	<button type="submit">Create</button>
+	       <button type="button" id="create">Create</button>
       </div>
     </div>
   </form>
@@ -50,8 +45,10 @@
 <!-- Form for editing characters, should eventually be pop-up -->
 <div id="editcharform">
 </div>
+
 {% endblock %}
 
 {% block endscript %}
+<script type="text/javascript">var sentChars = {{sentChars}};</script>
 <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
 {% endblock %}
