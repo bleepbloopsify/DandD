@@ -73,20 +73,23 @@ def getNames():
 	connection = MongoClient()
 	c = connection['data']
 	#Get all the characters
-	cursor= c.users.find()
+	cursor= c.characters.find()
 	names = {}
 	for char in cursor:
 		names[char['idnum']] = char
 	return names
-
 
 def getNames(username):
 	#Connect to mongodb
 	connection = MongoClient()
 	c = connection['data']
 	#Find the User and Get Names
-	names = c.users.find_one({'username':username})['characters']
+	chars = c.users.find_one({'username':username})['characters']
+	names = {}	
+	for char in chars:
+		names[char['idnum']]=char
 	return names
+
 #Modify preexisting characters
 def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
 	#Connect to Mongodb
