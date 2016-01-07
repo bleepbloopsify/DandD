@@ -2,12 +2,11 @@ body{
   background-color: beige;
 }
 
-<<<<<<< HEAD
 #createbtn{
     position: absolute;
     bottom: 20px;
     right: 30px;
-=======
+    
 #chartable{
   text-align: center;
 }
@@ -16,7 +15,6 @@ body{
   font-size: 25px;
   text-decoration: underline;
   font-weight: bold;
->>>>>>> fd780694423b51ee8b67efaf8b33cd8d0335d86a
 }
 
 #creategameform{
@@ -56,7 +54,6 @@ body{
 err{
     color:red;
 }
-
 
 .navbar-nav > li{
     line-height: 1;
