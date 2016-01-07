@@ -114,3 +114,7 @@ var populateList = function(){
 var showDescript = function(){
   this.html(sentChars[ this.attr('id') ][ 'description' ]);
 };
+
+var hideDescript = function(){
+  this.html(sentChars[ this.attr('id') ][ 'name' ]);
+};
