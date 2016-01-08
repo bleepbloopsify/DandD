@@ -85,7 +85,7 @@ def getNames(username=None):
 		return names
 	#Find the User and Get Names
 	chars = c.users.find_one({'username':username})['characters']
-	names = {}	
+	names = {}
 	for char in chars:
 		names[char['idnum']]=char
 	return names
@@ -160,8 +160,6 @@ def auth(username, password):
         return False
     connection = MongoClient() #Connect to the Mongodb
     c = connection['data']
-    print c.collection_names()
-    print len(c.collection_names())
     if not "users" in c.collection_names():#Check if the table 'users' exists
        return False
     if not c.users.find_one({'username':username}):#Check the username
@@ -171,7 +169,6 @@ def auth(username, password):
     return True#If Password and Uname match return true
 
 def register(username, password, confirm_password):
-    print "hi"
     if username == "" or password == "" or confirm_password == "":
         return False
     #Connect to the Mongo DB

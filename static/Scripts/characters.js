@@ -82,21 +82,20 @@ var sendgame = function(){
   });
 
   $.ajax({
-    url:"/create_char",
+    url:"/characters",
     method:"POST",
     data: inputs ,
     success: function(data){
       console.log(data);
-      console.log("yay");
-      // window.location.href = "/gameinfo/" + data;
+      window.location.href = "/charinfo/" + data;
     }
   })
 };
 
 $(document).ready( function(){
-  $("#createchar").click(openwindow);
+  $("#create_char").click(openwindow);
   $("#closewindow").click(closewindow);
-  $("#create").click(sendgame);
+  $("#createchar").click(sendgame);
   populateList();
 });
 
@@ -107,8 +106,14 @@ var populateList = function(){
     element.html(char["name"]);
     element.on('mouseover', showDescript);
     element.on('mouseout', hideDescript);
+    element.on('click', linktochar);
     element.appendTo("#chartable");
   }
+}
+
+var linktochar = function(){
+  console.log($(this));
+  window.location.href = "/charinfo/" + $(this).attr('id');
 }
 
 var showDescript = function(){
