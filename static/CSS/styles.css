@@ -6,17 +6,23 @@ body{
   
 }
 
+#closewindow{
+  position:absolute;
+  right:25px;
+  border-radius:10px;
+  color:red;
+}
+
 #createbtn{
     position: absolute;
     bottom: 20px;
     right: 30px;
 }
 
-#closewindow{
-  position:absolute;
-  right:25px;
-  border-radius:10px;
-  color:red;
+#createcharbtn{
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
 }
 
 #createcharform{
@@ -25,13 +31,13 @@ body{
   border: 2px solid blue;
   border-radius:25px;
   position:absolute;
-  top: 150px;
-  width:98%;
+  top: 143px;
+  width:48%;
   margin-right:20px;
 }
 
 #creatingcharform{
-  padding:20px;
+    padding: 20px;
 }
 
 #chartable{
