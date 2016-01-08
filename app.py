@@ -15,14 +15,6 @@ socketio = SocketIO(app)
 def index():
     return render_template("index.html")
 
-@app.route("/create_char", methods=["GET", "POST"]) #The page for creating a new character / editing character info
-def create_char():
-    if request.method == 'POST':
-        form = request.form
-        return "success"
-    else:
-        return redirect("/home")
-
 @app.route('/games', methods=['GET', "POST"])# Page for viewing the list of all of your games
 def games():
     if request.method == "GET":
@@ -63,7 +55,8 @@ def characters():
         return render_template("character.html",charsSent=charsSent)
     else:
         form = request.form
-        return "yay"
+        form['user'] = session['user']
+        return utils.createChar(form)
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
