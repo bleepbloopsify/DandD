@@ -80,7 +80,7 @@ var sendgame = function(){
   $("#creatingcharform input").each( function(){
     inputs[ $(this).attr( "id" ) ] = $(this).val();
   });
-
+  console.log(inputs);
   $.ajax({
     url:"/characters",
     method:"POST",

@@ -69,6 +69,7 @@ def createChar(form):
     userchars = c.users.findone({'username':form['user']})['characters']
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
+    return idnum
 
 #Get Character Names
 
