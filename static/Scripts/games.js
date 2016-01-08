@@ -17,11 +17,9 @@ var sendgame = function(){
   $.ajax({
     url:"/creategame",
     method:"POST",
-    data: inputs ,
+    data: inputs ,    
     success: function(data){
-      console.log(data);
-      console.log("yay");
-      // window.location.href = "/gameinfo/" + data;
+      window.location.href = "/gameinfo/" + data;
     }
   })
 };

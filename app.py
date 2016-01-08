@@ -38,6 +38,7 @@ def games():
 def creategame():
     if request.method == "POST":
         form = request.form
+        form['user'] = session['user']
         return utils.creategame(form)
     else:
         return redirect("/games")
