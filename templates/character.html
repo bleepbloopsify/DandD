@@ -5,7 +5,7 @@
 <div id="chartableheading">
   Characters
 </div>
-<button type="button" id="createchar">Create</button>
+<button type="button" id="create_char">Create</button>
 <ul id="chartable"></ul>
 
 
@@ -46,6 +46,6 @@
 {% endblock %}
 
 {% block endscript %}
-<script type="text/javascript">var sentChars = {{sentChars}};</script>
+<script type="text/javascript">var sentChars = {{sentChars or {}}};</script>
 <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
 {% endblock %}

@@ -46,7 +46,7 @@ def rmvItem(charid, name):
 	c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
-def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
+def createChar(form):
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
@@ -54,19 +54,19 @@ def makeChar(username,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,st
     idnum = c.characters.count() + 1
     #Create the Character
     character = {
-	'name':name,
-	'race':race,
+	'name':form['name'] or None,
+	'race':form['race'] or None,
 	'idnum':idnum,
-	'subrace':subrace,
-	'hpmax':hpmax,
-	'hpcurr':hpcurr,
-	'status':status,
-	'traits':traits,
-	'items':items
+	'subrace':form['subrace'] or None,
+	'hpmax':form['hpmax'] or None,
+	'hpcurr':form['hpcurr'] or None,
+	'status':form['status'] or None,
+	'traits':form['traits'] or None,
+	'items':form['items'] or None
 	}
     #Insert the Character into the Character collection and insert the character into the users list
     c.characters.insert(character)
-    userchars = c.users.findone({'username':username})['characters']
+    userchars = c.users.findone({'username':form['user']})['characters']
     userchars.append(character)
     c.users.update({'username':username}, {"$set":{'characters':userchars}})
 
@@ -85,28 +85,28 @@ def getNames(username=None):
 		return names
 	#Find the User and Get Names
 	chars = c.users.find_one({'username':username})['characters']
-	names = {}	
+	names = {}
 	for char in chars:
 		names[char['idnum']]=char
 	return names
 
 #Modify preexisting characters
-def updateChar(idnum,name=None,race=None,subrace=None,hpmax=None,hpcurr=None,status=None,traits=None,items=None):
+def updateChar(form):
 	#Connect to Mongodb
 	connection = MongoClient()
 	c = connection['data']
 	#Find the Character
-	character = c.characters.find_one({'idnum':idnum})
+	character = c.characters.find_one({'idnum':form['idnum']})
 	#Go through the information passed, if no info was passed leave as is
 	new_char={
-	'name':name or character['name'],
-	'race': race or character['race'],
-	'subrace': subrace or character['subrace'],
-	'hpmax' : hpmax or character['hpmax'],
-	'hpcurr' : hpcurr or character['hpcurr'],
-	'status' : status or character['status'],
-	'traits' : traits or character['traits'],
-	'items' : items or character['items']
+	'name':form['name'] or character['name'],
+	'race': form['race'] or character['race'],
+	'subrace': form['subrace'] or character['subrace'],
+	'hpmax' : form['hpmax'] or character['hpmax'],
+	'hpcurr' : form['hpcurr'] or character['hpcurr'],
+	'status' : form['status'] or character['status'],
+	'traits' : form['traits'] or character['traits'],
+	'items' : form['items'] or character['items']
 	}
 	#Update the Character
 	c.characters.update({'idnum':idnum}, new_char)
@@ -160,8 +160,6 @@ def auth(username, password):
         return False
     connection = MongoClient() #Connect to the Mongodb
     c = connection['data']
-    print c.collection_names()
-    print len(c.collection_names())
     if not "users" in c.collection_names():#Check if the table 'users' exists
        return False
     if not c.users.find_one({'username':username}):#Check the username
@@ -171,7 +169,6 @@ def auth(username, password):
     return True#If Password and Uname match return true
 
 def register(username, password, confirm_password):
-    print "hi"
     if username == "" or password == "" or confirm_password == "":
         return False
     #Connect to the Mongo DB
