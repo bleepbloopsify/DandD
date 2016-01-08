@@ -51,12 +51,17 @@ def gameinfo(id=0):
 @app.route("/characters", methods=['GET', 'POST'])
 def characters():
     if request.method == 'GET':
-        charsSent = utils.getNames()
+        charsSent = utils.getNames(session['user'])
         return render_template("character.html",charsSent=charsSent)
     else:
-        form = request.form
+        form = request.form.copy()
         form['user'] = session['user']
         return utils.createChar(form)
+
+@app.route("/charinfo")
+@app.route("/charinfo/<id>")
+def charinfo(id=0):
+    return ""
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
