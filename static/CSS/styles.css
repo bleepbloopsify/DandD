@@ -1,16 +1,16 @@
 body{
-  background-color: beige;
+    background-color: beige;
 }
 
 #chartable>li,#gametable>li{
-  
+    
 }
 
 #closewindow{
-  position:absolute;
-  right:25px;
-  border-radius:10px;
-  color:red;
+    position:absolute;
+    right:25px;
+    border-radius:10px;
+    color:red;
 }
 
 #createbtn{
@@ -19,21 +19,28 @@ body{
     right: 30px;
 }
 
-#createcharbtn{
+#create_char{
+    position: absolute;
+    left: 20px;
+    border-radius:5px;
+}
+
+#createchar{
     position: absolute;
     bottom: 15px;
     right: 25px;
+    border-radius: 25px;
 }
 
 #createcharform{
-  background-color:white;
-  visibility:hidden;
-  border: 2px solid blue;
-  border-radius:25px;
-  position:absolute;
-  top: 143px;
-  width:48%;
-  margin-right:20px;
+    background-color:white;
+    visibility:hidden;
+    border: 2px solid blue;
+    border-radius:25px;
+    position:absolute;
+    top: 140px;
+    width:48%;
+    margin-right:20px;
 }
 
 #creatingcharform{
@@ -41,14 +48,14 @@ body{
 }
 
 #chartable{
-  text-align: center;
+    text-align: center;
 }
 
 #chartableheading{
-  font-size: 25px;
-  text-decoration: underline;
-  font-weight: bold;
-  text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    font-weight: bold;
+    text-align: center;
 }
 
 #creategameform{
@@ -109,10 +116,10 @@ li.current{
 }
 
 li:hover{
-  background-color:gray;
-  color:black;
+    background-color:gray;
+    color:black;
 }
 
 .body{
-  padding:15px;
+    padding:15px;
 }
