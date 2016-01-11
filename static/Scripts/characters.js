@@ -94,7 +94,7 @@ var sendgame = function(){
 
 $(document).ready( function(){
   $("#create_char").click(openwindow);
-  $("#closewindow").click(closewindow);
+  $(".closewindow").click(closewindow);
   $("#createchar").click(sendgame);
   populateList();
 });
