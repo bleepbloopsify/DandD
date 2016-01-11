@@ -47,28 +47,39 @@ def rmvItem(charid, name):
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
 def createChar(form):
+    print "go"
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
+    print idnum
+    for i in form:
+	print i
+    print form['charname']
     #Create the Character
     character = {
-	'name':form['name'] or None,
-	'race':form['race'] or None,
+	'name':form['charname'] or "",
+	'race':form['race'] or "",
 	'idnum':idnum,
-	'subrace':form['subrace'] or None,
-	'hpmax':form['hpmax'] or None,
-	'hpcurr':form['hpcurr'] or None,
-	'status':form['status'] or None,
-	'traits':form['traits'] or None,
-	'items':form['items'] or None
+	'subrace':form['subrace'] or "",
+	#'hpmax':form['hpmax'] or "",
+	#'hpcurr':form['hpcurr'] or "",
+	#'status':form['status'] or "",
+	#'traits':form['traits'] or "",
+	#'items':form['items'] or ""
 	}
+    print character['name']
     #Insert the Character into the Character collection and insert the character into the users list
     c.characters.insert(character)
-    userchars = c.users.findone({'username':form['user']})['characters']
+    print "yes?"
+    userchars = c.users.find_one({'username':form['user']})['characters']
+    print userchars
     userchars.append(character)
-    c.users.update({'username':username}, {"$set":{'characters':userchars}})
+    print userchars
+    c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
+    print "?"
+    print idnum
     return idnum
 
 #Get Character Names
