@@ -36,7 +36,7 @@ def creategame():
         return redirect("/games")
 
 @app.route("/gameinfo")
-@app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details of a game
+@app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details  a game
 def gameinfo(id=0):
     if id == 0:
         return redirect("/games")
@@ -59,9 +59,17 @@ def characters():
         return utils.createChar(form)
 
 @app.route("/charinfo")
-@app.route("/charinfo/<id>")
+@app.route("/charinfo/<id>", methods=["GET", "POST"])
 def charinfo(id=0):
-    return ""
+    if id == 0:
+        return redirect("/characters")
+    if request.method == "GET":
+        if 'user' in session and session['user']:
+            return render_template("charinfo.html")
+        else:
+            return redirect("/login/redirect")
+    else:
+        form = request.form
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])

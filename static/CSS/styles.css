@@ -17,8 +17,8 @@ body{
 
 #createbtn{
     position: absolute;
-    bottom: 20px;
-    right: 30px;
+    bottom: 13px;
+    right: 20px;
 }
 
 #create_char{
@@ -41,7 +41,7 @@ body{
   border-radius:25px;
   position:absolute;
   top: 143px;
-  width:95%;
+  width:50%;
   margin-right:20px;
 }
 
