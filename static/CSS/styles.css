@@ -3,13 +3,14 @@ body{
 }
 
 #chartable>li,#gametable>li{
-  
+
 }
 
-#closewindow{
+.closewindow{
   position:absolute;
-  right:25px;
+  right:0px;
   border-radius:10px;
+  background-color: white;
   color:red;
 }
 
@@ -25,16 +26,17 @@ body{
     right: 25px;
 }
 
-#createcharform{
+.createform{
   background-color:white;
   visibility:hidden;
   border: 2px solid blue;
   border-radius:25px;
   position:absolute;
   top: 143px;
-  width:48%;
+  width:95%;
   margin-right:20px;
 }
+
 
 #creatingcharform{
     padding: 20px;
@@ -50,26 +52,6 @@ body{
   font-weight: bold;
   text-align: center;
 }
-
-#creategameform{
-    position: absolute;
-    top:50px;
-    left:0px;
-    margin:25px;
-    width:80%;
-    border:3px solid black;
-    border-radius:25px;
-    visibility: hidden;
-    height:500px;
-    background-color:white;
-}
-
-#closegamewindow{
-    position:absolute;
-    right:0px;
-    border-radius:50px;
-}
-
 
 #logo{
     width:200px;

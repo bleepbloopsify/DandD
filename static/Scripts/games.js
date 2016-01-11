@@ -17,7 +17,7 @@ var sendgame = function(){
   $.ajax({
     url:"/creategame",
     method:"POST",
-    data: inputs ,    
+    data: inputs ,
     success: function(data){
       window.location.href = "/gameinfo/" + data;
     }
@@ -26,7 +26,7 @@ var sendgame = function(){
 
 var attachListeners = function(){
   $("#creategame").click( openwindow );
-  $("#closegamewindow").click( closewindow );
+  $(".closewindow").click( closewindow );
   $("#create").click( sendgame );
 };
 
