@@ -1,5 +1,5 @@
 body{
-  background-color: beige;
+    background-color: beige;
 }
 
 #chartable>li,#gametable>li{
@@ -12,6 +12,7 @@ body{
   border-radius:10px;
   background-color: white;
   color:red;
+
 }
 
 #createbtn{
@@ -20,10 +21,17 @@ body{
     right: 30px;
 }
 
-#createcharbtn{
+#create_char{
+    position: absolute;
+    left: 20px;
+    border-radius:5px;
+}
+
+#createchar{
     position: absolute;
     bottom: 15px;
     right: 25px;
+    border-radius: 25px;
 }
 
 .createform{
@@ -43,14 +51,14 @@ body{
 }
 
 #chartable{
-  text-align: center;
+    text-align: center;
 }
 
 #chartableheading{
-  font-size: 25px;
-  text-decoration: underline;
-  font-weight: bold;
-  text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    font-weight: bold;
+    text-align: center;
 }
 
 #logo{
@@ -91,10 +99,10 @@ li.current{
 }
 
 li:hover{
-  background-color:gray;
-  color:black;
+    background-color:gray;
+    color:black;
 }
 
 .body{
-  padding:15px;
+    padding:15px;
 }

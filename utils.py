@@ -149,7 +149,7 @@ def makeGame(host):
      idnum = c.games.count() + 1
      game = {
          'id':idnum,
-         'host':host
+         'host':host,
      }
      c.games.insert(game)
      return idnum
@@ -193,7 +193,8 @@ def register(username, password, confirm_password):
     d = {
          'username': username,
          'password':encrypted,
-         'games':[]
+         'games':[],
+	 'characters':[]
          }
     c.users.insert(d)
     return True
