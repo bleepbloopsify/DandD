@@ -1,24 +1,27 @@
 {% extends "master.html" %}
 
 {% block head %}
-
 <script src="{{ url_for('static', filename='Scripts/socket.io.min.js') }}"></script>
-<script> var user = "{{session['user']}}"</script>
+<script> var user = {{session['user'] || {} }}; </script>
 {% endblock %}
 
 {% block body %}
-<button id="button">aaaaa</button>
-<form>
-  Game Name:<input id="name" type="text" name="gname">
-  Dungeon Master:<input id="host" type="text" name="hostname">
-</form>
+<!-- This is a page for an already created game.
+It will have information on every character and enemy and npc in the game.
+There will also be information availible for rooms, and item creation forms and npc creation forms.
+Main page for dm, will use sockets to ping players when their items change. -->
 
-<form>Add player:<input type="text" name="newplayer"></form>
-<button id="testb">clickme</button>
-<ul id="test">
-</ul>
+<ul id="characters"></ul>
+<ul id="enemies"></ul>
+<ul id="npcs"></ul>
+
+<button type="button" id="createitem">New Item</button>
+
+
+
+
+
 {% endblock %}
-
 
 {% block endscript %}
 <script src="{{ url_for('static', filename='Scripts/gameinfo.js') }}"></script>
