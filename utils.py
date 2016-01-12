@@ -72,8 +72,22 @@ def createChar(form):
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
     return idnum
 
+#Remove Characters
+#def rmvChar(idnum,username=None,gameid=None):
+    #Connect to Mongo
+  #  connection = MongoClient()
+  #  c = connection['data']
+    #If username was passed, check if the username is correct for the character
+  #  if username != None:
+        #Check if username is in database
+  #      cursor  = c.users.find()
+  #      for user in cursor:
+   #         if username == user['username']:
+                #If the name exists, then get all the characters from the user
+   #             charlist = c.users.find_one({'username':username})['characters']
+                #Check if 
+        
 #Get Character Names
-
 def getNames(username=None):
     #Connect to mongodb
     connection = MongoClient()
@@ -158,6 +172,38 @@ def makeGame(host):
      return idnum
 #-----------------END GAME EMTHODS-------------------------
 
+#-----------------User Methods-----------------------------
+def update_pw(user,old_password, new_password):
+    #Connect to Mongo
+    connection = MongoClient()
+    c = connection['data']
+    #Find the old password
+    password = c.users.find_one({'username': user})['password']
+    #Get the password encryption
+    encrypted_old = hashlib.md5(old_password).hexdigest()
+    #Check if the old passwords match
+    if not encrypted_old == password:
+        return False
+    #If the passwords match, Encrypt the new password and set the password
+    encrypted_new = hashlib.md5(new_password).hexdigest()
+    c.users.update({'username':user}, {"$set":{'password':encrypted_new}})
+    return True
+
+def update_user(old_user, new_user, password):
+    #Connect to Mongo
+    connection = MongoClient()
+    c = connection['data']
+    #Get the password
+    pw = c.users.find_one({'username':old_user})['password']
+    #Check if the passwords are the same
+    if not hashlib.md5(password).hexdigest() == pw:
+        return False
+    #If the passwords match, update the username in users
+    c.users.update({'username':old_user}, {"$set":{'username':new_user}})
+    #Get all the games that the user is hosting and update the list of players
+    c.games.update({'host':old_user},{"$set":{'host':new_user}})
+    return True
+    
 #-------------------MORE LOGIN METHODS-----------------------------------------------
 def auth(username, password):
     if username == "" or password == "":
