@@ -11,12 +11,5 @@ var retrieveGame = function(){
 }
 
 $(document).ready(function(){
-  $("#button").click(function(){
-    console.log("hhi");
-    socket.emit('clicked!!!', {data:"pls"});
-  });
-});
 
-$("#testb").click(function(){
-    $("#test").append($('<li>Hello</li>'));
 });

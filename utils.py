@@ -53,10 +53,6 @@ def createChar(form):
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
-    print idnum
-    for i in form:
-	print i
-    print form['charname']
     #Create the Character
     character = {
 	'name':form['charname'] or "",
@@ -69,17 +65,11 @@ def createChar(form):
 	#'traits':form['traits'] or "",
 	#'items':form['items'] or ""
 	}
-    print character['name']
     #Insert the Character into the Character collection and insert the character into the users list
     c.characters.insert(character)
-    print "yes?"
     userchars = c.users.find_one({'username':form['user']})['characters']
-    print userchars
     userchars.append(character)
-    print userchars
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
-    print "?"
-    print idnum
     return idnum
 
 #Get Character Names
