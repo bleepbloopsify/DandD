@@ -35,6 +35,7 @@ body{
 }
 
 .createform{
+  padding-left:20px;
   background-color:white;
   visibility:hidden;
   border: 2px solid blue;
