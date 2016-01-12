@@ -32,18 +32,18 @@ def makeItem(charid, name,item_class, position=None, damage=None, armor=None, mo
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
 def rmvItem(charid, name):
-	#Connect to Mongodb
-	connection = MongoClient()
-	c = connection['data']
-	#Find the Character and get his inventory
-	inven = c.characters.find_one({'idnum':charid})['items']
-	#Iterate over the inventory and find and remove the correct item
-	for item in items:
-		if (item['name'] == name):
-			items.remove(item)
-			break
-	#Update the Character Inventory
-	c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
+    #Connect to Mongodb
+    connection = MongoClient()
+    c = connection['data']
+    #Find the Character and get his inventory
+    inven = c.characters.find_one({'idnum':charid})['items']
+    #Iterate over the inventory and find and remove the correct item
+    for item in items:
+        if (item['name'] == name):
+            items.remove(item)
+            break
+    #Update the Character Inventory
+    c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
 def createChar(form):
@@ -55,16 +55,16 @@ def createChar(form):
     idnum = c.characters.count() + 1
     #Create the Character
     character = {
-	'name':form['charname'] or "",
-	'race':form['race'] or "",
-	'idnum':idnum,
-	'subrace':form['subrace'] or "",
-	#'hpmax':form['hpmax'] or "",
-	#'hpcurr':form['hpcurr'] or "",
-	#'status':form['status'] or "",
-	#'traits':form['traits'] or "",
-	#'items':form['items'] or ""
-	}
+    'name':form['charname'] or "",
+    'race':form['race'] or "",
+    'idnum':idnum,
+    'subrace':form['subrace'] or "",
+    #'hpmax':form['hpmax'] or "",
+    #'hpcurr':form['hpcurr'] or "",
+    #'status':form['status'] or "",
+    #'traits':form['traits'] or "",
+    #'items':form['items'] or ""
+    }
     #Insert the Character into the Character collection and insert the character into the users list
     c.characters.insert(character)
     userchars = c.users.find_one({'username':form['user']})['characters']
@@ -75,43 +75,45 @@ def createChar(form):
 #Get Character Names
 
 def getNames(username=None):
-	#Connect to mongodb
-	connection = MongoClient()
-	c = connection['data']
-	#IF no param
-	if not username:
-		cursor= c.characters.find()
-		names = {}
-		for char in cursor:
-			names[char['idnum']] = char
-		return names
-	#Find the User and Get Names
-	chars = c.users.find_one({'username':username})['characters']
-	names = {}
-	for char in chars:
-		names[char['idnum']]=char
-	return names
+    #Connect to mongodb
+    connection = MongoClient()
+    c = connection['data']
+    #IF no param
+    if not username:
+        cursor= c.characters.find()
+        names = {}
+        for char in cursor:
+            names[char['idnum']] = char
+        return names
+    print username
+    #Find the User and Get Names
+    chars = c.users.find_one({'username':username})['characters']
+    print chars
+    names = {}
+    for char in chars:
+        names[char['idnum']]= char
+    return names
 
 #Modify preexisting characters
 def updateChar(form):
-	#Connect to Mongodb
-	connection = MongoClient()
-	c = connection['data']
-	#Find the Character
-	character = c.characters.find_one({'idnum':form['idnum']})
-	#Go through the information passed, if no info was passed leave as is
-	new_char={
-	'name':form['name'] or character['name'],
-	'race': form['race'] or character['race'],
-	'subrace': form['subrace'] or character['subrace'],
-	'hpmax' : form['hpmax'] or character['hpmax'],
-	'hpcurr' : form['hpcurr'] or character['hpcurr'],
-	'status' : form['status'] or character['status'],
-	'traits' : form['traits'] or character['traits'],
-	'items' : form['items'] or character['items']
-	}
-	#Update the Character
-	c.characters.update({'idnum':idnum}, new_char)
+    #Connect to Mongodb
+    connection = MongoClient()
+    c = connection['data']
+    #Find the Character
+    character = c.characters.find_one({'idnum':form['idnum']})
+    #Go through the information passed, if no info was passed leave as is
+    new_char={
+    'name':form['name'] or character['name'],
+    'race': form['race'] or character['race'],
+    'subrace': form['subrace'] or character['subrace'],
+    'hpmax' : form['hpmax'] or character['hpmax'],
+    'hpcurr' : form['hpcurr'] or character['hpcurr'],
+    'status' : form['status'] or character['status'],
+    'traits' : form['traits'] or character['traits'],
+    'items' : form['items'] or character['items']
+    }
+    #Update the Character
+    c.characters.update({'idnum':idnum}, new_char)
 #----------------------Game GeT, SEt, make!----------------------
 def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Setup connection
@@ -195,7 +197,7 @@ def register(username, password, confirm_password):
          'username': username,
          'password':encrypted,
          'games':[],
-	 'characters':[]
+         'characters':[]
          }
     c.users.insert(d)
     return True

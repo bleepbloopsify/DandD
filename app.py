@@ -53,7 +53,8 @@ def characters():
     if request.method == 'GET':
         if 'user' in session and session['user']:
             charsSent = utils.getNames(session['user'])
-            return render_template("character.html",charsSent=charsSent)
+            print charsSent
+            return render_template("character.html")
         else:
             return redirect("/login/redirect")
     else:

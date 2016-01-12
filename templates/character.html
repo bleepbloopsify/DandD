@@ -35,7 +35,7 @@
       </div>
     </div>
   </form>
-  
+
   <button type="button" id="createchar" class="btn btn-success">Create</button>
 
 </div>
@@ -47,6 +47,6 @@
 {% endblock %}
 
 {% block endscript %}
-<script type="text/javascript">var sentChars = {{sentChars or {}}};</script>
+<script type="text/javascript">var sentChars = {{charsSent or {}}};</script>
 <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
 {% endblock %}
