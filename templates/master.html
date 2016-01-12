@@ -26,7 +26,7 @@
           <li><a href="/games">Games</a></li>
           <li><a href="/characters">Characters</a></li>
           <li>{% if session["user"] %}<a href="/logout">Logout</a>{% else %}<a href="/login">Login</a>{% endif %}</li>
-          <li class="lastright">{% if not session['user'] %}<a href="/register">Register</a>{% endif %}</li>
+          <li class="lastright">{% if not session['user'] %}<a href="/register">Register</a>{% else %}<a href="/editaccount">Account</a>{% endif %}</li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
