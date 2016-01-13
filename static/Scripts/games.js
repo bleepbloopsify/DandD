@@ -6,14 +6,12 @@ var openwindow = function(){
   $("#creategameform").css("visibility", "visible");
 };
 
-
-
 var sendgame = function(){
   var inputs = {};
   $("#creatinggameform input").each( function(){
     inputs[ $(this).attr( "id" ) ] = $(this).val();
   });
-
+  inputs.remove(["_id"])
   $.ajax({
     url:"/creategame",
     method:"POST",

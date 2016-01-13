@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import SocketIO, emit
 import utils
+import json
 
 import eventlet
 eventlet.monkey_patch()
@@ -52,16 +53,28 @@ def gameinfo(id=0):
 def characters():
     if request.method == 'GET':
         if 'user' in session and session['user']:
-            charsSent = utils.getNames(session['user'])
-            print charsSent
-            return render_template("character.html")
+            names = utils.getNames(session['user'])
+            for name in names:
+                print names[name].pop('_id',None)
+                print "???"
+            names = json.dumps(names)
+            print names
+            return render_template("character.html", sentChars=names)
         else:
             return redirect("/login/redirect")
     else:
         form = request.form.copy()
         form['user'] = session['user']
+        print form
         answer = utils.createChar(form)
         return str(answer)
+
+@app.route("/getchars", methods=["POST"])
+def getchars():
+    if request.method == "POST":
+        names = utils.getNames(session['user'])
+        print str(names)
+        return str(names)
 
 @app.route("/charinfo")
 @app.route("/charinfo/<id>", methods=["GET", "POST"])
@@ -109,6 +122,10 @@ def register():
             session['user'] = username
             return 'success'
         return 'fail'
+
+@app.route("/editaccount")
+def editaccount():
+    return ""
 
 @app.route("/logout")#---------------------------LOGOUT--------------
 def logout():
