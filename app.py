@@ -89,6 +89,14 @@ def charinfo(id=0):
     else:
         form = request.form
 
+@app.route("/editaccount", methods=['GET', 'POST'])
+def editaccount():
+    if request.method == 'GET':
+        if 'user' in session and session['user']:
+            return render_template("editaccount.html")
+        else:
+            return redirect("/login/redirect")
+
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
 @app.route("/login/<r>")
