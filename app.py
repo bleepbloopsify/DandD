@@ -129,6 +129,14 @@ def editaccount():
             return render_template("editaccount.html")
         else:
             return redirect("/login/redirect")
+    else:
+        form = request.form
+        username = session['user']
+        newpassword = form['newPassword']
+        oldpassword = form['oldPassword']
+        if utils.update_pw(username,oldpassword,newpassword):
+            return 'success'
+        return 'fail'
 
 @app.route("/logout")#---------------------------LOGOUT--------------
 def logout():
