@@ -68,6 +68,7 @@ def createChar(form):
     }
     #Insert the Character into the Character collection and insert the character into the users list
     c.characters.insert(character)
+    print character
     userchars = c.users.find_one({'username':form['user']})['characters']
     userchars.append(character)
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
@@ -86,8 +87,8 @@ def createChar(form):
    #         if username == user['username']:
                 #If the name exists, then get all the characters from the user
    #             charlist = c.users.find_one({'username':username})['characters']
-                #Check if 
-        
+                #Check if
+
 #Get Character Names
 def getNames(username=None):
     #Connect to mongodb
@@ -204,7 +205,7 @@ def update_user(old_user, new_user, password):
     #Get all the games that the user is hosting and update the list of players
     c.games.update({'host':old_user},{"$set":{'host':new_user}})
     return True
-    
+
 #-------------------MORE LOGIN METHODS-----------------------------------------------
 def auth(username, password):
     if username == "" or password == "":

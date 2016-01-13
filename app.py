@@ -55,8 +55,7 @@ def characters():
         if 'user' in session and session['user']:
             names = utils.getNames(session['user'])
             for name in names:
-                print names[name].pop('_id',None)
-                print "???"
+                names[name].pop('_id',None)
             names = json.dumps(names)
             print names
             return render_template("character.html", sentChars=names)
@@ -88,14 +87,6 @@ def charinfo(id=0):
             return redirect("/login/redirect")
     else:
         form = request.form
-
-@app.route("/editaccount", methods=['GET', 'POST'])
-def editaccount():
-    if request.method == 'GET':
-        if 'user' in session and session['user']:
-            return render_template("editaccount.html")
-        else:
-            return redirect("/login/redirect")
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
@@ -131,9 +122,13 @@ def register():
             return 'success'
         return 'fail'
 
-@app.route("/editaccount")
+@app.route("/editaccount", methods=['GET', 'POST'])
 def editaccount():
-    return ""
+    if request.method == 'GET':
+        if 'user' in session and session['user']:
+            return render_template("editaccount.html")
+        else:
+            return redirect("/login/redirect")
 
 @app.route("/logout")#---------------------------LOGOUT--------------
 def logout():
