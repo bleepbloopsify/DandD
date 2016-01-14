@@ -86,7 +86,7 @@ def rmvChar(idnum,username=None,gameid=None):
             if x['idnum']==idnum:
                 userchars.remove(x)
                 c.users.update({'username':username},{"$set":{'characters':userchars}})
-                #Go through games and remove the character from anygames
+                #Go through games and remove the character from any games
                 cursor = c.games.find()
                 for game in cursor:
                     if idnum in game['players']:
@@ -111,6 +111,7 @@ def rmvChar(idnum,username=None,gameid=None):
 def getChar(idnum):
     connection = MongoClient()
     c = connection['data']
+    print c.characters.find_one({'idnum':idnum})
     return c.characters.find_one({'idnum':idnum})
 
 #Get Character Names

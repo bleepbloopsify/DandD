@@ -90,9 +90,7 @@ def charinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
-        form = request.form
-        form['idnum'] = id
-        utils.updateChar(form)
+        return json.dumps(utils.getChar(id))
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
