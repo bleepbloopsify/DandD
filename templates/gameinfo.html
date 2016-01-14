@@ -2,7 +2,6 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='Scripts/socket.io.min.js') }}"></script>
-<script> var user = {{session['user'] || {} }}; </script>
 {% endblock %}
 
 {% block body %}

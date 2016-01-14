@@ -20,7 +20,11 @@ def index():
 def games():
     if request.method == "GET":
         if 'user' in session and session['user']:
-            return render_template("games.html")
+            games = utils.getGames(session['user'])
+            print games
+            games = json.dumps(games)
+            print games
+            return render_template("games.html", games = games)
         else:
             return redirect("/login/redirect")
     elif request.method == "POST":
@@ -87,6 +91,8 @@ def charinfo(id=0):
             return redirect("/login/redirect")
     else:
         form = request.form
+        form['idnum'] = id
+        utils.updateChar(form)
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
