@@ -139,10 +139,18 @@ def editaccount():
         form = request.form
         print form
         username = session['user']
-        newpassword = form['newPassword']
+        newusername = form['newUsername'] or ""
+        newpassword = form['newPassword'] or ""
         oldpassword = form['oldPassword']
-        if utils.update_pw(username,oldpassword,newpassword):
-            return 'success'
+        
+        if form['newUsername']:
+            if utils.update_user(username,newusername,oldpassword):
+                return 'success'
+            return 'fail'
+        if form['newPassword']:
+            if utils.update_pw(username,oldpassword,newpassword):
+                return 'success'
+            return 'fail'
         return 'fail'
 
 @app.route("/logout")#---------------------------LOGOUT--------------
