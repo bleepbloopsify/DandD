@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='Scripts/socket.io.min.js') }}"></script>
+<script> var user = "{{session['user']}}"</script>
+{% endblock %}
+
+{% block body %}
+<button type="button" id="editchar" class="btn btn-info">Edit</button>
+{% endblock %}
+
+
+
+
+
+{% block endscript %}{% endblock %}
