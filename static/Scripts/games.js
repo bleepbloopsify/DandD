@@ -6,6 +6,12 @@ var openwindow = function(){
   $("#creategameform").css("visibility", "visible");
 };
 
+var populateList = function(){
+  for (var gamekey in games){
+    
+  }
+};
+
 var sendgame = function(){
   var inputs = {};
   $("#creatinggameform input").each( function(){

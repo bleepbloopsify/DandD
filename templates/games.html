@@ -4,6 +4,8 @@
 
 <button id="creategame">New Game</button>
 
+<ul id="games"></ul>
+
 <!-- Form for creating games, pop-up window
 -->
 <div class="createform" id="creategameform">
@@ -54,5 +56,6 @@
 {% endblock %}
 
 {% block endscript %}
+<script>var games = JSON.parse("{{ games|safe }}");</script>
 <script src="{{ url_for('static', filename='Scripts/games.js') }}"></script>
 {% endblock %}

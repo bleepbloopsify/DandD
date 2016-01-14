@@ -75,19 +75,43 @@ def createChar(form):
     return idnum
 
 #Remove Characters
-#def rmvChar(idnum,username=None,gameid=None):
+def rmvChar(idnum,username=None,gameid=None):
     #Connect to Mongo
-  #  connection = MongoClient()
-  #  c = connection['data']
+    connection = MongoClient()
+    c = connection['data']
     #If username was passed, check if the username is correct for the character
-  #  if username != None:
-        #Check if username is in database
-  #      cursor  = c.users.find()
-  #      for user in cursor:
-   #         if username == user['username']:
-                #If the name exists, then get all the characters from the user
-   #             charlist = c.users.find_one({'username':username})['characters']
-                #Check if
+    if username != None:
+        userchars = c.users.find_one({'username':username})['characters']
+        for x in userchars:
+            if x['idnum']==idnum:
+                userchars.remove(x)
+                c.users.update({'username':username},{"$set":{'characters':userchars}})
+                #Go through games and remove the character from anygames
+                cursor = c.games.find()
+                for game in cursor:
+                    if idnum in game['players']:
+                        game['players'].remove(idnum)
+                        c.games.update({'id':game['id']},{"$set":{'players':game['players']}})
+                c.characters.delete_one({'idnum':idnum})
+    #If no username was passed but a gameid was passed, go to that game and remove the character
+    elif gameid != None:
+        game = c.games.find_one({'id':gameid})
+        game['players'].remove(idnum)
+        c.games.update({'id':game['id']},{"$set":{'players':game['players']}})
+    #Else just remove the idnum from all games
+    else:
+        cursor = c.games.find()
+        for game in cursor:
+            if idnum in game['players']:
+                game['players'].remove(idnum)
+                c.games.update({'id':game['id']},{"$set":{'players':game['players']}})
+                
+        
+#Get Character by Idnum
+def getChar(idnum):
+    connection = MongoClient()
+    c = connection['data']
+    return c.characters.find_one({'idnum':idnum})
 
 #Get Character Names
 def getNames(username=None):
@@ -159,8 +183,11 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
     names = []
     #Loop through users and find the correct users games
     names = c.users.find_one({'users':host})['dmgames']
-    #Return the list
-    return names
+    #With the list of ids, get all the corresponding games
+    games = []
+    for name in names:
+        games.append(c.games.find_one({'id':name}))
+    return games
 
 def makeGame(host):
      connection = MongoClient()
