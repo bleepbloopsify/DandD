@@ -137,6 +137,7 @@ def editaccount():
             return redirect("/login/redirect")
     else:
         form = request.form
+        print form
         username = session['user']
         newpassword = form['newPassword']
         oldpassword = form['oldPassword']
