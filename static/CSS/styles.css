@@ -23,6 +23,7 @@ body{
 
 #create_char{
     position: absolute;
+    top: 130px;
     left: 20px;
     border-radius:5px;
 }

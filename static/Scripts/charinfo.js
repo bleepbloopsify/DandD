@@ -15,3 +15,7 @@ var retrieveCharacter = function(){
 $(document).ready(function(){
     retrieveCharacter();
 });
+
+var populateInfo = function populateInfo(){
+    
+};
