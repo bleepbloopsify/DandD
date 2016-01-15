@@ -6,7 +6,7 @@ var openwindow = function(){
   $("#createcharform").css("visibility", "visible");
 };
 
-var sendgame = function(){
+var sendchar = function(){
   var inputs = {};
   $("#creatingcharform input").each( function(){
     inputs[ $(this).attr( "id" ) ] = $(this).val();
@@ -26,7 +26,7 @@ var sendgame = function(){
 $(document).ready( function(){
   $("#create_char").click(openwindow);
   $(".closewindow").click(closewindow);
-  $("#createchar").click(sendgame);
+  $("#createchar").click(sendchar);
   populateList();
 });
 

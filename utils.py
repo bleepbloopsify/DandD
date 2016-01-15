@@ -40,9 +40,11 @@ def createChar(form):
     #Find the correct characterid
     idnum = c.characters.count() + 1
     form['idnum'] = idnum
+    print form
+    print form.to_dict()
     #Insert the Character into the Character collection and insert the character into the users list
-    c.characters.insert(form)
-    print character
+    c.characters.insert(form.to_dict())
+    print "worked"
     userchars = c.users.find_one({'username':form['user']})['characters']
     userchars.append(idnum)
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
