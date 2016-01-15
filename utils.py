@@ -8,23 +8,13 @@ secretkey= hashlib.md5("d&d").digest()
 
 
 #-------------------ITEM METHODs-------------------
-def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
-    #Create the item
-    item = {
-        'name':name,
-        'item_class':item_class,
-        'position':position,
-        'damage':damage,
-        'armor':armor,
-        'modifier':modifier,
-        'description':description
-        }
+def makeItem(charid,form):
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
     #Find the correct character and Add the item to their inventory
     old_inven = c.characters.find_one({'idnum':charid})['items']
-    old_inven.append(item)
+    old_inven.append(form)
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
 def rmvItem(charid, name):
@@ -49,23 +39,12 @@ def createChar(form):
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
-    #Create the Character
-    character = {
-    'name':form['charname'] or "",
-    'race':form['race'] or "",
-    'idnum':idnum,
-    'subrace':form['subrace'] or "",
-    #'hpmax':form['hpmax'] or "",
-    #'hpcurr':form['hpcurr'] or "",
-    #'status':form['status'] or "",
-    #'traits':form['traits'] or "",
-    #'items':form['items'] or ""
-    }
+    form['idnum'] = idnum
     #Insert the Character into the Character collection and insert the character into the users list
-    c.characters.insert(character)
+    c.characters.insert(form)
     print character
     userchars = c.users.find_one({'username':form['user']})['characters']
-    userchars.append(character)
+    userchars.append(idnum)
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
     return idnum
 
