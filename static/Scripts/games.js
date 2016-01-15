@@ -6,18 +6,33 @@ var openwindow = function(){
   $("#creategameform").css("visibility", "visible");
 };
 
+var games = {};
+var retrievegame = function(){
+  $.ajax({
+    url:"/getgame",
+    method:"POST",
+    success:function(data){
+      games = JSON.parse(data);
+    }
+  });
+};
+
 var populateList = function(){
   for (var gamekey in games){
-    
+    game = games[gamekey];
+    var element = $("<li/>", {"id":game['idnum'], "class":"game"});
+    element.html(game['name']);
+    element.on('mouseover', showDescript);
+    element.on('mouseout', hideDescript);
+    element.appendTo("#gametable");
   }
 };
 
-var sendgame = function(){
+var creategame = function(){
   var inputs = {};
   $("#creatinggameform input").each( function(){
     inputs[ $(this).attr( "id" ) ] = $(this).val();
   });
-  inputs.remove(["_id"])
   $.ajax({
     url:"/creategame",
     method:"POST",
@@ -31,7 +46,7 @@ var sendgame = function(){
 var attachListeners = function(){
   $("#creategame").click( openwindow );
   $(".closewindow").click( closewindow );
-  $("#create").click( sendgame );
+  $("#createbtn").click( creategame );
 };
 
 $(document).ready(function(){

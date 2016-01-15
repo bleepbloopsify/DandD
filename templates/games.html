@@ -27,25 +27,16 @@
       </div>
     </div>
 
-    <!--
+    <!-- The "Add Player" button, should eventually append player names to a list that's displayed somewhere else on the pop-up -->
     <div class="form-group">
-    <label class="control-label col-sm-1" for="subrace">Subrace:</label>
-    <div class="col-sm-2">
-      <input type="text" class="form-control" id="subrace">
+      <div class="col-sm-offset-2 col-sm-2">
+        <button type="button" id="addplayer">Add</button>
+      </div>
     </div>
-    </div>
-    -->
 
-<!-- The "Add Player" button, should eventually append player names to a list that's displayed somewhere else on the pop-up -->
-<div class="form-group">
-  <div class="col-sm-offset-2 col-sm-2">
-    <button type="button" id="addplayer">Add</button>
-  </div>
-</div>
+    <button type="button" id="createbtn" class="btn btn-success">Create</button>
 
-<button type="button" id="createbtn" class="btn btn-success">Create</button>
-
-</form>
+  </form>
 </div>
 
 <ul id="gametable"></ul>
@@ -56,6 +47,5 @@
 {% endblock %}
 
 {% block endscript %}
-<script>var games = JSON.parse("{{ games|safe }}");</script>
 <script src="{{ url_for('static', filename='Scripts/games.js') }}"></script>
 {% endblock %}

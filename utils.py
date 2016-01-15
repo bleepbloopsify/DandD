@@ -5,12 +5,7 @@ import json
 secretkey= hashlib.md5("d&d").digest()
 
 #-------------------TEST METHODS------------------
-def creategame(form):
-    #First Make the Game and get the idnum
-    idnum = makeGame(form['user'])
-    #Set the Game
-    setGame(idnum, form['players'])
-    return idnum
+
 
 #-------------------ITEM METHODs-------------------
 def makeItem(charid, name,item_class, position=None, damage=None, armor=None, modifier=None, description=None):
@@ -105,14 +100,15 @@ def rmvChar(idnum,username=None,gameid=None):
             if idnum in game['players']:
                 game['players'].remove(idnum)
                 c.games.update({'id':game['id']},{"$set":{'players':game['players']}})
-                
-        
+
+
 #Get Character by Idnum
 def getChar(idnum):
     connection = MongoClient()
     c = connection['data']
-    print c.characters.find_one({'idnum':idnum})
-    return c.characters.find_one({'idnum':idnum})
+    print idnum
+    print c.characters.find_one({'idnum':int(idnum)})
+    return c.characters.find_one({'idnum':int(idnum)})
 
 #Get Character Names
 def getNames(username=None):
@@ -142,21 +138,17 @@ def updateChar(form):
     c = connection['data']
     #Find the Character
     character = c.characters.find_one({'idnum':form['idnum']})
-    #Go through the information passed, if no info was passed leave as is
-    new_char={
-    'name':form['name'] or character['name'],
-    'race': form['race'] or character['race'],
-    'subrace': form['subrace'] or character['subrace'],
-    'hpmax' : form['hpmax'] or character['hpmax'],
-    'hpcurr' : form['hpcurr'] or character['hpcurr'],
-    'status' : form['status'] or character['status'],
-    'traits' : form['traits'] or character['traits'],
-    'items' : form['items'] or character['items']
-    }
     #Update the Character
-    c.characters.update({'idnum':idnum}, new_char)
+    c.characters.update({'idnum':idnum}, {"$set":form})
 #----------------------Game GeT, SEt, make!----------------------
-def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
+def creategame(form):
+    #First Make the Game and get the idnum
+    idnum = makeGame(form['user'])
+    #Set the Game
+    setGame(idnum, form['players'])
+    return idnum
+
+def setGame(idnum, form):
     #Setup connection
     connection = MongoClient()
     c = connection['data']
@@ -166,12 +158,8 @@ def setGame(idnum, players=[], enemies=[], npcs=[], map_location=""):
     #Get the correct game
     game = c.games.find_one({'id':idnum})
     #Go through the information passed, If no new info was passed, set it to the previous version
-    new_players = players or game['players']
-    new_enemies = enemies or game['enemies']
-    new_npcs = npcs or game['npcs']
-    new_map_location = map_location or game['map_location']
     #Change the old values to the new ones
-    c.games.update({'id':idnum}, {"$set":{'players':new_players, 'enemies':new_enemies, 'npcs':new_npcs, 'map_location':new_map_location}})
+    c.games.update({'id':idnum}, {"$set":form})
     return True
 
 def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)

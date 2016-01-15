@@ -34,7 +34,7 @@ def games():
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
     if request.method == "POST":
-        form = request.form
+        form = request.form.copy()
         form['user'] = session['user']
         return utils.creategame(form)
     else:
@@ -90,7 +90,9 @@ def charinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
-        return json.dumps(utils.getChar(id))
+        char = utils.getChar(id)
+        char.pop('_id')
+        return json.dumps(char)
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
@@ -140,7 +142,7 @@ def editaccount():
         newusername = form['newUsername'] or ""
         newpassword = form['newPassword'] or ""
         oldpassword = form['oldPassword']
-        
+
         if form['newUsername']:
             if utils.update_user(username,newusername,oldpassword):
                 return 'success'

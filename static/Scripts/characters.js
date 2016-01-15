@@ -23,14 +23,12 @@ var sendgame = function(){
   });
 };
 
-
 $(document).ready( function(){
   $("#create_char").click(openwindow);
   $(".closewindow").click(closewindow);
   $("#createchar").click(sendgame);
   populateList();
 });
-
 
 var populateList = function(){
   for (var charkey in sentChars){
