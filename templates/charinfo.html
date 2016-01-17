@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-<button type="button" id="editchar" class="btn btn-info">Edit</button>
+<div id="left-col" class="charinfolist"></div>
+<div id="right-col" class="charinfolist"></div>
 {% endblock %}
 
 
 {% block endscript %}
 <script src="{{ url_for('static', filename='Scripts/charinfo.js') }}"></script>
 {% endblock %}
-

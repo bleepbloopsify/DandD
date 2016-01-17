@@ -10,12 +10,15 @@ app = Flask(__name__)
 app.secret_key = utils.secretkey
 socketio = SocketIO(app)
 
+#-------------------HOME PAGE------------
 @app.route("/")
 @app.route("/index")
 @app.route("/home")
 def index():
     return render_template("index.html")
+#---------------------END HOME PAGE----------
 
+#---------------GAME MASTER METHODS----------------
 @app.route('/games', methods=['GET', "POST"])# Page for viewing the list of all of your games
 def games():
     if request.method == "GET":
@@ -34,7 +37,7 @@ def games():
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
     if request.method == "POST":
-        form = request.form.copy()
+        form = request.form.copy().to_dict()
         form['user'] = session['user']
         return utils.creategame(form)
     else:
@@ -52,12 +55,14 @@ def gameinfo(id=0):
             return redirect("/login/redirect")
     else:
         form = request.form
+#----------------END GAME MASTER METHODS---------------
 
+#------------CHARACTER PAGE METHODS--------------------
 @app.route("/characters", methods=['GET', 'POST'])
 def characters():
     if request.method == 'GET':
         if 'user' in session and session['user']:
-            names = utils.getNames(session['user'])
+            names = utils.getChars(session['user'])
             for name in names:
                 names[name].pop('_id',None)
             names = json.dumps(names)
@@ -66,16 +71,15 @@ def characters():
         else:
             return redirect("/login/redirect")
     else:
-        form = request.form.copy()
+        form = request.form.copy().to_dict()
         form['user'] = session['user']
-        print form
         answer = utils.createChar(form)
         return str(answer)
 
 @app.route("/getchars", methods=["POST"])
 def getchars():
     if request.method == "POST":
-        names = utils.getNames(session['user'])
+        names = utils.getChars(session['user'])
         print str(names)
         return str(names)
 
@@ -93,6 +97,8 @@ def charinfo(id=0):
         char = utils.getChar(id)
         char.pop('_id')
         return json.dumps(char)
+#-------------END CHARACTER METHODS-----------------
+
 
 #---------------LOGIN Methods REGISTER + LOGOUT------------------------------
 @app.route("/login", methods=["GET", "POST"])
@@ -119,7 +125,7 @@ def register():
             return redirect("/home")
         return render_template("register.html")
     else:
-        form = request.form
+        form = request.form.copy().to_dict()
         username = form['username'] or ""
         password = form['password'] or ""
         confmpwd = form['confmpwd'] or ""
@@ -136,8 +142,7 @@ def editaccount():
         else:
             return redirect("/login/redirect")
     else:
-        form = request.form
-        print form
+        form = request.form.copy().to_dict()
         username = session['user']
         newusername = form['newUsername'] or ""
         newpassword = form['newPassword'] or ""
@@ -172,7 +177,7 @@ def clicked(packet):
 #------------------------------- END SOCKET METHODS-----------------------
 
 
-
+#-----------RUN--------------
 if __name__ == "__main__":
     app.debug = True
     #app.secret_key = utils.secret_key

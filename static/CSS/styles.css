@@ -2,6 +2,11 @@ body{
     background-color: beige;
 }
 
+#chartable,#gametable{
+  list-style-type: none;
+  padding:0;
+}
+
 #chartable>li,#gametable>li{
 
 }

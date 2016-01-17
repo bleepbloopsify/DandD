@@ -17,34 +17,26 @@ def makeItem(charid,form):
     old_inven.append(form)
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
-def rmvItem(charid, name):
+def rmvItem(charid, name, subtype=""):
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
-    #Find the Character and get his inventory
+    #Find the Character and remove the item from his inventory
     inven = c.characters.find_one({'idnum':charid})['items']
-    #Iterate over the inventory and find and remove the correct item
-    for item in items:
-        if (item['name'] == name):
-            items.remove(item)
-            break
+    inven[subtype].pop(name)
     #Update the Character Inventory
     c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
 #Create a prelim char and attach it to a username
 def createChar(form):
-    print "go"
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
     #Find the correct characterid
     idnum = c.characters.count() + 1
     form['idnum'] = idnum
-    print form
-    print form.to_dict()
     #Insert the Character into the Character collection and insert the character into the users list
-    c.characters.insert(form.to_dict())
-    print "worked"
+    c.characters.insert(form)
     userchars = c.users.find_one({'username':form['user']})['characters']
     userchars.append(idnum)
     c.users.update({'username':form['user']}, {"$set":{'characters':userchars}})
@@ -82,20 +74,26 @@ def rmvChar(idnum,username=None,gameid=None):
                 game['players'].remove(idnum)
                 c.games.update({'id':game['id']},{"$set":{'players':game['players']}})
 
-
 #Get Character by Idnum
 def getChar(idnum):
     connection = MongoClient()
     c = connection['data']
-    print idnum
-    print c.characters.find_one({'idnum':int(idnum)})
     return c.characters.find_one({'idnum':int(idnum)})
 
-#Get Character Names
-def getNames(username=None):
+#Get all characters associated with an account
+def getChars(username=None):
     #Connect to mongodb
     connection = MongoClient()
     c = connection['data']
+    if username:
+        charids = c.users.find_one({'username':username})['characters']
+        characters = {}
+        for id in charids:
+            characters[id] = c.characters.find_one({'idnum':id})
+        return characters
+    else:
+        return c.characters.find()
+
     #IF no param
     if not username:
         cursor= c.characters.find()
@@ -112,16 +110,15 @@ def getNames(username=None):
         names[char['idnum']]= char
     return names
 
-#Modify preexisting characters
-def updateChar(form):
+#Modify a single character by id number
+def updateChar(idnum, form):
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
-    #Find the Character
-    character = c.characters.find_one({'idnum':form['idnum']})
     #Update the Character
     c.characters.update({'idnum':idnum}, {"$set":form})
 #----------------------Game GeT, SEt, make!----------------------
+#INITIALIZE A GAME
 def creategame(form):
     #First Make the Game and get the idnum
     idnum = makeGame(form['user'])
@@ -129,6 +126,19 @@ def creategame(form):
     setGame(idnum, form['players'])
     return idnum
 
+#OUTLINE GAME
+def makeGame(host):
+    connection = MongoClient()
+    c = connection['data']
+    idnum = c.games.count() + 1
+    game = {
+    'id':idnum,
+    'host':host,
+    }
+    c.games.insert(game)
+    return idnum
+
+# Change the game
 def setGame(idnum, form):
     #Setup connection
     connection = MongoClient()
@@ -143,6 +153,7 @@ def setGame(idnum, form):
     c.games.update({'id':idnum}, {"$set":form})
     return True
 
+#Gets all games associated with user=host
 def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)
     connection = MongoClient()
     c = connection['data']
@@ -159,17 +170,7 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         games.append(c.games.find_one({'id':name}))
     return games
 
-def makeGame(host):
-     connection = MongoClient()
-     c = connection['data']
-     idnum = c.games.count() + 1
-     game = {
-         'id':idnum,
-         'host':host,
-     }
-     c.games.insert(game)
-     return idnum
-#-----------------END GAME EMTHODS-------------------------
+#-----------------END GAME MeTHODS-------------------------
 
 #-----------------User Methods-----------------------------
 def update_pw(user,old_password, new_password):

@@ -8,7 +8,8 @@ var openwindow = function(){
 
 var sendchar = function(){
   var inputs = {};
-  $("#creatingcharform input").each( function(){
+  $("#creatingcharform input,textarea").each( function(){
+    console.log($(this).val());
     inputs[ $(this).attr( "id" ) ] = $(this).val();
   });
   console.log(inputs);
@@ -17,8 +18,7 @@ var sendchar = function(){
     method:"POST",
     data: inputs ,
     success: function(data){
-      console.log(data);
-      window.location.href = "/charinfo/" + data;
+      // window.location.href = "/charinfo/" + data;
     }
   });
 };
@@ -34,7 +34,7 @@ var populateList = function(){
   for (var charkey in sentChars){
     char = sentChars[charkey];
     var element = $("<li/>", {"id":char["idnum"], "class":"char"});
-    element.html(char["name"]);
+    element.html(char["charname"]);
     element.on('mouseover', showDescript);
     element.on('mouseout', hideDescript);
     element.on('click', linktochar);
@@ -43,7 +43,6 @@ var populateList = function(){
 }
 
 var linktochar = function(){
-  console.log($(this));
   window.location.href = "/charinfo/" + $(this).attr('id');
 }
 
@@ -52,5 +51,5 @@ var showDescript = function(){
 };
 
 var hideDescript = function(){
-  $(this).html(sentChars[ $(this).attr('id') ][ 'name' ]);
+  $(this).html(sentChars[ $(this).attr('id') ][ 'charname' ]);
 };
