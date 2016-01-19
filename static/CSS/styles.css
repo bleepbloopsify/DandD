@@ -1,5 +1,12 @@
+@font-face{
+  font-family: dandd;
+  src:url(../fonts/pixel-sagas_dalelands/Dalelands_Uncial_Condensed.otf);
+}
+
 body{
     background-color: beige;
+    font-family: dandd;
+    font-size:24px;
 }
 
 #chartable,#gametable{
@@ -125,4 +132,13 @@ label{display:table-cell;}
 
 .body{
     padding:15px;
+}
+
+#username{
+  position:absolute;
+  top:20px;
+  left:400px;
+  font-size: 24;
+  font-weight: bold;
+
 }
