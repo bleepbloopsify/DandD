@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block body %}
-Username:<input type="text" name="username" id="username"></input><br>
-Password:<input type="password" name="password" id="password"></input><br>
-Confirm Password:<input type="password" name="confmpwd" id="confmpwd"></input><br>
-<button id="sendregister">Register</button>
+<form>
+<div class="formrow"><label>Username:</label><input type="text" name="username" id="username"></input></div>
+<div class="formrow"><label>Password:</label><input type="password" name="password" id="password"></input></div>
+<div class="formrow"><label>Confirm Password:</label><input type="password" name="confmpwd" id="confmpwd"></input></div>
+<div class="formrow"><button type="button" id="sendregister">Register</button></div>
+</form>
 <div id="response"></div>
 {% endblock %}

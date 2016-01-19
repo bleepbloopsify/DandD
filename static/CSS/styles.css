@@ -110,6 +110,19 @@ li:hover{
     color:black;
 }
 
+form{
+  display:table;
+}
+input{
+  display:table-cell;
+  margin:20px;
+}
+.formrow{
+  display:table-row;
+  height:20px;
+}
+label{display:table-cell;}
+
 .body{
     padding:15px;
 }

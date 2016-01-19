@@ -7,8 +7,10 @@
 
 {% block body %}
 {% if r %} <err>Please Login!!</err> {% endif %}
-Username:<input type="text" name="username" id="username"></input>
-Password:<input type="password" name="password" id="password"></input>
-<button id="sendlogin">Login</button>
+<form onsubmit="event.preventDefault();">
+  <div class="formrow"><label>Username:</label><input type="text" name="username" id="username"></input></div>
+  <div class="formrow"><label>Password:</label><input type="password" name="password" id="password"></input></div>
+  <div class="formrow"><label></label><input type="submit" id="sendlogin" value="Login"></button></div>
+</form>
 <div id="response"></div>
 {% endblock %}

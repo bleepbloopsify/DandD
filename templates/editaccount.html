@@ -1,17 +1,16 @@
 {% extends "master.html" %}
 
 {% block head %}
-{{ super() }}
 <script src="{{ url_for('static', filename='Scripts/editaccount.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <center><h1>Account Edits</h1></center><br>
 <b>Current Username:</b>
-<br>
-New Username: <input type="text" name="username" id="newUsername"></input><br>
-New Password: <input type="password" name="password" id="newPassword"></input><br>
-Current Password:<input type="password" name="password" id="password"></input><br><br>
-
+<form>
+<div class="formrow"><label>New Username:</label> <input type="text" name="username" id="newUsername"></input></div>
+<div class="formrow"><label>New Password:</label> <input type="password" name="password" id="newPassword"></input></div>
+<div class="formrow"><label>Current Password:</label><input type="password" name="password" id="password"></input><br></div>
 <button id="updatePassword">Update Password</button>
+</form>
 {% endblock %}
