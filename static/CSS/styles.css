@@ -3,8 +3,8 @@ body{
 }
 
 #chartable,#gametable{
-  list-style-type: none;
-  padding:0;
+    list-style-type: none;
+    padding:0;
 }
 
 #chartable>li,#gametable>li{
@@ -12,11 +12,11 @@ body{
 }
 
 .closewindow{
-  position:absolute;
-  right:0px;
-  border-radius:10px;
-  background-color: white;
-  color:red;
+    position:absolute;
+    right:0px;
+    border-radius:10px;
+    background-color: white;
+    color:red;
 
 }
 
@@ -41,15 +41,15 @@ body{
 }
 
 .createform{
-  padding-left:20px;
-  background-color:white;
-  visibility:hidden;
-  border: 2px solid blue;
-  border-radius:25px;
-  position:absolute;
-  top: 143px;
-  width:50%;
-  margin-right:20px;
+    padding-left:20px;
+    background-color:white;
+    visibility:hidden;
+    border: 2px solid blue;
+    border-radius:25px;
+    position:absolute;
+    top: 143px;
+    width:50%;
+    margin-right:20px;
 }
 
 
@@ -110,19 +110,20 @@ li:hover{
     color:black;
 }
 
-form{
-  display:table;
+.userform{
+    display:table;
 }
 input{
-  display:table-cell;
-  margin:20px;
+    display:table-cell;
+    margin:20px;
 }
 .formrow{
-  display:table-row;
-  height:20px;
+    display:table-row;
+    height:20px;
 }
-label{display:table-cell;}
-
+label{
+    display:table-cell;
+}
 .body{
     padding:15px;
 }
