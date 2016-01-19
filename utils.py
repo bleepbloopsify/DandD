@@ -17,13 +17,27 @@ def makeItem(charid,form):
     old_inven.append(form)
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
 
-def rmvItem(charid, name, subtype=""):
+def updateItem(charid, form):
+    #Connect to Mongo db
+    connection = MongoClient()
+    c = connection['data']
+    #Update the item
+    old_inven = c.characters.find_one({'idnum':charid})['items']
+    for item in old_inven[form['subtype']]:
+        if item['id'] == form['id']:
+            index = old_inven[form['subtype']].index(item)
+            old_inven[form['subtype']][index] = form
+            break
+    #Update Inventory
+    c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
+    
+def rmvItem(charid,form):
     #Connect to Mongodb
     connection = MongoClient()
     c = connection['data']
     #Find the Character and remove the item from his inventory
     inven = c.characters.find_one({'idnum':charid})['items']
-    inven[subtype].pop(name)
+    inven[form['subtype']].pop(inven[form['subtype']].index(form))
     #Update the Character Inventory
     c.characters.update({'idnum':charid}, {"$set":{'items':inven}})
 #----------------------Character Methods-------------------------
