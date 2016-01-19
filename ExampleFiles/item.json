@@ -1,5 +1,6 @@
 {
   "name":"Object",
+  "id": 1,
   "item_class":"weapons",
   "position":"chest",
   "damage":"1d20",

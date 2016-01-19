@@ -147,7 +147,7 @@ def editaccount():
         newusername = form['newUsername'] or ""
         newpassword = form['newPassword'] or ""
         oldpassword = form['oldPassword']
-
+        
         if form['newUsername']:
             if utils.update_user(username,newusername,oldpassword):
                 return 'success'
