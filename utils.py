@@ -150,6 +150,10 @@ def makeGame(host):
     'host':host,
     }
     c.games.insert(game)
+    #Add the game to the hosts dmgames
+    ugames = c.users.find_one({'username':host})['dmgames']
+    ugames.append(game['id'])
+    c.users.update({'username':host},{"$set":{'dmgames':ugames}})
     return idnum
 
 # Change the game
@@ -167,6 +171,27 @@ def setGame(idnum, form):
     c.games.update({'id':idnum}, {"$set":form})
     return True
 
+#Add player to game by id
+def addPlayer(host, gameid, charid):
+    #Setup connection
+    connection = MongoClient()
+    c = connection['data']
+    #Check if the host id is correct
+    if not c.games.find_one({'id':gameid})['host'] == host:
+	return False
+    #Check if the character exists
+    if not c.characters.find_one({'idnum':charid}):
+	return False
+    #If id is correct, add the characters id to games and add the gameid to pgames
+    players = c.games.find_one({'id':gameid})['players']
+    players.append(charid)
+    c.games.update({'id':gameid},{"$set":{'players':players}})
+    #Find the player that made the character
+    pcharname = c.characters.find_one({'idnum':charid})['user']
+    pgames = c.users.find_one({'username':pcharname})['pgames']
+    pgames.append(gameid)
+    c.users.update({'username':pcharname},{"$set":{'pgames':pgames}})
+
 #Gets all games associated with user=host
 def getGames(host): # Get a list of game names from this host(to be displayed in a tabel)
     connection = MongoClient()
@@ -176,8 +201,10 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         return False
     #Create the list to hold the game names
     names = []
+    print "test1"
+    print c.users.find_one({'username':host})
     #Loop through users and find the correct users games
-    names = c.users.find_one({'users':host})['dmgames']
+    names = c.users.find_one({'username':host})['dmgames']
     #With the list of ids, get all the corresponding games
     games = []
     for name in names:
@@ -256,7 +283,8 @@ def register(username, password, confirm_password):
     d = {
          'username': username,
          'password':encrypted,
-         'games':[],
+         'dmgames':[],
+	 'pgames':[],
          'characters':[]
          }
     c.users.insert(d)
