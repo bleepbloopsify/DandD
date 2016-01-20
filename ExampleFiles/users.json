@@ -2,8 +2,8 @@
   {
    'username': username,
    'password':encrypted,
-   'dmgames':[],
-   'pgames':[],
-   'characters':[]
+   'dmgames':[1,2,3,4],
+   'pgames':[5,6],
+   'characters':["1234","2321"]
    }
 ]

@@ -1,6 +1,7 @@
 {
   "name":"Leon Chou",
   "idnum":12345,
+  "user":"Leon",
   "race":"human",
   "subrace":"humanoid",
   "armorclass":100,
