@@ -9,6 +9,12 @@ body{
     font-size:24px;
 }
 
+#displaycharname{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
 #chartable,#gametable{
     list-style-type: none;
     padding:0;
@@ -48,20 +54,24 @@ body{
 }
 
 .createform{
-    padding-left:20px;
+    padding:20px;
     background-color:white;
     visibility:hidden;
     border: 2px solid blue;
     border-radius:25px;
     position:absolute;
     top: 143px;
-    width:50%;
+    width:75%;
     margin-right:20px;
 }
 
+#addfieldform{
+  visibility: hidden;
+}
 
 #creatingcharform{
     padding: 20px;
+    font-size: 20px;
 }
 
 #chartable{
@@ -119,27 +129,27 @@ li:hover{
 
 .userform{
     display:table;
+    margin-left: 20px;
 }
-input{
+.userform input{
     display:table-cell;
-    margin:20px;
+    margin-top:5px;
 }
 .formrow{
     display:table-row;
-    height:20px;
+    left:50px;
 }
-label{
+.userform label{
     display:table-cell;
 }
 .body{
     padding:15px;
 }
 
-#username{
+#user{
   position:absolute;
   top:20px;
   left:400px;
   font-size: 24;
   font-weight: bold;
 }
-

@@ -2,54 +2,70 @@
 
 {% block body %}
 
+<button type="button" for="charform" class="openwindow" id="newcharbtn">New Character</button>
 <div id="chartableheading">
   Characters
 </div>
-<br>
-<button type="button" id="create_char">New Character</button>
 <ul id="chartable"></ul>
 
-<!-- Form for creating games -->
-<div class="createform" id="createcharform">
+<!-- Form for creating characters -->
+<div class="createform" id="charform">
   <button class="closewindow">X</button>
 
   <form id="creatingcharform" class="form-horizontal" role="form">
     <div class="form-group">
       <label class="control-label col-sm-2" for="charname">Name:</label>
       <div class="control-label col-sm-3">
-	<input type="text" name="charname" id="charname">
+        <input type="text" class="form-control" name="charname" id="charname">
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="race">Race:</label>
       <div class="col-sm-3">
-	<input type="text" class="form-control" name="race" id="race">
+        <input type="text" class="form-control" name="race" id="race">
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="subrace">Subrace:</label>
       <div class="col-sm-3">
-	<input type="text" class="form-control" name="subrace" id="subrace">
+        <input type="text" class="form-control" name="subrace" id="subrace">
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="char-descrip">Description:</label>
       <div class="col-sm-6">
-	       <textarea class="form-control" rows="5" id="char-descrip"></textarea>
+        <textarea class="form-control" rows="5" id="char-descrip"></textarea>
       </div>
     </div>
-  </form>  
+  </form>
 
-  <button type="button" id="createchar" class="btn btn-success">Create</button>
+  <button class="openwindow" for="addfieldform">Add Field</button>
+  <div id="addfieldform" class="createform">
+    <button class="closewindow">X</button>
+    <form id="addfield" onsubmit="event.preventDefault();">
+      <div class="formrow"><label>Field Name:</label><input type="text"></div>
+      <div class="formrow"><label>Field Value Type:</label>
+        <select id="fieldtype">
+          <option value="text">Text Box</option>
+          <option value="textarea">Large Text Box</option>
+        </select>
+      </div>
+      <div class="formrow"><label>Field Value:</label>
+        <div id="fieldinput"><input type="text" id="fieldvalue"></div>
+      </div>
+      <button id="createfield" class="btn">Add Field</button>
+    </div>
 
-</div>
+    <button type="button" id="createchar" class="btn btn-success">Create</button>
 
-{% endblock %}
+  </div>
 
-{% block endscript %}
-<script type="text/javascript">var sentChars = JSON.parse('{{ sentChars|safe}}');</script>
-<script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
-{% endblock %}
+  {% endblock %}
+
+  {% block endscript %}
+  <script type="text/javascript">var sentChars = JSON.parse('{{ sentChars|safe}}');</script>
+  <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
+  {% endblock %}

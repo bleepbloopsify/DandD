@@ -15,10 +15,11 @@ var retrieveCharacter = function(){
 
 var populateInfo = function(){
   addname();
+  addfields();
 };
 
 var addname = function(){
-  var element = $('<div/>', {class:"charname"});
+  var element = $('<div/>', {id:"displaycharname"});
   element.html(character['charname']);
   element.prependTo(".body");
 };

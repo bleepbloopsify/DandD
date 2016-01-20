@@ -19,7 +19,7 @@
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> <!-- For the icon! -->
         </button>
-        <a class="navbar-brand" href="/home"><img id="logo" src="{{url_for('static', filename='Images/d&dlogo.png')}}"></a><div id="username">{{session['user']}}</div> <!-- For the logo effect! -->
+        <a class="navbar-brand" href="/home"><img id="logo" src="{{url_for('static', filename='Images/d&dlogo.png')}}"></a><div id="user">{{ session['user'] or "" }}</div> <!-- For the logo effect! -->
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right">

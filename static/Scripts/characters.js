@@ -1,9 +1,12 @@
 var closewindow = function(){
-  $("#createcharform").css("visibility", "hidden");
+  $("button[for=" + $(this).parent().attr("id") +"]").css("visibility", "inherit");
+  $(this).parent().css("visibility", "hidden");
 };
 
 var openwindow = function(){
-  $("#createcharform").css("visibility", "visible");
+  console.log($(this).attr("for"));
+  $("#" + $(this).attr("for")).css("visibility", "visible");
+  $(this).css("visibility", "hidden");
 };
 
 var sendchar = function(){
@@ -18,15 +21,16 @@ var sendchar = function(){
     method:"POST",
     data: inputs ,
     success: function(data){
-      // window.location.href = "/charinfo/" + data;
+      window.location.href = "/charinfo/" + data;
     }
   });
 };
 
 $(document).ready( function(){
-  $("#create_char").click(openwindow);
+  $(".openwindow").click(openwindow);
   $(".closewindow").click(closewindow);
   $("#createchar").click(sendchar);
+  $("#openaddfieldform").click(openAddfieldform);
   populateList();
 });
 
@@ -44,6 +48,11 @@ var populateList = function(){
 
 var linktochar = function(){
   window.location.href = "/charinfo/" + $(this).attr('id');
+}
+
+var openAddfieldform = function(){
+  $("#addfieldform").css("visibility", "visible");
+  $("#openaddfieldform").css("visibility", "hidden");
 }
 
 var showDescript = function(){
