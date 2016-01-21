@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<button type="button" for="charform" class="openwindow" id="newcharbtn">New Character</button>
+<button type="button" for="charform" class="openwindowbtn" id="newcharbtn">New Character</button>
 <div id="chartableheading">
   Characters
 </div>
@@ -10,9 +10,10 @@
 
 <!-- Form for creating characters -->
 <div class="createform" id="charform">
-  <button class="closewindow">X</button>
+  <button class="closewindow closewindowbtn">X</button>
 
   <form id="creatingcharform" class="form-horizontal" role="form">
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="charname">Name:</label>
       <div class="control-label col-sm-3">
@@ -40,26 +41,25 @@
         <textarea class="form-control" rows="5" id="char-descrip"></textarea>
       </div>
     </div>
+
   </form>
 
-  <button class="openwindow" for="addfieldform">Add Field</button>
+  <button class="openwindowbtn" for="addfieldform">+</button>
   <div id="addfieldform" class="createform">
-    <button class="closewindow">X</button>
+    <button class="closewindow closewindowbtn">X</button>
     <form id="addfield" onsubmit="event.preventDefault();">
-      <div class="formrow"><label>Field Name:</label><input type="text"></div>
+      <div class="formrow"><label>Field Name:</label><input type="text" id="fieldname"></div>
       <div class="formrow"><label>Field Value Type:</label>
         <select id="fieldtype">
           <option value="text">Text Box</option>
           <option value="textarea">Large Text Box</option>
         </select>
       </div>
-      <div class="formrow"><label>Field Value:</label>
-        <div id="fieldinput"><input type="text" id="fieldvalue"></div>
-      </div>
-      <button id="createfield" class="btn">Add Field</button>
-    </div>
+      <button id="createfield" class="btn closewindowbtn">Add Field</button>
+    </form>
+  </div>
 
-    <button type="button" id="createchar" class="btn btn-success">Create</button>
+  <button type="button" id="createchar" class="btn btn-success">Create</button>
 
   </div>
 

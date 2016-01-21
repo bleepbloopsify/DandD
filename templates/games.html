@@ -2,13 +2,13 @@
 
 {% block body %}
 
-<button id="creategame">New Game</button>
+<button class="openwindowbtn" for="creategame">New Game</button>
 
 <ul id="games"></ul>
 
 <!-- Form for creating games, pop-up window
 -->
-<div class="createform" id="creategameform">
+<div class="createform" id="creategame">
   <button class="closewindow"><b>X</b></button>
   <br><br>
   <form class="form-horizontal" role="form" id="creatinggameform">
@@ -34,14 +34,29 @@
       </div>
     </div>
 
+
     <button type="button" id="createbtn" class="btn btn-success">Create</button>
 
   </form>
+
+  <button class="openwindowbtn" for="addfieldform">+</button>
+  <div id="addfieldform" class="createform">
+    <button class="closewindow closewindowbtn">X</button>
+    <form id="addfield" onsubmit="event.preventDefault();">
+      <div class="formrow"><label>Field Name:</label><input type="text" id="fieldname"></div>
+      <div class="formrow"><label>Field Value Type:</label>
+        <select id="fieldtype">
+          <option value="text">Text Box</option>
+          <option value="textarea">Large Text Box</option>
+        </select>
+      </div>
+      <button id="createfield" class="btn closewindowbtn">Add Field</button>
+    </form>
+  </div>
+
 </div>
 
 <ul id="gametable"></ul>
-
-<a href="/gameinfo/1">clickme</a>
 
 
 {% endblock %}

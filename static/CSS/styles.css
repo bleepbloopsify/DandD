@@ -17,13 +17,17 @@ body{
 
 #chartable,#gametable{
     list-style-type: none;
-    padding:0;
+    padding:0px;
 }
 
 #chartable>li,#gametable>li{
-
+  border-bottom: 2px solid gray;
+  margin-right:auto;
+  margin-left: auto;
 }
-
+#chartable>li:hover{
+  cursor :pointer;
+}
 .closewindow{
     position:absolute;
     right:0px;

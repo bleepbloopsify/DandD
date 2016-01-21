@@ -1,9 +1,11 @@
 var closewindow = function(){
-  $("#creategameform").css("visibility", "hidden");
+  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
+  $(this).parents("div:first").css("visibility", "hidden");
 };
 
 var openwindow = function(){
-  $("#creategameform").css("visibility", "visible");
+  $("#" + $(this).attr("for")).css("visibility", "visible");
+  $(this).css("visibility", "hidden");
 };
 
 var games = {};
@@ -43,10 +45,38 @@ var creategame = function(){
   })
 };
 
+var addField = function(){
+  var div = $('<div class="form-group">');
+  var label=$('<label class="control-label col-sm-2">');
+  label.html($("#fieldname").val() + ":");
+  label.attr("for", $("#fieldname").val());
+  div.append(label);
+  switch ($("#fieldtype").val()) {
+    case "text":
+      var indiv = $('<div class="col-sm-3">');
+      var input = $('<input type="text" class="form-control">');
+      input.attr("id", $("#fieldname").val());
+      indiv.append(input);
+      div.append(indiv);
+      break;
+    case "textarea":
+      var indiv = $('<div class="col-sm-6">');
+      var input = $('<textarea rows="5" class="form-control">');
+      input.attr("id", $("#fieldname").val());
+      indiv.append(input);
+      div.append(indiv);
+      break;
+  }
+  var button = $('<button>X</button>');
+  div.appendTo("#creatinggameform");
+  $("#addfieldform input").val("");
+}
+
 var attachListeners = function(){
-  $("#creategame").click( openwindow );
-  $(".closewindow").click( closewindow );
+  $(".openwindowbtn").click( openwindow );
+  $(".closewindowbtn").click( closewindow );
   $("#createbtn").click( creategame );
+  $("#createfield").click( addField );
 };
 
 $(document).ready(function(){
