@@ -150,11 +150,11 @@ def editaccount():
 
         if form['newUsername']:
             if utils.update_user(username,newusername,oldpassword):
-                return 'success'
+                return 'userSuccess'
             return 'fail'
         if form['newPassword']:
             if utils.update_pw(username,oldpassword,newpassword):
-                return 'success'
+                return 'pwSuccess'
             return 'fail'
         return 'fail'
 
