@@ -30,7 +30,7 @@ def updateItem(charid, form):
             break
     #Update Inventory
     c.characters.update({'idnum':charid},{"$set":{'items':old_inven}})
-    
+
 def rmvItem(charid,form):
     #Connect to Mongodb
     connection = MongoClient()
@@ -115,10 +115,8 @@ def getChars(username=None):
         for char in cursor:
             names[char['idnum']] = char
         return names
-    print username
     #Find the User and Get Names
     chars = c.users.find_one({'username':username})['characters']
-    print chars
     names = {}
     for char in chars:
         names[char['idnum']]= char
@@ -137,8 +135,8 @@ def creategame(form):
     #First Make the Game and get the idnum
     idnum = makeGame(form['user'])
     #Set the Game
-    setGame(idnum, form['players'])
-    return idnum
+    setGame(idnum, form)
+    return str(idnum)
 
 #OUTLINE GAME
 def makeGame(host):
@@ -201,14 +199,14 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         return False
     #Create the list to hold the game names
     names = []
-    print "test1"
-    print c.users.find_one({'username':host})
     #Loop through users and find the correct users games
     names = c.users.find_one({'username':host})['dmgames']
     #With the list of ids, get all the corresponding games
     games = []
     for name in names:
         games.append(c.games.find_one({'id':name}))
+    for game in games:
+        game.pop('_id');
     return games
 
 #-----------------END GAME MeTHODS-------------------------

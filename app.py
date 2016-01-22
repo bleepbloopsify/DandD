@@ -24,24 +24,31 @@ def games():
     if request.method == "GET":
         if 'user' in session and session['user']:
             games = utils.getGames(session['user'])
-            print games
             games = json.dumps(games)
-            print games
             return render_template("games.html", games = games)
         else:
             return redirect("/login/redirect")
     elif request.method == "POST":
         user = request.form['user']
-        return utils.getGames(user)
+        return json.dumps(utils.getGames(user))
+
+@app.route('/getgame')
+def getgame():
+    if 'user' in session and session['user']:
+        return json.dumps(utils.getGames(session['user']))
+    else:
+        return redirect("/home")
 
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
     if request.method == "POST":
         form = request.form.copy().to_dict()
         form['user'] = session['user']
+        print form
         return utils.creategame(form)
     else:
         return redirect("/games")
+
 
 @app.route("/gameinfo")
 @app.route("/gameinfo/<id>", methods=["GET", "POST"]) #The page where you can view the details  a game

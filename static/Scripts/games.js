@@ -12,9 +12,10 @@ var games = {};
 var retrievegame = function(){
   $.ajax({
     url:"/getgame",
-    method:"POST",
+    method:"GET",
     success:function(data){
       games = JSON.parse(data);
+      populateList();
     }
   });
 };
@@ -24,10 +25,9 @@ var populateList = function(){
     game = games[gamekey];
     var element = $("<li/>", {"id":game['idnum'], "class":"game"});
     element.html(game['name']);
-    element.on('mouseover', showDescript);
-    element.on('mouseout', hideDescript);
     element.appendTo("#gametable");
   }
+  $("#gametable li").last().css("border-bottom","None");
 };
 
 var creategame = function(){
@@ -81,4 +81,5 @@ var attachListeners = function(){
 
 $(document).ready(function(){
   attachListeners();
+  retrievegame();
 });

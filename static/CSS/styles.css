@@ -25,8 +25,8 @@ body{
   margin-right:auto;
   margin-left: auto;
 }
-#chartable>li:hover{
-  cursor :pointer;
+#chartable li, #gametable li:hover{
+  cursor : pointer;
 }
 .closewindow{
     position:absolute;
@@ -78,7 +78,7 @@ body{
     font-size: 20px;
 }
 
-#chartable{
+#chartable, #gametable{
     text-align: center;
 }
 
