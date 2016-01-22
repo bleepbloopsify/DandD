@@ -16,22 +16,26 @@ var populateInfo = function(){
   addname();
   addfields();
 };
-
 var addname = function(){
   var element = $('<div/>', {id:"displaycharname"});
   element.html(character['charname']);
   element.prependTo(".body");
-
 };
-
 var addfields = function(){
-  for (var value in character){
-    if(value != "idnum" && value != "charname" && character[value]){
-      var element = $('<div/>');
-      element.html(value+": "+character[value]);
-      element.prependTo("#left-col");
-    };
-  };
+    for (var value in character){
+	var element = $('<div/>');
+	element.html(value+": "+character[value]);
+	console.log(value);
+	if(value == "idnum"){
+	    console.log(value);
+	    element.prependTo("#right-col");
+	}
+	else if(value != "charname" && character[value]){
+	    console.log(value);
+	    element.prependTo("#left-col");
+	}
+
+    }
 };
 
 
