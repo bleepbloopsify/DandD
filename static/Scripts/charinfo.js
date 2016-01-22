@@ -21,9 +21,20 @@ var addname = function(){
   var element = $('<div/>', {id:"displaycharname"});
   element.html(character['charname']);
   element.prependTo(".body");
+
+};
+
+var addfields = function(){
+  for (var value in character){
+    if(value != "idnum" && value != "charname" && character[value]){
+      var element = $('<div/>');
+      element.html(value+": "+character[value]);
+      element.prependTo("#left-col");
+    };
+  };
 };
 
 
 $(document).ready(function(){
-    retrieveCharacter();
+  retrieveCharacter();
 });
