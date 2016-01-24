@@ -161,3 +161,23 @@ li:hover{
 #displaycharname{
     font-weight: bold;
 }
+
+#container{
+    border-radius: 25px;
+    position: fixed;
+    width: 500px;
+    height: 210px;
+    top: 25%;
+    left: 33%;
+    background:url(http://www.top1gaming.com/wallpaper/Dungeons&DragonsOnline/07-2.jpg) no-repeat top right;
+}
+
+#container2{
+    border-radius: 25px;
+    position: fixed;
+    width: 700px;
+    height: 440px;
+    top: 20%;
+    left: 25%;
+    background:url(http://www.wall321.com/thumbnails/detail/20120630/minimalistic%20dragons%20knights%201920x1080%20wallpaper_www.wall321.com_26.jpg) no-repeat top left;
+}
