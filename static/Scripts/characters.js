@@ -82,6 +82,14 @@ var addField = function(){
       div.append(indiv);
       break;
   }
+  var button = $('<button>X</button>');
+  button.click( removefield );
+  button.attr("type", "button");
+  div.append(button);
   div.appendTo("#creatingcharform");
   $("#addfieldform input").val("");
+}
+
+var removefield = function(){
+  $(this).parent().remove();
 }

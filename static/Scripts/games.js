@@ -31,6 +31,8 @@ var addplayer = function(){
       var element = $('<li/>');
       element.html(data['charname']);
       element.attr("id", data['idnum']);
+      var button = $('<button>X</button>').click(removefield);
+      element.append(button);
       $("#playerlist").append(element);
     }
   })

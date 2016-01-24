@@ -15,9 +15,10 @@ body{
   margin-right:auto;
 }
 
-#chartable,#gametable{
+#chartable,#gametable, #playerlist{
     list-style-type: none;
     padding:0px;
+    text-align: center;
 }
 
 #chartable>li,#gametable>li{
@@ -34,7 +35,6 @@ body{
     border-radius:10px;
     background-color: white;
     color:red;
-
 }
 
 #createbtn{
@@ -76,10 +76,6 @@ body{
 #creatingcharform{
     padding: 20px;
     font-size: 20px;
-}
-
-#chartable, #gametable{
-    text-align: center;
 }
 
 #chartableheading{
