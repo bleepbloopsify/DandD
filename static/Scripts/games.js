@@ -20,20 +20,31 @@ var retrievegame = function(){
   });
 };
 
+var players = {}
 var addplayer = function(){
   idnum = $("#playerid").val();
-  console.log(idnum);
   $.ajax({
     url:"/charinfo/" + idnum,
     method:"POST",
     success:function(data){
-      data = JSON.parse(data);
-      var element = $('<li/>');
-      element.html(data['charname']);
-      element.attr("id", data['idnum']);
-      var button = $('<button>X</button>').click(removefield);
-      element.append(button);
-      $("#playerlist").append(element);
+      if (!data){
+        $("#addplayerresponse").html("Could not find player " + idnum + "!");
+      }else{
+        data =  JSON.parse(data);
+        if (players[idnum]){
+          $("#addplayerresponse").html('Already added player!');
+        }else{
+          var element = $('<li/>');
+          element.html(data['charname']);
+          element.attr("id", data['idnum']);
+          var button = $('<button class="closewindow">X</button>').click(removefield);
+          element.append(button);
+          $("#playerlist").append(element);
+          $("#playerid").val("");
+          players[idnum] = data['charname'];
+          $("#addplayerresponse").html("");
+        }
+      }
     }
   })
 }
@@ -70,7 +81,7 @@ var creategame = function(){
 
 var addField = function(){
   var div = $('<div class="form-group">');
-  var label=$('<label class="control-label col-sm-2">');
+  var label=$('<label class="control-label col-sm-3">');
   label.html($("#fieldname").val() + ":");
   label.attr("for", $("#fieldname").val());
   div.append(label);

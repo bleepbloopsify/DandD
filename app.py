@@ -103,8 +103,11 @@ def charinfo(id=0):
             return redirect("/login/redirect")
     else:
         char = utils.getChar(id)
-        char.pop('_id')
-        return json.dumps(char)
+        if char:
+            char.pop('_id')
+            return json.dumps(char)
+        else:
+            return  ""
 #-------------END CHARACTER METHODS-----------------
 
 
