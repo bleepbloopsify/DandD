@@ -103,8 +103,11 @@ def charinfo(id=0):
             return redirect("/login/redirect")
     else:
         char = utils.getChar(id)
-        char.pop('_id')
-        return json.dumps(char)
+        if char:
+            char.pop('_id')
+            return json.dumps(char)
+        else:
+            return  ""
 #-------------END CHARACTER METHODS-----------------
 
 
@@ -194,6 +197,4 @@ def clicked(packet):
 
 #-----------RUN--------------
 if __name__ == "__main__":
-    app.debug = True
-    #app.secret_key = utils.secret_key
-    app.run(host='0.0.0.0', port=8000)
+    socketio.run(app, host='0.0.0.0', port=8000)

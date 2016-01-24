@@ -15,9 +15,14 @@ body{
   margin-right:auto;
 }
 
-#chartable,#gametable{
+#chartable,#gametable, #playerlist{
     list-style-type: none;
     padding:0px;
+    text-align: center;
+}
+
+#playerlist{
+  list-style-type: decimal;
 }
 
 #chartable>li,#gametable>li{
@@ -27,6 +32,7 @@ body{
 }
 #chartable li, #gametable li:hover{
   cursor : pointer;
+  background-color: gray;
 }
 .closewindow{
     position:absolute;
@@ -34,7 +40,6 @@ body{
     border-radius:10px;
     background-color: white;
     color:red;
-
 }
 
 #createbtn{
@@ -58,7 +63,9 @@ body{
 }
 
 .createform{
-    padding:20px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom:20px;
     background-color:white;
     visibility:hidden;
     border: 2px solid blue;
@@ -69,6 +76,11 @@ body{
     margin-right:20px;
 }
 
+.createform input, .createform textarea{
+  font-size:22px;
+  height:100%;
+}
+
 #addfieldform{
   visibility: hidden;
 }
@@ -76,10 +88,6 @@ body{
 #creatingcharform{
     padding: 20px;
     font-size: 20px;
-}
-
-#chartable, #gametable{
-    text-align: center;
 }
 
 #chartableheading{
@@ -126,7 +134,7 @@ li.current{
     background-color:gray;
 }
 
-li:hover{
+navbar-nav li:hover{
     background-color:gray;
     color:black;
 }

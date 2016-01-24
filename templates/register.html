@@ -8,11 +8,11 @@
 {% block body %}
 <center>
 <div id = "container3">
-<form><br>
+<form class="userform" onsubmit="event.preventDefault();"><br>
 <div class="formrow"><label>Username:</label><input type="text" name="username" id="username"></input></div>
 <div class="formrow"><label>Password:</label><input type="password" name="password" id="password"></input></div>
 <div class="formrow"><label>Confirm Password:</label><input type="password" name="confmpwd" id="confmpwd"></input></div><br><br><br><br><br>
-<div class="formrow"><button type="button" id="sendregister">Register</button></div>
+<div class="formrow"><button id="sendregister">Register</button></div>
 </form>
 </div>
 <div id="response"></div>
