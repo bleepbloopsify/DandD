@@ -8,6 +8,7 @@ eventlet.monkey_patch()
 
 app = Flask(__name__)
 app.secret_key = utils.secretkey
+app.debug = True
 socketio = SocketIO(app)
 
 #-------------------HOME PAGE------------
@@ -195,4 +196,4 @@ def clicked(packet):
 if __name__ == "__main__":
     app.debug = True
     #app.secret_key = utils.secret_key
-    socketio.run(app, host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8000)
