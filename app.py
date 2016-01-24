@@ -165,7 +165,7 @@ def editaccount():
             if utils.update_user(username,newusername,oldpassword):
                 return 'userSucess'
             return 'fail'
-            
+
         if form['newPassword']:
             if utils.update_pw(username,oldpassword,newpassword):
                 return 'pwSuccess'
@@ -195,4 +195,4 @@ def clicked(packet):
 if __name__ == "__main__":
     app.debug = True
     #app.secret_key = utils.secret_key
-    socketio.run(app, port=8000)
+    socketio.run(app, host='0.0.0.0', port=8000)
