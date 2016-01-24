@@ -3,9 +3,6 @@
 {% block body %}
 
 <button class="openwindowbtn" for="creategame">New Game</button>
-
-<ul id="games"></ul>
-
 <!-- Form for creating games, pop-up window
 -->
 <div class="createform" id="creategame">
@@ -22,16 +19,9 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="players">Add Player:</label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control input-sm" id="players">
-      </div>
-    </div>
-
-    <!-- The "Add Player" button, should eventually append player names to a list that's displayed somewhere else on the pop-up -->
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-2">
-        <button type="button" id="addplayer">Add</button>
-      </div>
+      <div class="col-sm-3"><input type="text" class="form-control input-sm" id="playerid"></div>
+      <div class="col-sm-2"><button type="button" id="addplayer">Add</button></div>
+      <div class="col-sm-5"><ul id="playerlist"></ul></div>
     </div>
 
 

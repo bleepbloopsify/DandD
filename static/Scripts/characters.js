@@ -51,7 +51,9 @@ var linktochar = function(){
 }
 
 var showDescript = function(){
-  $(this).html(sentChars[ $(this).attr('id') ][ 'char-descrip' ]);
+  if (sentChars[$(this).attr('id') ]['char-descrip']){
+    $(this).html(sentChars[ $(this).attr('id') ][ 'char-descrip' ]);
+  }
 };
 
 var hideDescript = function(){
