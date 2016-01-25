@@ -222,3 +222,11 @@ li.current{
     background:url(http://www.jdroll.org/files/65c87da7c05770e12d9d886572173f7a27ea400d.jpeg) no-repeat;
     background-size: 100% 100%;
 }
+
+#readme{
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  font-size:10px;
+  text-decoration-style: none;
+}

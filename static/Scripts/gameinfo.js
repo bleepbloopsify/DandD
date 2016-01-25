@@ -1,13 +1,11 @@
 var game = {};
 
 var closewindow = function(){
-  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
   $(this).parents("div:first").css("visibility", "hidden");
 };
 
 var openwindow = function(){
   $("#" + $(this).attr("for")).css("visibility", "inherit");
-  $(this).css("visibility", "hidden");
 };
 
 var retrieveGame = function(){
@@ -72,16 +70,6 @@ var addfieldedit = function(){
   $(this).append(input);
 }
 
-var closewindow = function(){
-  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
-  $(this).parents("div:first").css("visibility", "hidden");
-};
-
-var openwindow = function(){
-  $("#" + $(this).attr("for")).css("visibility", "visible");
-  $(this).css("visibility", "hidden");
-};
-
 var editchar = function(){
   var char = $(this).parent().attr("for`");
 };
@@ -101,12 +89,34 @@ var removefield = function(){
 }
 
 var addPlayers = function(){
-  game['playerlist'].forEach(function(data){
-    var element = $("<li/>");
-    element.html(data);
-    element.attr("for",data);
-    element.appendTo("#gameplayers");
+  game['playerlist'].forEach(retrievechar);
+};
+
+charlist = []
+var retrievechar = function(data){
+  var char = {};
+  $.ajax({
+    url:"/charinfo/"+data,
+    method:"POST",
+    success:function(res){
+      char = JSON.parse(res);
+      charlist.push(char);
+      if (data >= game['playerlist'].length - 1){
+        charlist.forEach(function(data){
+          var element = $("<li/>");
+          element.html(data['charname']);
+          element.attr("for",data['id']);
+          element.click(openwindow);
+          addeditform(element, data);
+          element.appendTo("#gameplayers");
+        });
+      }
+    }
   });
+};
+var addeditform = function(element, data){
+  var container = $('<div class="container"/>');
+  container.attr("id", data['id')])
 };
 
 var updategame = function(){

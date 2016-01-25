@@ -105,9 +105,11 @@ def charinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
+        print id
         char = utils.getChar(id)
         if char:
             char.pop('_id')
+            print char
             return json.dumps(char)
         else:
             return  ""
