@@ -76,12 +76,13 @@ var creategame = function(){
     console.log(id);
     }
   });
+  console.log(players);
   $.ajax({
     url:"/creategame",
     method:"POST",
     data: inputs ,
     success: function(data){
-      window.location.href = "/gameinfo/" + data;
+      // window.location.href = "/gameinfo/" + data;
     }
   })
 };
