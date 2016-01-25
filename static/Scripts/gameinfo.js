@@ -104,10 +104,10 @@ var addPlayers = function(){
   game['playerlist'].forEach(function(data){
     var element = $("<li/>");
     element.html(data);
-    element.attr("for","data");
+    element.attr("for",data);
     element.appendTo("#gameplayers");
-  };
-})
+  });
+};
 
 var updategame = function(){
   if ($(this).val() && $(this).parent()){
