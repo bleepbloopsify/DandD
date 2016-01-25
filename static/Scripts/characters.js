@@ -1,3 +1,15 @@
+var sentChars = {};
+var retrievechars = function(){
+  $.ajax({
+    url:"/getchars",
+    method:"GET",
+    success:function(data){
+      sentChars = JSON.parse(data);
+      populateList();
+    }
+  });
+};
+
 var closewindow = function(){
   $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
   $(this).parents("div:first").css("visibility", "hidden");
@@ -30,7 +42,7 @@ $(document).ready( function(){
   $(".closewindowbtn").click(closewindow);
   $("#createchar").click(sendchar);
   $("#createfield").click(addField);
-  populateList();
+  retrievechars();
 });
 
 var populateList = function(){
@@ -51,7 +63,9 @@ var linktochar = function(){
 }
 
 var showDescript = function(){
-  $(this).html(sentChars[ $(this).attr('id') ][ 'char-descrip' ]);
+  if (sentChars[$(this).attr('id') ]['char-descrip']){
+    $(this).html(sentChars[ $(this).attr('id') ][ 'char-descrip' ]);
+  }
 };
 
 var hideDescript = function(){
@@ -80,6 +94,14 @@ var addField = function(){
       div.append(indiv);
       break;
   }
+  var button = $('<button>X</button>');
+  button.click( removefield );
+  button.attr("type", "button");
+  div.append(button);
   div.appendTo("#creatingcharform");
   $("#addfieldform input").val("");
+}
+
+var removefield = function(){
+  $(this).parent().remove();
 }

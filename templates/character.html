@@ -66,6 +66,5 @@
   {% endblock %}
 
   {% block endscript %}
-  <script type="text/javascript">var sentChars = JSON.parse('{{ sentChars|safe}}');</script>
   <script src="{{ url_for('static', filename='Scripts/characters.js') }}"></script>
   {% endblock %}

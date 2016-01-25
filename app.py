@@ -8,6 +8,7 @@ eventlet.monkey_patch()
 
 app = Flask(__name__)
 app.secret_key = utils.secretkey
+app.debug = True
 socketio = SocketIO(app)
 
 #-------------------HOME PAGE------------
@@ -33,11 +34,15 @@ def games():
         return json.dumps(utils.getGames(user))
 
 @app.route('/getgame')
-def getgame():
+@app.route('/getgame/<id>')
+def getgame(id=0):
     if 'user' in session and session['user']:
-        return json.dumps(utils.getGames(session['user']))
+        if id == 0:
+            return json.dumps(utils.getGames(session['user']))
+        else:
+            return json.dumps(utils.getGame(id))
     else:
-        return redirect("/home")
+        return json.dumps(utils.getGame(id))
 
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
@@ -61,7 +66,9 @@ def gameinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
-        form = request.form
+        form = request.form.copy().to_dict()
+        form['id'] = int(form['id'])
+        return str(utils.updateGame(int(id), form))
 #----------------END GAME MASTER METHODS---------------
 
 #------------CHARACTER PAGE METHODS--------------------
@@ -69,12 +76,7 @@ def gameinfo(id=0):
 def characters():
     if request.method == 'GET':
         if 'user' in session and session['user']:
-            names = utils.getChars(session['user'])
-            for name in names:
-                names[name].pop('_id',None)
-            names = json.dumps(names)
-            print names
-            return render_template("character.html", sentChars=names)
+            return render_template("character.html")
         else:
             return redirect("/login/redirect")
     else:
@@ -83,12 +85,14 @@ def characters():
         answer = utils.createChar(form)
         return str(answer)
 
-@app.route("/getchars", methods=["POST"])
+@app.route("/getchars", methods=["GET"])
 def getchars():
-    if request.method == "POST":
-        names = utils.getChars(session['user'])
-        print str(names)
-        return str(names)
+    if request.method == "GET":
+        if 'user' in session and session['user']:
+            names = json.dumps(utils.getChars(session['user']))
+            return names
+        else:
+            return ""
 
 @app.route("/charinfo")
 @app.route("/charinfo/<id>", methods=["GET", "POST"])
@@ -101,9 +105,14 @@ def charinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
+        print id
         char = utils.getChar(id)
-        char.pop('_id')
-        return json.dumps(char)
+        if char:
+            char.pop('_id')
+            print char
+            return json.dumps(char)
+        else:
+            return  ""
 #-------------END CHARACTER METHODS-----------------
 
 
@@ -155,10 +164,17 @@ def editaccount():
         newpassword = form['newPassword'] or ""
         oldpassword = form['oldPassword']
 
+        if form['newUsername'] and form['newPassword']:
+            if utils.update_user(username,newusername,oldpassword):
+                if utils.update_pw(newusername,oldpassword,newpassword):
+                    return 'bothSuccess'
+            return 'fail'
+
         if form['newUsername']:
             if utils.update_user(username,newusername,oldpassword):
-                return 'userSuccess'
+                return 'userSucess'
             return 'fail'
+
         if form['newPassword']:
             if utils.update_pw(username,oldpassword,newpassword):
                 return 'pwSuccess'
@@ -189,6 +205,4 @@ def changed(packet):
 
 #-----------RUN--------------
 if __name__ == "__main__":
-    app.debug = True
-    #app.secret_key = utils.secret_key
-    socketio.run(app, port=8000)
+    socketio.run(app, host='0.0.0.0', port=8000)

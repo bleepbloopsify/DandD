@@ -20,11 +20,45 @@ var retrievegame = function(){
   });
 };
 
+var players = []
+var addplayer = function(){
+  idnum = $("#playerid").val();
+  $.ajax({
+    url:"/charinfo/" + idnum,
+    method:"POST",
+    success:function(data){
+      if (!data){
+        $("#addplayerresponse").html("Could not find player " + idnum + "!");
+      }else{
+        data =  JSON.parse(data);
+        if (players[idnum]){
+          $("#addplayerresponse").html('Already added player!');
+        }else{
+          var element = $('<li/>');
+          element.html(data['charname']);
+          element.attr("id", data['idnum']);
+          var button = $('<button class="closewindow">X</button>').click(removefield);
+          element.append(button);
+          $("#playerlist").append(element);
+          $("#playerid").val("");
+          players.push(idnum);
+          $("#addplayerresponse").html("");
+        }
+      }
+    }
+  })
+}
+
+var gameinfo = function(){
+  window.location.href = "/gameinfo/" + $(this).attr("id");
+};
+
 var populateList = function(){
   for (var gamekey in games){
     game = games[gamekey];
-    var element = $("<li/>", {"id":game['idnum'], "class":"game"});
-    element.html(game['name']);
+    var element = $("<li/>", {"id":game['id'], "class":"game"});
+    element.html(game['name'] || game['id']);
+    element.click(gameinfo);
     element.appendTo("#gametable");
   }
   $("#gametable li").last().css("border-bottom","None");
@@ -33,21 +67,29 @@ var populateList = function(){
 var creategame = function(){
   var inputs = {};
   $("#creatinggameform input").each( function(){
-    inputs[ $(this).attr( "id" ) ] = $(this).val();
+    id = $(this).attr("id");
+    if (id == "playerid"){
+      inputs["playerlist"] = players;
+      console.log("lol");
+    }else{
+    inputs[ id ] = $(this).val();
+    console.log(id);
+    }
   });
+  console.log(players);
   $.ajax({
     url:"/creategame",
     method:"POST",
     data: inputs ,
     success: function(data){
-      window.location.href = "/gameinfo/" + data;
+      // window.location.href = "/gameinfo/" + data;
     }
   })
 };
 
 var addField = function(){
   var div = $('<div class="form-group">');
-  var label=$('<label class="control-label col-sm-2">');
+  var label=$('<label class="control-label col-sm-3">');
   label.html($("#fieldname").val() + ":");
   label.attr("for", $("#fieldname").val());
   div.append(label);
@@ -68,15 +110,24 @@ var addField = function(){
       break;
   }
   var button = $('<button>X</button>');
+  button.click( removefield );
+  button.attr("type", "button");
+  div.append(button);
   div.appendTo("#creatinggameform");
   $("#addfieldform input").val("");
 }
+
+var removefield = function(){
+  $(this).parent().remove();
+}
+
 
 var attachListeners = function(){
   $(".openwindowbtn").click( openwindow );
   $(".closewindowbtn").click( closewindow );
   $("#createbtn").click( creategame );
   $("#createfield").click( addField );
+  $("#addplayer").click( addplayer);
 };
 
 $(document).ready(function(){

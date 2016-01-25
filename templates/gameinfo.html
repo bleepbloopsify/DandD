@@ -10,13 +10,30 @@ It will have information on every character and enemy and npc in the game.
 There will also be information availible for rooms, and item creation forms and npc creation forms.
 Main page for dm, will use sockets to ping players when their items change. -->
 
+<ul id="gamelist"></ul>
+<ol id="gameplayers"></ol>
+<button type="button" id="createitem" class="openwindowbtn" for="itemform">New Item</button>
+<button type="button" id="savegame">Save</button>
 
+<div class="createform" id="itemform">
+  <button class="closewindow closewindowbtn">X</button>
 
-<button type="button" id="createitem">New Item</button>
+  <form id="creatingitemform" class="form-horizontal" role="form">
 
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="itemname">Name:</label>
+      <div class="control-label col-sm-3">
+        <input type="text" class="form-control" name="itemname" id="itemname">
+      </div>
+    </div>
 
-
-
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="item_class">Type:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="item_class" id="item_class">
+      </div>
+    </div>
+</div>
 
 {% endblock %}
 

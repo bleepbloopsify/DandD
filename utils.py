@@ -104,10 +104,11 @@ def getChars(username=None):
         characters = {}
         for id in charids:
             characters[id] = c.characters.find_one({'idnum':id})
+        for character in characters:
+            characters[character].pop("_id")
         return characters
     else:
         return c.characters.find()
-
     #IF no param
     if not username:
         cursor= c.characters.find()
@@ -157,6 +158,7 @@ def makeGame(host):
 # Change the game
 def setGame(idnum, form):
     #Setup connection
+    idnum = int(idnum)
     connection = MongoClient()
     c = connection['data']
     #Check if the idnum is valid
@@ -168,6 +170,23 @@ def setGame(idnum, form):
     #Change the old values to the new ones
     c.games.update({'id':idnum}, {"$set":form})
     return True
+
+def updateGame(idnum, form):
+    #Setup connection
+    idnum = int(idnum)
+    connection = MongoClient()
+    c = connection['data']
+    #Check if the idnum is valid
+    if not c.games.find_one({'id':idnum}):
+        return False
+    #Get the correct game
+    game = c.games.find_one({'id':idnum})
+    #Go through the information passed, If no new info was passed, set it to the previous version
+    #Change the old values to the new ones
+    print form
+    c.games.replace_one({'id':idnum}, form)
+    return True
+
 
 #Add player to game by id
 def addPlayer(host, gameid, charid):
@@ -206,7 +225,8 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
     for name in names:
         games.append(c.games.find_one({'id':name}))
     for game in games:
-        game.pop('_id');
+        if game and game['_id']:
+            game.pop('_id')
     return games
 
 #Get games associated with a character ID
@@ -223,6 +243,16 @@ def getGames(charid):
 		gameids.append(game['id'])
     #Return the list
     return gameids
+
+def getGame(idnum):
+    connection= MongoClient()
+    c = connection['data']
+    game = c.games.find_one({'id':int(idnum)})
+    if not game:
+        return False
+    game.pop("_id")
+    return game
+
 #-----------------END GAME MeTHODS-------------------------
 
 #-----------------User Methods-----------------------------

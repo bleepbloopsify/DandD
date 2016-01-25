@@ -9,6 +9,20 @@ $(document).ready(function(){
 	        newPassword:$("#newPassword").val(),
 		oldPassword:$("#password").val()
             },
+	    success: function(data){
+		if (data == 'bothSuccess'){
+		    $("#response").html("<success>Password and Username successfully updated!</success>");
+		}
+		else if (data == 'userSuccess'){
+		    $("#response").html("<success>Username successfully updated!</success>");
+		}
+		else if (data == 'pwSuccess'){
+		    $("#response").html("<success>Password successfully updated!</success>");
+		}
+		else{
+		    $("#response").html("<err>Please fill out the fields correctly.</err>");
+		}
+	    }
         });
     })
 });
