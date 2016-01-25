@@ -99,6 +99,7 @@ var retrievechar = function(data){
     url:"/charinfo/"+data,
     method:"POST",
     success:function(res){
+      console.log(res);
       char = JSON.parse(res);
       charlist.push(char);
       if (data >= game['playerlist'].length - 1){
@@ -116,7 +117,7 @@ var retrievechar = function(data){
 };
 var addeditform = function(element, data){
   var container = $('<div class="container"/>');
-  container.attr("id", data['id')])
+  container.attr("id", data['id');
 };
 
 var updategame = function(){
