@@ -67,7 +67,14 @@ var populateList = function(){
 var creategame = function(){
   var inputs = {};
   $("#creatinggameform input").each( function(){
-    inputs[ $(this).attr( "id" ) ] = $(this).val();
+    id = $(this).attr("id");
+    if (id == "playerid"){
+      inputs["playerlist"] = players;
+      console.log("lol");
+    }else{
+    inputs[ id ] = $(this).val();
+    console.log(id);
+    }
   });
   $.ajax({
     url:"/creategame",

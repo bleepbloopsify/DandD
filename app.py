@@ -34,11 +34,15 @@ def games():
         return json.dumps(utils.getGames(user))
 
 @app.route('/getgame')
-def getgame():
+@app.route('/getgame/<id>')
+def getgame(id=0):
     if 'user' in session and session['user']:
-        return json.dumps(utils.getGames(session['user']))
+        if id == 0:
+            return json.dumps(utils.getGames(session['user']))
+        else:
+            return json.dumps(utils.getGame(id))
     else:
-        return redirect("/home")
+        return json.dumps(utils.getGame(id))
 
 @app.route('/creategame', methods=['GET','POST'])
 def creategame():
@@ -62,7 +66,7 @@ def gameinfo(id=0):
         else:
             return redirect("/login/redirect")
     else:
-        form = request.form
+        form = request.form.copy().to_dict()
 #----------------END GAME MASTER METHODS---------------
 
 #------------CHARACTER PAGE METHODS--------------------

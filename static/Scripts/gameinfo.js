@@ -1,4 +1,15 @@
 var game = {};
+
+var closewindow = function(){
+  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
+  $(this).parents("div:first").css("visibility", "hidden");
+};
+
+var openwindow = function(){
+  $("#" + $(this).attr("for")).css("visibility", "inherit");
+  $(this).css("visibility", "hidden");
+};
+
 var retrieveGame = function(){
     urlpieces = window.location.href.split('/');
     gameid = urlpieces[urlpieces.length - 1];
@@ -24,17 +35,20 @@ var addName = function(){
     element.prependTo(".body");
 }
 
-var closewindow = function(){
-  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
-  $(this).parents("div:first").css("visibility", "hidden");
-};
-
-var openwindow = function(){
-  $("#" + $(this).attr("for")).css("visibility", "inherit");
-  $(this).css("visibility", "hidden");
-};
+var parseGame = function(){
+  for (var fieldid in game){
+    console.log(fieldid);
+    var element = $('<div/>');
+    console.log(element);
+    element.attr('id', fieldid);
+    element.html(game[fieldid]);
+    element.appendTo("#gamelist");
+  }
+}
 
 $(document).ready(function(){
-  $(".openwindowbtn").click(openwindow);
-  $(".closewindowbtn").click(closewindow);
-});
+    $(".openwindowbtn").click(openwindow);
+    $(".closewindowbtn").click(closewindow);
+    retrieveGame();
+})
+
