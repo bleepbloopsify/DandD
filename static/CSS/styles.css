@@ -134,7 +134,7 @@ li.current{
     background-color:gray;
 }
 
-navbar-nav li:hover{
+.navbar-nav li:hover{
     background-color:gray;
     color:black;
 }
