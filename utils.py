@@ -206,9 +206,17 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
     for name in names:
         games.append(c.games.find_one({'id':name}))
     for game in games:
-        game.pop('_id');
+        game.pop('_id')
     return games
 
+def getGame(idnum):
+    connection= MongoClient()
+    c = connection['data']
+    game = c.games.find_one({'id':idnum})
+    if not game:
+        return False
+    game.pop("_id")
+    return game
 #-----------------END GAME MeTHODS-------------------------
 
 #-----------------User Methods-----------------------------
