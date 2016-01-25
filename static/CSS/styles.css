@@ -199,7 +199,7 @@ li.current{
     height: 210px;
     top: 25%;
     left: 33%;
-    background:url(http://www.top1gaming.com/wallpaper/Dungeons&DragonsOnline/07-2.jpg) no-repeat top right;
+    background:url("../Images/loginImg.jpg") no-repeat top right;
 }
 
 #container2{
@@ -209,7 +209,7 @@ li.current{
     height: 440px;
     top: 20%;
     left: 25%;
-    background:url(http://www.wall321.com/thumbnails/detail/20120630/minimalistic%20dragons%20knights%201920x1080%20wallpaper_www.wall321.com_26.jpg) no-repeat top left;
+    background:url("../Images/editAccountImg.jpg") no-repeat top left;
 }
 
 #container3{
@@ -219,7 +219,7 @@ li.current{
     height: 430px;
     top: 25%;
     left: 25%;
-    background:url(http://www.jdroll.org/files/65c87da7c05770e12d9d886572173f7a27ea400d.jpeg) no-repeat;
+    background:url("../Images/registerImg.jpeg") no-repeat;
     background-size: 100% 100%;
 }
 
