@@ -36,14 +36,16 @@ var addName = function(){
 }
 
 var parseGame = function(){
-  for (var fieldid in game){
-    console.log(fieldid);
-    var element = $('<div/>');
-    console.log(element);
-    element.attr('id', fieldid);
-    element.html(game[fieldid]);
-    element.appendTo("#gamelist");
-  }
+    for (var fieldid in game){
+	if (fieldid != "name"){
+	    console.log(fieldid);
+	    var element = $('<div/>');
+	    console.log(element);
+	    element.attr('id', fieldid);
+	    element.html(fieldid+": "+game[fieldid]);
+	    element.appendTo("#gamelist");
+	}
+    }
 }
 
 $(document).ready(function(){
