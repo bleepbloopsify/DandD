@@ -67,6 +67,8 @@ def gameinfo(id=0):
             return redirect("/login/redirect")
     else:
         form = request.form.copy().to_dict()
+        form.pop('id')
+        return str(utils.setGame(id, form))
 #----------------END GAME MASTER METHODS---------------
 
 #------------CHARACTER PAGE METHODS--------------------

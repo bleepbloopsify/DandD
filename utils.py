@@ -158,6 +158,7 @@ def makeGame(host):
 # Change the game
 def setGame(idnum, form):
     #Setup connection
+    idnum = int(idnum)
     connection = MongoClient()
     c = connection['data']
     #Check if the idnum is valid

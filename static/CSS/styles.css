@@ -14,15 +14,27 @@ body{
   margin-left:auto;
   margin-right:auto;
 }
+#displaygamename{
+  margin-left: auto;
+  margin-right: auto;
+  width:auto;
+  padding:0px;
+  text-align:center;
+}
 
-#chartable,#gametable, #playerlist{
+#gameplayers{
+  list-style-type: decimal;
+}
+``
+#chartable, #gametable, #playerlist{
     list-style-type: none;
     padding:0px;
     text-align: center;
 }
 
 #playerlist{
-  list-style-type: decimal;
+  display:block;
+  float:right;
 }
 
 #chartable>li,#gametable>li{
@@ -53,6 +65,12 @@ body{
     top: 130px;
     left: 20px;
     border-radius:5px;
+}
+
+#createitem{
+  position:absolute;
+  top:100px;
+  left:20px;
 }
 
 #createchar{
@@ -161,7 +179,7 @@ li.current{
 #user{
   position:absolute;
   top:20px;
-  left:400px;
+  left:250px;
   font-size: 24;
   font-weight: bold;
 }

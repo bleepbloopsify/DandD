@@ -21,13 +21,15 @@ var retrieveGame = function(){
          sortGame();
          populateInfo();
       }
-    })
+    });
 };
 
 var sortGame= function(){
+  game['playerlist'] = [];
   for (var valuekey in game){
-    if (valuekey.split('[')[0] == "playerlist"){
-      game['playerlist'].append(game.pop(valuekey));
+    if (valuekey != "playerlist" && valuekey.split('[')[0] == "playerlist"){
+      game['playerlist'].push(game[valuekey]);
+      delete game[valuekey];
     }
   }
 };
@@ -35,10 +37,12 @@ var sortGame= function(){
 var populateInfo = function(){
     addName();
     parseGame();
+    addPlayers();
+    setupFields();
 };
 
 var addName = function(){
-    name = game['name'] || game['host'] || "Game";
+    name = game['name'] || game['host'] + "'s Game" || "Game";
     var element = $("<div/>", {id:"displaygamename"});
     element.html(name);
     element.prependTo(".body");
@@ -46,19 +50,79 @@ var addName = function(){
 
 var parseGame = function(){
     for (var fieldid in game){
-	if (fieldid != "name"){
-	    console.log(fieldid);
-	    var element = $('<div/>');
-	    console.log(element);
-	    element.attr('id', fieldid);
-	    element.html(fieldid+": "+game[fieldid]);
-	    element.appendTo("#gamelist");
-	}
+    	if (fieldid && fieldid != "name" && fieldid != "playerlist" && fieldid != "id" && fieldid != 'user' && fieldid != 'host'){
+  	    var element = $('<div/>');
+  	    element.html(fieldid+": "+game[fieldid]);
+        element.attr("class", "gamefield");
+        element.attr("for", fieldid);
+  	    element.appendTo("#gamelist");
+      }
     }
 }
+
+var setupFields = function(){
+  $(".gamefield").each(addfieldedit);
+  $(".gamefield").each(addremovefield);
+}
+
+var addfieldedit = function(){
+  var input = $("<input/>");
+  input.attr("type", "text");
+  input.attr('id', $(this).attr("for"));
+  $(this).append(input);
+}
+
+var addremovefield = function(){
+  var closebtn = $('<button type="button"/>');
+  closebtn.attr("class", "closebtn");
+  closebtn.html("X");
+  closebtn.click(removefield);
+  $(this).append(closebtn);
+};
+
+var removefield = function(){
+  var fore = $(this).parent().attr("for");
+  delete game[fore];
+  $(this).parent().remove();
+}
+
+var addPlayers = function(){
+  console.log(game['playerlist']);
+  game['playerlist'].forEach(function(data){
+    var element = $("<li/>");
+    element.html(data);
+    element.appendTo("#gameplayers");
+  })
+};
+
+var updategame = function(){
+  if ($(this).val()){
+    game[$(this).parent().attr("for")] = $(this).val();
+  }
+}
+
+var sendgame = function(){
+  console.log(game, "before");
+  $(".gamefield input").each(updategame);
+  $.ajax({
+    url:"/gameinfo/" + game['id'],
+    method:'POST',
+    data:game,
+    success:function(data){
+      $("#gamelist, #gameplayers, #displaygamename").html("");
+      retrieveGame();
+    }
+  });
+}
+
+var updatefield = function(){
+  $(this).html(game[$(this).attr("for")])
+};
+
 
 $(document).ready(function(){
     $(".openwindowbtn").click(openwindow);
     $(".closewindowbtn").click(closewindow);
+    $("#savegame").click(sendgame);
     retrieveGame();
 })
