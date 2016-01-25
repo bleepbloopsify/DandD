@@ -104,10 +104,11 @@ def getChars(username=None):
         characters = {}
         for id in charids:
             characters[id] = c.characters.find_one({'idnum':id})
+        for character in characters:
+            characters[character].pop("_id")
         return characters
     else:
         return c.characters.find()
-
     #IF no param
     if not username:
         cursor= c.characters.find()

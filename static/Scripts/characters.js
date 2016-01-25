@@ -1,3 +1,15 @@
+var sentChars = {};
+var retrievechars = function(){
+  $.ajax({
+    url:"/getchars",
+    method:"GET",
+    success:function(data){
+      sentChars = JSON.parse(data);
+      populateList();
+    }
+  });
+};
+
 var closewindow = function(){
   $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
   $(this).parents("div:first").css("visibility", "hidden");
@@ -30,7 +42,7 @@ $(document).ready( function(){
   $(".closewindowbtn").click(closewindow);
   $("#createchar").click(sendchar);
   $("#createfield").click(addField);
-  populateList();
+  retrievechars();
 });
 
 var populateList = function(){
