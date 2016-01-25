@@ -171,6 +171,23 @@ def setGame(idnum, form):
     c.games.update({'id':idnum}, {"$set":form})
     return True
 
+def updateGame(idnum, form):
+    #Setup connection
+    idnum = int(idnum)
+    connection = MongoClient()
+    c = connection['data']
+    #Check if the idnum is valid
+    if not c.games.find_one({'id':idnum}):
+        return False
+    #Get the correct game
+    game = c.games.find_one({'id':idnum})
+    #Go through the information passed, If no new info was passed, set it to the previous version
+    #Change the old values to the new ones
+    print form
+    c.games.replace_one({'id':idnum}, form)
+    return True
+
+
 #Add player to game by id
 def addPlayer(host, gameid, charid):
     #Setup connection
@@ -208,7 +225,8 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
     for name in names:
         games.append(c.games.find_one({'id':name}))
     for game in games:
-        game.pop('_id')
+        if game and game['_id']:
+            game.pop('_id')
     return games
 
 def getGame(idnum):

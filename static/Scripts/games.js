@@ -20,7 +20,7 @@ var retrievegame = function(){
   });
 };
 
-var players = {}
+var players = []
 var addplayer = function(){
   idnum = $("#playerid").val();
   $.ajax({
@@ -41,7 +41,7 @@ var addplayer = function(){
           element.append(button);
           $("#playerlist").append(element);
           $("#playerid").val("");
-          players[idnum] = data['charname'];
+          players.push(idnum);
           $("#addplayerresponse").html("");
         }
       }

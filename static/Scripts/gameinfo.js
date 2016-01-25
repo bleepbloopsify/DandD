@@ -72,6 +72,20 @@ var addfieldedit = function(){
   $(this).append(input);
 }
 
+var closewindow = function(){
+  $("button[for=" + $(this).parents("div:first").attr("id") +"]").css("visibility", "inherit");
+  $(this).parents("div:first").css("visibility", "hidden");
+};
+
+var openwindow = function(){
+  $("#" + $(this).attr("for")).css("visibility", "visible");
+  $(this).css("visibility", "hidden");
+};
+
+var editchar = function(){
+  var char = $(this).parent().attr("for`");
+};
+
 var addremovefield = function(){
   var closebtn = $('<button type="button"/>');
   closebtn.attr("class", "closebtn");
@@ -82,27 +96,26 @@ var addremovefield = function(){
 
 var removefield = function(){
   var fore = $(this).parent().attr("for");
-  delete game[fore];
+  delete game[fore]
   $(this).parent().remove();
 }
 
 var addPlayers = function(){
-  console.log(game['playerlist']);
   game['playerlist'].forEach(function(data){
     var element = $("<li/>");
     element.html(data);
+    element.attr("for","data");
     element.appendTo("#gameplayers");
-  })
-};
+  };
+})
 
 var updategame = function(){
-  if ($(this).val()){
+  if ($(this).val() && $(this).parent()){
     game[$(this).parent().attr("for")] = $(this).val();
   }
 }
 
 var sendgame = function(){
-  console.log(game, "before");
   $(".gamefield input").each(updategame);
   $.ajax({
     url:"/gameinfo/" + game['id'],
