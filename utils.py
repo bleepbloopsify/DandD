@@ -212,7 +212,7 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
 def getGame(idnum):
     connection= MongoClient()
     c = connection['data']
-    game = c.games.find_one({'id':idnum})
+    game = c.games.find_one({'id':int(idnum)})
     if not game:
         return False
     game.pop("_id")
