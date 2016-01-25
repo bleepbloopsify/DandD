@@ -14,12 +14,12 @@ var retrieveGame = function(){
     urlpieces = window.location.href.split('/');
     gameid = urlpieces[urlpieces.length - 1];
     $.ajax({
-	url:"/gameinfo/" + gameid,
-	method:"POST",
-	success:function(data){
-	    game = JSON.parse(data);
-	    populateInfo();
-	}
+	     url:"/getgame/" + gameid,
+       method:"GET",
+       success:function(data){
+         game = JSON.parse(data);
+         populateInfo();
+      }
     })
 };
 
@@ -51,4 +51,3 @@ $(document).ready(function(){
     $(".closewindowbtn").click(closewindow);
     retrieveGame();
 })
-
