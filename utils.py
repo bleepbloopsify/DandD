@@ -209,6 +209,20 @@ def getGames(host): # Get a list of game names from this host(to be displayed in
         game.pop('_id');
     return games
 
+#Get games associated with a character ID
+def getGames(charid):
+    connection = MongoClient()
+    c = connection['data']
+    #Get all the games
+    games = c.games.find()
+    #Set up the list of gameids
+    gameids = []
+    #Loop through all the games and find matching ids
+    for game in games:
+	if charid in game['players']:
+		gameids.append(game['id'])
+    #Return the list
+    return gameids
 #-----------------END GAME MeTHODS-------------------------
 
 #-----------------User Methods-----------------------------

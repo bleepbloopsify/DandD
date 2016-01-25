@@ -181,6 +181,9 @@ def clicked(packet):
     print packet['data'], "\n"
     pass
 
+@socketio.on('changed!')
+def changed(packet):
+    emit('changed',room = packet[id])
 #------------------------------- END SOCKET METHODS-----------------------
 
 
