@@ -30,7 +30,7 @@ body{
   margin-right:auto;
   margin-left: auto;
 }
-#chartable li, #gametable li:hover{
+#chartable li:hover, #gametable li:hover{
   cursor : pointer;
   background-color: gray;
 }

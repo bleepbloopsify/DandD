@@ -18,9 +18,18 @@ var retrieveGame = function(){
        method:"GET",
        success:function(data){
          game = JSON.parse(data);
+         sortGame();
          populateInfo();
       }
     })
+};
+
+var sortGame= function(){
+  for (var valuekey in game){
+    if (valuekey.split('[')[0] == "playerlist"){
+      game['playerlist'].append(game.pop(valuekey));
+    }
+  }
 };
 
 var populateInfo = function(){

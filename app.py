@@ -74,12 +74,7 @@ def gameinfo(id=0):
 def characters():
     if request.method == 'GET':
         if 'user' in session and session['user']:
-            names = utils.getChars(session['user'])
-            for name in names:
-                names[name].pop('_id',None)
-            names = json.dumps(names)
-            print names
-            return render_template("character.html", sentChars=names)
+            return render_template("character.html")
         else:
             return redirect("/login/redirect")
     else:
@@ -88,12 +83,14 @@ def characters():
         answer = utils.createChar(form)
         return str(answer)
 
-@app.route("/getchars", methods=["POST"])
+@app.route("/getchars", methods=["GET"])
 def getchars():
-    if request.method == "POST":
-        names = utils.getChars(session['user'])
-        print str(names)
-        return str(names)
+    if request.method == "GET":
+        if 'user' in session and session['user']:
+            names = json.dumps(utils.getChars(session['user']))
+            return names
+        else:
+            return ""
 
 @app.route("/charinfo")
 @app.route("/charinfo/<id>", methods=["GET", "POST"])

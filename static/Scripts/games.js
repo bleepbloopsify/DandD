@@ -57,7 +57,7 @@ var populateList = function(){
   for (var gamekey in games){
     game = games[gamekey];
     var element = $("<li/>", {"id":game['id'], "class":"game"});
-    element.html(game['name']);
+    element.html(game['name'] || game['id']);
     element.click(gameinfo);
     element.appendTo("#gametable");
   }
